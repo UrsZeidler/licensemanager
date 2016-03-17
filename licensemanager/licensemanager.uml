@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Contracts="http:///schemas/Contracts/_mMyBwK-8EeWyf-Y9sdI4kw/19" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/Contracts/_mMyBwK-8EeWyf-Y9sdI4kw/19 pathmap://UML_PROFILE/solidity_profiles.uml#_mMyo0K-8EeWyf-Y9sdI4kw">
+  <uml:Model xmi:id="_TCiy8Op_EeW-WZmxJuA3BA" name="licensemanager">
+    <packagedElement xmi:type="uml:Package" xmi:id="_ZGhHkOp_EeW-WZmxJuA3BA" name="use-cases">
+      <packagedElement xmi:type="uml:Actor" xmi:id="_T8dBAOqAEeW-WZmxJuA3BA" name="license issuer"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="_XSskEOqAEeW-WZmxJuA3BA" name="licensee"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_6WL8AOqAEeW-WZmxJuA3BA" name="register license item">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_Nhq1IOwQEeWXZ76iNScx7g" annotatedElement="_6WL8AOqAEeW-WZmxJuA3BA">
+          <body>Creates a contract on the blockchain wich is the public register of the licenses.</body>
+        </ownedComment>
+        <include xmi:type="uml:Include" xmi:id="_SPQigOtIEeWkINMUmqeUiw" addition="_SOfGcOtIEeWkINMUmqeUiw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_TpmrkOqCEeW-WZmxJuA3BA" client="_T8dBAOqAEeW-WZmxJuA3BA" supplier="_6WL8AOqAEeW-WZmxJuA3BA"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_ZMKVMOqCEeW-WZmxJuA3BA" name="licence item">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_YD6wQOwuEeWXZ76iNScx7g" annotatedElement="_ZMKVMOqCEeW-WZmxJuA3BA">
+          <body>by sending the required amount of ether a licensee can obtain a license which will be stored transparent in the blockchain.</body>
+        </ownedComment>
+        <include xmi:type="uml:Include" xmi:id="_93wBYOtIEeWkINMUmqeUiw" addition="_93SHUOtIEeWkINMUmqeUiw"/>
+        <include xmi:type="uml:Include" xmi:id="_ASJsoOtcEeWkINMUmqeUiw" addition="_-5G2EOtbEeWkINMUmqeUiw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_nCOGEOqCEeW-WZmxJuA3BA" client="_XSskEOqAEeW-WZmxJuA3BA" supplier="_ZMKVMOqCEeW-WZmxJuA3BA"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_SOfGcOtIEeWkINMUmqeUiw" name="Create license issue contract"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_93SHUOtIEeWkINMUmqeUiw" name="send money"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_-5G2EOtbEeWkINMUmqeUiw" name="write license to blockchain"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="_LvjkEOtcEeWkINMUmqeUiw" name="licensee business partner"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_RTGFIOtcEeWkINMUmqeUiw" name="check license on blockchain">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_LsxTkOwREeWXZ76iNScx7g" annotatedElement="_RTGFIOtcEeWkINMUmqeUiw">
+          <body>A buissnes partner can check the validity of the license and therefore can be ensured of the legality of the partner.</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_VGs5oOtcEeWkINMUmqeUiw" client="_LvjkEOtcEeWkINMUmqeUiw" supplier="_RTGFIOtcEeWkINMUmqeUiw"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_Oj2dYOtsEeWkINMUmqeUiw" name="stopIssue">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_YjnnMOwyEeWXZ76iNScx7g" annotatedElement="_Oj2dYOtsEeWkINMUmqeUiw">
+          <body>When the issuer will no longer issue a licence, for example because the product is no longer available.</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_hFyukOtsEeWkINMUmqeUiw" client="_T8dBAOqAEeW-WZmxJuA3BA" supplier="_Oj2dYOtsEeWkINMUmqeUiw"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_zuqKEOwPEeWXZ76iNScx7g" name="changePaymentAddress"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_5BPeAOwPEeWXZ76iNScx7g" client="_T8dBAOqAEeW-WZmxJuA3BA" supplier="_zuqKEOwPEeWXZ76iNScx7g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_kWxB8OwuEeWXZ76iNScx7g" name="depends" client="_RTGFIOtcEeWkINMUmqeUiw" supplier="_-5G2EOtbEeWkINMUmqeUiw"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_odcRgOwwEeWXZ76iNScx7g" name="depends" client="_ZMKVMOqCEeW-WZmxJuA3BA" supplier="_SOfGcOtIEeWkINMUmqeUiw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_NV2ZAOtHEeWkINMUmqeUiw" name="contracts">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_EYLJ8OwkEeWXZ76iNScx7g">
+        <body>A number of contracts to issue license.</body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Class" xmi:id="_0L_RQOtJEeWkINMUmqeUiw" name="LicenseManager">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_hucicOtKEeWkINMUmqeUiw">
+          <body>The licensmanager creates an issuer contract and holds the payment address.</body>
+        </ownedComment>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_G8KywOtKEeWkINMUmqeUiw" name="owner" visibility="package">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Rg98UOtMEeWkINMUmqeUiw" name="paymentAddress" visibility="package">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Htb60OtOEeWkINMUmqeUiw" name="issuerName">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_w-z74OtPEeWkINMUmqeUiw" name="contracts">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_GHMD0OtQEeWkINMUmqeUiw" name="contractCount">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_WDVUQOtMEeWkINMUmqeUiw" name="changePaymentAddress">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_BpjEwOtZEeWkINMUmqeUiw" annotatedElement="_WDVUQOtMEeWkINMUmqeUiw">
+            <body>Change the address which receive the payment for an issued license. Only new issued licenses are affected.</body>
+          </ownedComment>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_cS1jcOtMEeWkINMUmqeUiw" name="_newPaymentAdress">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_p1DyUOtMEeWkINMUmqeUiw" name="createIssuerContract">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_6DvxAOtYEeWkINMUmqeUiw" annotatedElement="_p1DyUOtMEeWkINMUmqeUiw">
+            <body>Create a new licenseissuer contract.</body>
+          </ownedComment>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_dnpxkOtdEeWkINMUmqeUiw" name="itemName">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_gp4McOtdEeWkINMUmqeUiw" name="textHash">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_tximQOtdEeWkINMUmqeUiw" name="url">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_zQFSkOtdEeWkINMUmqeUiw" name="lifeTime">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_8xR8AOtdEeWkINMUmqeUiw" name="price">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_9XKkYOtqEeWkINMUmqeUiw" name="stopIssuing">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_Cpwp8OtsEeWkINMUmqeUiw" name="licenseId">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_7DpvwOwREeWXZ76iNScx7g" name="changePaymentAddress">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_7DpvwewREeWXZ76iNScx7g" annotatedElement="_7DpvwOwREeWXZ76iNScx7g">
+            <body>Change the address which receive the payment for an issued license for a specific license issuer. </body>
+          </ownedComment>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_7DpvwuwREeWXZ76iNScx7g" name="_newPaymentAddress">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_L12hoOwSEeWXZ76iNScx7g" name="licenseId">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_23yo0OtMEeWkINMUmqeUiw" name="LicenseIssuer">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_sc_WgOtPEeWkINMUmqeUiw">
+          <body>The license issuer is a contract containing the description of the license.</body>
+        </ownedComment>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_V4HQ0OtOEeWkINMUmqeUiw" name="licensedItemName">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_l5qB0OtOEeWkINMUmqeUiw" name="licenseTextHash">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_64DuYOtOEeWkINMUmqeUiw" name="licenseUrl">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Mc2a0OtPEeWkINMUmqeUiw" name="licencePrice">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_EoCWgOtWEeWkINMUmqeUiw" name="issuedLicenses" visibility="package">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_pMRIcOtWEeWkINMUmqeUiw" name="licenseLifetime">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_wDuBEOtZEeWkINMUmqeUiw" name="licenseOwners">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_-NyTEOtZEeWkINMUmqeUiw" name="licenseCount">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_kaWhgOtqEeWkINMUmqeUiw" name="issuable" visibility="package">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_LedxoKKuEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_cWFeYOuREeWbt_EKc3qwXg" name="paymentAddress" visibility="package">
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_IsGeQOwZEeWXZ76iNScx7g" name="licenseManager" visibility="private">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_tg4ZwOx-EeWuW8ZKFRvBKQ">
+            <body>The address which manange the contract.</body>
+          </ownedComment>
+          <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
+        </ownedAttribute>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_EtvZEOtaEeWkINMUmqeUiw" name="checkLicense">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_kbNQYOtaEeWkINMUmqeUiw" name="_address">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_m4RvwOtaEeWkINMUmqeUiw" direction="return">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_LedxoKKuEeWvY9GWZZMftw"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_rEf4kOtaEeWkINMUmqeUiw" name="licenseIssued">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_AiPMgOtbEeWkINMUmqeUiw" name="ownerAddress">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1GEYOtbEeWkINMUmqeUiw" name="name">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_s1GswOwZEeWXZ76iNScx7g" name="changePaymentAddress">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_XCqOUOyAEeWuW8ZKFRvBKQ">
+            <body>Change the payment address.</body>
+          </ownedComment>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_xRh0wOwZEeWXZ76iNScx7g" name="_newPaymentAddress">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_2xePQOwZEeWXZ76iNScx7g" name="stopIssuing">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_cq6QQOyAEeWuW8ZKFRvBKQ">
+            <body>Stop accecpting buying a license.</body>
+          </ownedComment>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_LllQEOtZEeWkINMUmqeUiw" name="buyLicense">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_vT-ZwOxXEeW58JMfLWw8Vg">
+            <body>Issue a license for the item by sending the address data and the amount of money.</body>
+          </ownedComment>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_pOX54OtZEeWkINMUmqeUiw" name="_address">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_sRnocOtZEeWkINMUmqeUiw" name="_name">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+        </ownedOperation>
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_0kNGgOtVEeWkINMUmqeUiw" name="IssuedLicense">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_vm0fIOtYEeWkINMUmqeUiw">
+            <body>Hold all the issued license for the item.</body>
+          </ownedComment>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-6SJgOtVEeWkINMUmqeUiw" name="licenseOwnerAdress">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_fJgDAOtWEeWkINMUmqeUiw" name="licenseOwnerName">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_woIdEOtWEeWkINMUmqeUiw" name="issuedDate">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
+          </ownedAttribute>
+        </nestedClassifier>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_TFNFYOp_EeW-WZmxJuA3BA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_TFPhoOp_EeW-WZmxJuA3BA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_TFPhoep_EeW-WZmxJuA3BA" key="Version" value="0.0.20"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_TFPhoup_EeW-WZmxJuA3BA" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_TFPho-p_EeW-WZmxJuA3BA" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_TFPhpOp_EeW-WZmxJuA3BA" key="Date" value="2015-12-31"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_TFPhpep_EeW-WZmxJuA3BA" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_TFNscOp_EeW-WZmxJuA3BA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILE/solidity_profiles.uml#_mMyo0K-8EeWyf-Y9sdI4kw"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILE/solidity_profiles.uml#_uCE5EKHREeWjOZ0I8ilEXA"/>
+    </profileApplication>
+  </uml:Model>
+  <Contracts:Contract xmi:id="_E7waMOtKEeWkINMUmqeUiw" base_Class="_0L_RQOtJEeWkINMUmqeUiw" ConstructorCode="owner = msg.sender;&#xA;issuerName = _name;&#xA;paymentAddress = _paymentAddress;" ConstructorArgs="address _paymentAddress, string _name"/>
+  <Contracts:Function xmi:id="_iwsXsOtMEeWkINMUmqeUiw" functionCode="if(owner != msg.sender) throw;&#xA;paymentAddress = _newPaymentAdress;&#xA;" base_Operation="_WDVUQOtMEeWkINMUmqeUiw"/>
+  <Contracts:Function xmi:id="_zfB9QOtMEeWkINMUmqeUiw" functionCode="if(owner != msg.sender) throw;&#xA;contracts[contractCount] = new LicenseIssuer(itemName, textHash, url, lifeTime, price, paymentAddress);&#xA;contractCount++;&#xA;" base_Operation="_p1DyUOtMEeWkINMUmqeUiw"/>
+  <Contracts:Contract xmi:id="_6nktQOtMEeWkINMUmqeUiw" base_Class="_23yo0OtMEeWkINMUmqeUiw" ConstructorCode="&#xA;licensedItemName = itemName;&#xA;licenseTextHash = textHash;&#xA;licenseUrl = url;&#xA;licencePrice = price;&#xA;licenseLifetime = lifeTime;&#xA;paymentAddress = _pa;&#xA;issuable = true;&#xA;licenseManager = msg.sender;&#xA;" ConstructorArgs="string itemName, string textHash, string url, uint lifeTime, uint price, address _pa"/>
+  <Contracts:Mapping xmi:id="_BTcA8OtQEeWkINMUmqeUiw" base_Property="_w-z74OtPEeWkINMUmqeUiw" value="_23yo0OtMEeWkINMUmqeUiw"/>
+  <Contracts:Struct xmi:id="_3e4H4OtVEeWkINMUmqeUiw" base_Class="_0kNGgOtVEeWkINMUmqeUiw"/>
+  <Contracts:Mapping xmi:id="_WgAdoOtWEeWkINMUmqeUiw" base_Property="_EoCWgOtWEeWkINMUmqeUiw" value="_0kNGgOtVEeWkINMUmqeUiw"/>
+  <Contracts:Mapping xmi:id="_3EVkIOtZEeWkINMUmqeUiw" base_Property="_wDuBEOtZEeWkINMUmqeUiw" value="_0kNGgOtVEeWkINMUmqeUiw"/>
+  <Contracts:Function xmi:id="_oPO7oOtaEeWkINMUmqeUiw" functionCode="if(msg.value&lt;licencePrice|| !issuable) &#xA;&#x9;throw;&#xA;issuedLicenses[licenseCount].licenseOwnerAdress = _address;&#xA;issuedLicenses[licenseCount].licenseOwnerName = _name;&#xA;issuedLicenses[licenseCount].issuedDate = now;&#xA;licenseOwners[_address] = issuedLicenses[licenseCount];&#xA;licenseIssued(_address,_name);&#xA;licenseCount++;&#xA;//paymentAddress.send(msg.value);&#xA;if(msg.value==licencePrice){&#xA;&#x9;paymentAddress.send(msg.value);&#xA;}else{&#xA;&#x9;paymentAddress.send(licencePrice);&#xA;&#x9;msg.sender.send(msg.value-licencePrice);&#xA;}&#xA;" base_Operation="_LllQEOtZEeWkINMUmqeUiw"/>
+  <Contracts:Function xmi:id="_ppZzkOtaEeWkINMUmqeUiw" functionCode="IssuedLicense data = licenseOwners[_address];&#xA;if(data.issuedDate == 0)&#xA;&#x9;return false;&#xA;if((licenseLifetime&lt;1)||(licenseLifetime+now&lt;data.issuedDate))&#xA;&#x9;return true;&#xA;return false;&#xA;" base_Operation="_EtvZEOtaEeWkINMUmqeUiw"/>
+  <Contracts:Event xmi:id="_4o-KMOtaEeWkINMUmqeUiw" base_Operation="_rEf4kOtaEeWkINMUmqeUiw"/>
+  <Contracts:Function xmi:id="_-WkWcOtrEeWkINMUmqeUiw" functionCode="if(owner != msg.sender)&#xA;&#x9;throw&#xA;" base_Operation="_9XKkYOtqEeWkINMUmqeUiw"/>
+  <Contracts:Function xmi:id="_7Drk8OwREeWXZ76iNScx7g" functionCode="if(owner != msg.sender)&#xA;&#x9;throw;&#xD;&#xA;if(!contracts[licenseId].getissuable())&#xA;&#x9;throw;&#xA;contracts[licenseId].changePaymentAddress(_newPaymentAddress);&#xA;" base_Operation="_7DpvwOwREeWXZ76iNScx7g"/>
+  <Contracts:Function xmi:id="_y31EMOwZEeWXZ76iNScx7g" functionCode="if(licenseManager != msg.sender) throw;&#xA;paymentAddress = _newPaymentAddress;" base_Operation="_s1GswOwZEeWXZ76iNScx7g"/>
+  <Contracts:Function xmi:id="_5XEYgOwZEeWXZ76iNScx7g" functionCode="if(licenseManager != msg.sender) throw;&#xA;issuable = false;" base_Operation="_2xePQOwZEeWXZ76iNScx7g"/>
+  <Contracts:GetterSetter xmi:id="_eqXWQOwiEeWXZ76iNScx7g" base_Property="_kaWhgOtqEeWkINMUmqeUiw" setter="false"/>
+</xmi:XMI>
