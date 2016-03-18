@@ -1,7 +1,7 @@
 # licensemanager
 
-Some smart contracts for the etherum blockchain to manage a licenseable item. 
-The license are strored transparent on the blockchain and can be reviewed.
+Some smart contracts for the etherum blockchain to manage a licensable item. 
+The license are stored transparent on the blockchain and can be reviewed.
 
 The uml model is used to generate the solidity code with the [uml2solidity](https://github.com/UrsZeidler/uml2solidity) plugin for eclispe.
 
