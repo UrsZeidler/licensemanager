@@ -1,5 +1,6 @@
 /*
 * A number of contracts to issue license.
+* (c) Urs Zeidler
 */
 
 /*
@@ -7,8 +8,8 @@
 */
 contract LicenseManager {
 
-	address  owner;
-	address  paymentAddress;
+	address private owner;
+	address private paymentAddress;
 	string public issuerName;
 	uint public contractCount;
 	mapping (uint=>LicenseIssuer)public contracts;
@@ -44,6 +45,7 @@ contract LicenseManager {
 	
 	/*
 	* Create a new licenseissuer contract.
+	* The price is in finney.
 	*/
 	function createIssuerContract(string itemName,string textHash,string url,uint lifeTime,uint price) public   {
 		 if(owner != msg.sender) throw;
@@ -57,10 +59,13 @@ contract LicenseManager {
 	
 	
 	
-	
+	/*
+	* Stopps the licence issuer from issue any more licences.
+	*/
 	function stopIssuing(uint licenseId) public   {
 		 if(owner != msg.sender)
-		 	throw
+		 	throw;
+		 contracts[licenseId].stopIssuing();
 		
 		//Start of user code LicenseManager.function.stopIssuing
 		//TODO: implement
@@ -108,10 +113,10 @@ contract LicenseIssuer {
 	uint public licencePrice;
 	uint public licenseLifetime;
 	uint public licenseCount;
-	bool  issuable;
-	address  paymentAddress;
+	bool public issuable;
+	address private paymentAddress;
 	address private licenseManager;
-	mapping (uint=>IssuedLicense) issuedLicenses;
+	mapping (uint=>IssuedLicense)public issuedLicenses;
 	mapping (address=>IssuedLicense)public licenseOwners;
 	// Start of user code LicenseIssuer.attributes
 	//TODO: implement
@@ -126,7 +131,7 @@ contract LicenseIssuer {
 	licensedItemName = itemName;
 	licenseTextHash = textHash;
 	licenseUrl = url;
-	licencePrice = price;
+	licencePrice = price  * 1 finney;
 	licenseLifetime = lifeTime;
 	paymentAddress = _pa;
 	issuable = true;

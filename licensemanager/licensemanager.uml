@@ -42,16 +42,17 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_NV2ZAOtHEeWkINMUmqeUiw" name="contracts">
       <ownedComment xmi:type="uml:Comment" xmi:id="_EYLJ8OwkEeWXZ76iNScx7g">
-        <body>A number of contracts to issue license.</body>
+        <body>A number of contracts to issue license.
+(c) Urs Zeidler</body>
       </ownedComment>
       <packagedElement xmi:type="uml:Class" xmi:id="_0L_RQOtJEeWkINMUmqeUiw" name="LicenseManager">
         <ownedComment xmi:type="uml:Comment" xmi:id="_hucicOtKEeWkINMUmqeUiw">
           <body>The licensmanager creates an issuer contract and holds the payment address.</body>
         </ownedComment>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_G8KywOtKEeWkINMUmqeUiw" name="owner" visibility="package">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_G8KywOtKEeWkINMUmqeUiw" name="owner" visibility="private">
           <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Rg98UOtMEeWkINMUmqeUiw" name="paymentAddress" visibility="package">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Rg98UOtMEeWkINMUmqeUiw" name="paymentAddress" visibility="private">
           <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Htb60OtOEeWkINMUmqeUiw" name="issuerName">
@@ -73,7 +74,8 @@
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_p1DyUOtMEeWkINMUmqeUiw" name="createIssuerContract">
           <ownedComment xmi:type="uml:Comment" xmi:id="_6DvxAOtYEeWkINMUmqeUiw" annotatedElement="_p1DyUOtMEeWkINMUmqeUiw">
-            <body>Create a new licenseissuer contract.</body>
+            <body>Create a new licenseissuer contract.
+The price is in finney.</body>
           </ownedComment>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_dnpxkOtdEeWkINMUmqeUiw" name="itemName">
             <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
@@ -92,6 +94,9 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_9XKkYOtqEeWkINMUmqeUiw" name="stopIssuing">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_LRFNsO-hEeWSPfiwS8I9ow">
+            <body>Stopps the licence issuer from issue any more licences.</body>
+          </ownedComment>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_Cpwp8OtsEeWkINMUmqeUiw" name="licenseId">
             <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
           </ownedParameter>
@@ -124,7 +129,7 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Mc2a0OtPEeWkINMUmqeUiw" name="licencePrice">
           <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_EoCWgOtWEeWkINMUmqeUiw" name="issuedLicenses" visibility="package">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_EoCWgOtWEeWkINMUmqeUiw" name="issuedLicenses" visibility="public">
           <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_pMRIcOtWEeWkINMUmqeUiw" name="licenseLifetime">
@@ -136,10 +141,10 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="_-NyTEOtZEeWkINMUmqeUiw" name="licenseCount">
           <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_Z66fAKKsEeWvY9GWZZMftw"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_kaWhgOtqEeWkINMUmqeUiw" name="issuable" visibility="package">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_kaWhgOtqEeWkINMUmqeUiw" name="issuable" visibility="public">
           <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_LedxoKKuEeWvY9GWZZMftw"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_cWFeYOuREeWbt_EKc3qwXg" name="paymentAddress" visibility="package">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_cWFeYOuREeWbt_EKc3qwXg" name="paymentAddress" visibility="private">
           <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_IsGeQOwZEeWXZ76iNScx7g" name="licenseManager" visibility="private">
@@ -221,7 +226,7 @@
   <Contracts:Contract xmi:id="_E7waMOtKEeWkINMUmqeUiw" base_Class="_0L_RQOtJEeWkINMUmqeUiw" ConstructorCode="owner = msg.sender;&#xA;issuerName = _name;&#xA;paymentAddress = _paymentAddress;" ConstructorArgs="address _paymentAddress, string _name"/>
   <Contracts:Function xmi:id="_iwsXsOtMEeWkINMUmqeUiw" functionCode="if(owner != msg.sender) throw;&#xA;paymentAddress = _newPaymentAdress;&#xA;" base_Operation="_WDVUQOtMEeWkINMUmqeUiw"/>
   <Contracts:Function xmi:id="_zfB9QOtMEeWkINMUmqeUiw" functionCode="if(owner != msg.sender) throw;&#xA;contracts[contractCount] = new LicenseIssuer(itemName, textHash, url, lifeTime, price, paymentAddress);&#xA;contractCount++;&#xA;" base_Operation="_p1DyUOtMEeWkINMUmqeUiw"/>
-  <Contracts:Contract xmi:id="_6nktQOtMEeWkINMUmqeUiw" base_Class="_23yo0OtMEeWkINMUmqeUiw" ConstructorCode="&#xA;licensedItemName = itemName;&#xA;licenseTextHash = textHash;&#xA;licenseUrl = url;&#xA;licencePrice = price;&#xA;licenseLifetime = lifeTime;&#xA;paymentAddress = _pa;&#xA;issuable = true;&#xA;licenseManager = msg.sender;&#xA;" ConstructorArgs="string itemName, string textHash, string url, uint lifeTime, uint price, address _pa"/>
+  <Contracts:Contract xmi:id="_6nktQOtMEeWkINMUmqeUiw" base_Class="_23yo0OtMEeWkINMUmqeUiw" ConstructorCode="&#xA;licensedItemName = itemName;&#xA;licenseTextHash = textHash;&#xA;licenseUrl = url;&#xA;licencePrice = price  * 1 finney;&#xA;licenseLifetime = lifeTime;&#xA;paymentAddress = _pa;&#xA;issuable = true;&#xA;licenseManager = msg.sender;&#xA;" ConstructorArgs="string itemName, string textHash, string url, uint lifeTime, uint price, address _pa"/>
   <Contracts:Mapping xmi:id="_BTcA8OtQEeWkINMUmqeUiw" base_Property="_w-z74OtPEeWkINMUmqeUiw" value="_23yo0OtMEeWkINMUmqeUiw"/>
   <Contracts:Struct xmi:id="_3e4H4OtVEeWkINMUmqeUiw" base_Class="_0kNGgOtVEeWkINMUmqeUiw"/>
   <Contracts:Mapping xmi:id="_WgAdoOtWEeWkINMUmqeUiw" base_Property="_EoCWgOtWEeWkINMUmqeUiw" value="_0kNGgOtVEeWkINMUmqeUiw"/>
@@ -229,7 +234,7 @@
   <Contracts:Function xmi:id="_oPO7oOtaEeWkINMUmqeUiw" functionCode="if(msg.value&lt;licencePrice|| !issuable) &#xA;&#x9;throw;&#xA;issuedLicenses[licenseCount].licenseOwnerAdress = _address;&#xA;issuedLicenses[licenseCount].licenseOwnerName = _name;&#xA;issuedLicenses[licenseCount].issuedDate = now;&#xA;licenseOwners[_address] = issuedLicenses[licenseCount];&#xA;licenseIssued(_address,_name);&#xA;licenseCount++;&#xA;//paymentAddress.send(msg.value);&#xA;if(msg.value==licencePrice){&#xA;&#x9;paymentAddress.send(msg.value);&#xA;}else{&#xA;&#x9;paymentAddress.send(licencePrice);&#xA;&#x9;msg.sender.send(msg.value-licencePrice);&#xA;}&#xA;" base_Operation="_LllQEOtZEeWkINMUmqeUiw"/>
   <Contracts:Function xmi:id="_ppZzkOtaEeWkINMUmqeUiw" functionCode="IssuedLicense data = licenseOwners[_address];&#xA;if(data.issuedDate == 0)&#xA;&#x9;return false;&#xA;if((licenseLifetime&lt;1)||(licenseLifetime+now&lt;data.issuedDate))&#xA;&#x9;return true;&#xA;return false;&#xA;" base_Operation="_EtvZEOtaEeWkINMUmqeUiw"/>
   <Contracts:Event xmi:id="_4o-KMOtaEeWkINMUmqeUiw" base_Operation="_rEf4kOtaEeWkINMUmqeUiw"/>
-  <Contracts:Function xmi:id="_-WkWcOtrEeWkINMUmqeUiw" functionCode="if(owner != msg.sender)&#xA;&#x9;throw&#xA;" base_Operation="_9XKkYOtqEeWkINMUmqeUiw"/>
+  <Contracts:Function xmi:id="_-WkWcOtrEeWkINMUmqeUiw" functionCode="if(owner != msg.sender)&#xA;&#x9;throw;&#xA;&#xA;contracts[licenseId].stopIssuing();" base_Operation="_9XKkYOtqEeWkINMUmqeUiw"/>
   <Contracts:Function xmi:id="_7Drk8OwREeWXZ76iNScx7g" functionCode="if(owner != msg.sender)&#xA;&#x9;throw;&#xD;&#xA;if(!contracts[licenseId].getissuable())&#xA;&#x9;throw;&#xA;contracts[licenseId].changePaymentAddress(_newPaymentAddress);&#xA;" base_Operation="_7DpvwOwREeWXZ76iNScx7g"/>
   <Contracts:Function xmi:id="_y31EMOwZEeWXZ76iNScx7g" functionCode="if(licenseManager != msg.sender) throw;&#xA;paymentAddress = _newPaymentAddress;" base_Operation="_s1GswOwZEeWXZ76iNScx7g"/>
   <Contracts:Function xmi:id="_5XEYgOwZEeWXZ76iNScx7g" functionCode="if(licenseManager != msg.sender) throw;&#xA;issuable = false;" base_Operation="_2xePQOwZEeWXZ76iNScx7g"/>

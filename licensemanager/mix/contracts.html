@@ -14,20 +14,15 @@ var contractCount_res = contracts['LicenseManager'].contract.contractCount();
 }
 //call functions
 //function LicenseManager_changePaymentAddress
+function LicenseManager_changePaymentAddress_address() {
+	var param__newPaymentAdress = document.getElementById('LicenseManager_changePaymentAddress_address__newPaymentAdress').value;
+	var res = contracts['LicenseManager'].contract.changePaymentAddress(param__newPaymentAdress);
+}
+//function LicenseManager_changePaymentAddress
 function LicenseManager_changePaymentAddress_address_uint() {
 	var param__newPaymentAddress = document.getElementById('LicenseManager_changePaymentAddress_address_uint__newPaymentAddress').value;
 	var param_licenseId = document.getElementById('LicenseManager_changePaymentAddress_address_uint_licenseId').value;
 	var res = contracts['LicenseManager'].contract.changePaymentAddress(param__newPaymentAddress, param_licenseId);
-}
-//function LicenseManager_stopIssuing
-function LicenseManager_stopIssuing_uint() {
-	var param_licenseId = document.getElementById('LicenseManager_stopIssuing_uint_licenseId').value;
-	var res = contracts['LicenseManager'].contract.stopIssuing(param_licenseId);
-}
-//function LicenseManager_changePaymentAddress
-function LicenseManager_changePaymentAddress_address() {
-	var param__newPaymentAdress = document.getElementById('LicenseManager_changePaymentAddress_address__newPaymentAdress').value;
-	var res = contracts['LicenseManager'].contract.changePaymentAddress(param__newPaymentAdress);
 }
 //function LicenseManager_createIssuerContract
 function LicenseManager_createIssuerContract_string_string_string_uint_uint() {
@@ -37,6 +32,11 @@ function LicenseManager_createIssuerContract_string_string_string_uint_uint() {
 	var param_lifeTime = document.getElementById('LicenseManager_createIssuerContract_string_string_string_uint_uint_lifeTime').value;
 	var param_price = document.getElementById('LicenseManager_createIssuerContract_string_string_string_uint_uint_price').value;
 	var res = contracts['LicenseManager'].contract.createIssuerContract(param_itemName, param_textHash, param_url, param_lifeTime, param_price);
+}
+//function LicenseManager_stopIssuing
+function LicenseManager_stopIssuing_uint() {
+	var param_licenseId = document.getElementById('LicenseManager_stopIssuing_uint_licenseId').value;
+	var res = contracts['LicenseManager'].contract.stopIssuing(param_licenseId);
 }
 
 //delegated calls
@@ -61,6 +61,9 @@ var licenseLifetime_res = contracts['LicenseIssuer'].contract.licenseLifetime();
 var licenseCount_res = contracts['LicenseIssuer'].contract.licenseCount();
 	if(licenseCount_res!=null)
 		document.getElementById('LicenseIssuer_licenseCount_value').innerText = licenseCount_res;
+var issuable_res = contracts['LicenseIssuer'].contract.issuable();
+	if(issuable_res!=null)
+		document.getElementById('LicenseIssuer_issuable_value').innerText = issuable_res;
 }
 //call functions
 //function LicenseIssuer_changePaymentAddress
@@ -116,22 +119,16 @@ LicenseManager:
 
   <div class="function_execution">
 LicenseManager_changePaymentAddress:
+	<input type='text' id='LicenseManager_changePaymentAddress_address__newPaymentAdress'>
+	<button onclick='LicenseManager_changePaymentAddress_address()'>execute LicenseManager_changePaymentAddress</button>
+	<div class="function_result" id="LicenseManager_changePaymentAddress_address_res"></div>
+  </div>
+  <div class="function_execution">
+LicenseManager_changePaymentAddress:
 	<input type='text' id='LicenseManager_changePaymentAddress_address_uint__newPaymentAddress'>
 	<input type='text' id='LicenseManager_changePaymentAddress_address_uint_licenseId'>
 	<button onclick='LicenseManager_changePaymentAddress_address_uint()'>execute LicenseManager_changePaymentAddress</button>
 	<div class="function_result" id="LicenseManager_changePaymentAddress_address_uint_res"></div>
-  </div>
-  <div class="function_execution">
-LicenseManager_stopIssuing:
-	<input type='text' id='LicenseManager_stopIssuing_uint_licenseId'>
-	<button onclick='LicenseManager_stopIssuing_uint()'>execute LicenseManager_stopIssuing</button>
-	<div class="function_result" id="LicenseManager_stopIssuing_uint_res"></div>
-  </div>
-  <div class="function_execution">
-LicenseManager_changePaymentAddress:
-	<input type='text' id='LicenseManager_changePaymentAddress_address__newPaymentAdress'>
-	<button onclick='LicenseManager_changePaymentAddress_address()'>execute LicenseManager_changePaymentAddress</button>
-	<div class="function_result" id="LicenseManager_changePaymentAddress_address_res"></div>
   </div>
   <div class="function_execution">
 LicenseManager_createIssuerContract:
@@ -142,6 +139,12 @@ LicenseManager_createIssuerContract:
 	<input type='text' id='LicenseManager_createIssuerContract_string_string_string_uint_uint_price'>
 	<button onclick='LicenseManager_createIssuerContract_string_string_string_uint_uint()'>execute LicenseManager_createIssuerContract</button>
 	<div class="function_result" id="LicenseManager_createIssuerContract_string_string_string_uint_uint_res"></div>
+  </div>
+  <div class="function_execution">
+LicenseManager_stopIssuing:
+	<input type='text' id='LicenseManager_stopIssuing_uint_licenseId'>
+	<button onclick='LicenseManager_stopIssuing_uint()'>execute LicenseManager_stopIssuing</button>
+	<div class="function_result" id="LicenseManager_stopIssuing_uint_res"></div>
   </div>
 
 </div>
@@ -165,6 +168,9 @@ LicenseIssuer:
     </div>
     <div class="contract_attribute"> licenseCount:
       <div class="contract_attribute_value" id="LicenseIssuer_licenseCount_value"> </div>
+    </div>
+    <div class="contract_attribute"> issuable:
+      <div class="contract_attribute_value" id="LicenseIssuer_issuable_value"> </div>
     </div>
     <button onclick='LicenseIssuer_updateAttributes()'>update LicenseIssuer attributes</button>
   </div>

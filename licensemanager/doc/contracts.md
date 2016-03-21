@@ -1,6 +1,7 @@
 # contracts
 
 A number of contracts to issue license.
+(c) Urs Zeidler
 
 
 * [LicenseManager](#contract-licensemanager)
@@ -25,8 +26,8 @@ The licensmanager creates an issuer contract and holds the payment address.
 
 name|type|visiblity|delegate|doc
 ----|----|----|----|----
-owner|address|package||
-paymentAddress|address|package||
+owner|address|private||
+paymentAddress|address|private||
 issuerName|string|public||
 contractCount|uint|public||
 
@@ -48,6 +49,7 @@ _newPaymentAdress|address|in|
 #### LicenseManager.createIssuerContract(string itemName,string textHash,string url,uint lifeTime,uint price) public  
 
 Create a new licenseissuer contract.
+The price is in finney.
 
 
 name|type|direction|doc
@@ -59,6 +61,8 @@ lifeTime|uint|in|
 price|uint|in|
 
 #### LicenseManager.stopIssuing(uint licenseId) public  
+
+Stopps the licence issuer from issue any more licences.
 
 
 name|type|direction|doc
@@ -117,15 +121,15 @@ licenseUrl|string|public||
 licencePrice|uint|public||
 licenseLifetime|uint|public||
 licenseCount|uint|public||
-issuable|bool|package||
-paymentAddress|address|package||
+issuable|bool|public||
+paymentAddress|address|private||
 licenseManager|address|private||The address which manange the contract.
 
 #### LicenseIssuer mappings
 
 name|type|mapsTo|visiblity|doc
 ----|----|----|----|----
-issuedLicenses|uint|IssuedLicense|package|licenseOwners|address|IssuedLicense|public|-
+issuedLicenses|uint|IssuedLicense|public|licenseOwners|address|IssuedLicense|public|-
 
 #### LicenseIssuer.checkLicense(address _address) public   returns (bool )
 
