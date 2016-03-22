@@ -594,18 +594,10 @@
       <element xmi:type="uml:Class" href="licensemanager.uml#_23yo0OtMEeWkINMUmqeUiw"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_231FEetMEeWkINMUmqeUiw" x="247" y="75" width="488"/>
     </children>
-    <children xmi:type="notation:Shape" xmi:id="_6nw6gOtMEeWkINMUmqeUiw" type="StereotypeComment">
-      <styles xmi:type="notation:TitleStyle" xmi:id="_6nw6getMEeWkINMUmqeUiw" showTitle="true"/>
-      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_6nw6g-tMEeWkINMUmqeUiw" name="BASE_ELEMENT">
-        <eObjectValue xmi:type="uml:Class" href="licensemanager.uml#_23yo0OtMEeWkINMUmqeUiw"/>
-      </styles>
-      <element xsi:nil="true"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6nw6gutMEeWkINMUmqeUiw" x="920" y="139"/>
-    </children>
     <children xmi:type="notation:Shape" xmi:id="_t8Qw4OtPEeWkINMUmqeUiw" type="2012">
       <children xmi:type="notation:DecorationNode" xmi:id="_t8Qw4utPEeWkINMUmqeUiw" type="5038"/>
       <element xmi:type="uml:Comment" href="licensemanager.uml#_sc_WgOtPEeWkINMUmqeUiw"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_t8Qw4etPEeWkINMUmqeUiw" x="246" y="7" width="204"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_t8Qw4etPEeWkINMUmqeUiw" x="257" y="-25" width="298" height="44"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_7B47oOtVEeWkINMUmqeUiw" type="2008">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_s1Pj0PBEEeWIBuibjpfIPQ" source="PapyrusCSSForceValue">
@@ -673,16 +665,6 @@
       <owner xmi:type="uml:Package" href="licensemanager.uml#_NV2ZAOtHEeWkINMUmqeUiw"/>
     </styles>
     <element xmi:type="uml:Package" href="licensemanager.uml#_NV2ZAOtHEeWkINMUmqeUiw"/>
-    <edges xmi:type="notation:Connector" xmi:id="_6nw6hOtMEeWkINMUmqeUiw" type="StereotypeCommentLink" source="_231FEOtMEeWkINMUmqeUiw" target="_6nw6gOtMEeWkINMUmqeUiw">
-      <styles xmi:type="notation:FontStyle" xmi:id="_6nw6hetMEeWkINMUmqeUiw"/>
-      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_6nw6ietMEeWkINMUmqeUiw" name="BASE_ELEMENT">
-        <eObjectValue xmi:type="uml:Class" href="licensemanager.uml#_23yo0OtMEeWkINMUmqeUiw"/>
-      </styles>
-      <element xsi:nil="true"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6nw6hutMEeWkINMUmqeUiw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
-      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6nw6h-tMEeWkINMUmqeUiw"/>
-      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6nw6iOtMEeWkINMUmqeUiw"/>
-    </edges>
     <edges xmi:type="notation:Connector" xmi:id="_7B_pVOtVEeWkINMUmqeUiw" type="StereotypeCommentLink" source="_7B47oOtVEeWkINMUmqeUiw" target="_7B_pUOtVEeWkINMUmqeUiw">
       <styles xmi:type="notation:FontStyle" xmi:id="_7B_pVetVEeWkINMUmqeUiw"/>
       <styles xmi:type="notation:EObjectValueStyle" xmi:id="_7B_pWetVEeWkINMUmqeUiw" name="BASE_ELEMENT">

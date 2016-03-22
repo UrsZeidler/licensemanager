@@ -84,14 +84,16 @@ licenseId|uint|in|
 
     overview:
 	function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public   returns (bool )
-	function checkLicense(address _address) public   returns (bool )
+	function checkLicense(address _address) public   constant  returns (bool )
 	function changePaymentAddress(address _newPaymentAddress) public  
 	function stopIssuing() public  
 	function buyLicense(address _address,string _name) public  
 
 
 
-The license issuer is a contract containing the description of the license.
+The license issuer is a contract containing the description of a particluar license.
+It grands a license to an address by reciving the fund and holds a register of the 
+issued licenses.
 
 
 
@@ -145,7 +147,7 @@ sig_r|bytes32|in|
 sig_s|bytes32|in|
 |bool|return|
 
-#### LicenseIssuer.checkLicense(address _address) public   returns (bool )
+#### LicenseIssuer.checkLicense(address _address) public   constant  returns (bool )
 
 Simply lookup the license and check if it is still valid.
 

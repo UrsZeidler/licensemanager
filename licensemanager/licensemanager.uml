@@ -115,7 +115,9 @@ The price is in finney.</body>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_23yo0OtMEeWkINMUmqeUiw" name="LicenseIssuer">
         <ownedComment xmi:type="uml:Comment" xmi:id="_sc_WgOtPEeWkINMUmqeUiw">
-          <body>The license issuer is a contract containing the description of the license.</body>
+          <body>The license issuer is a contract containing the description of a particluar license.
+It grands a license to an address by reciving the fund and holds a register of the 
+issued licenses.</body>
         </ownedComment>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_V4HQ0OtOEeWkINMUmqeUiw" name="licensedItemName">
           <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
@@ -254,8 +256,8 @@ The price is in finney.</body>
   <Contracts:Struct xmi:id="_3e4H4OtVEeWkINMUmqeUiw" base_Class="_0kNGgOtVEeWkINMUmqeUiw"/>
   <Contracts:Mapping xmi:id="_WgAdoOtWEeWkINMUmqeUiw" base_Property="_EoCWgOtWEeWkINMUmqeUiw" value="_0kNGgOtVEeWkINMUmqeUiw"/>
   <Contracts:Mapping xmi:id="_3EVkIOtZEeWkINMUmqeUiw" base_Property="_wDuBEOtZEeWkINMUmqeUiw" value="_0kNGgOtVEeWkINMUmqeUiw"/>
-  <Contracts:Function xmi:id="_oPO7oOtaEeWkINMUmqeUiw" functionCode="if(msg.value&lt;licencePrice|| !issuable) &#xA;&#x9;throw;&#xA;&#xA; if(_address==address(0))&#xA;   issuedLicenses[licenseCount].licenseOwnerAdress = msg.sender;&#xA; else&#xA;   issuedLicenses[licenseCount].licenseOwnerAdress = _address;&#xA;&#xA;issuedLicenses[licenseCount].licenseOwnerAdress = _address;&#xA;issuedLicenses[licenseCount].licenseOwnerName = _name;&#xA;issuedLicenses[licenseCount].issuedDate = now;&#xA;licenseOwners[_address] = issuedLicenses[licenseCount];&#xA;licenseIssued(_address,_name);&#xA;licenseCount++;&#xA;//paymentAddress.send(msg.value);&#xA;if(msg.value==licencePrice){&#xA;&#x9;paymentAddress.send(msg.value);&#xA;}else{&#xA;&#x9;paymentAddress.send(licencePrice);&#xA;&#x9;msg.sender.send(msg.value-licencePrice);&#xA;}&#xA;" base_Operation="_LllQEOtZEeWkINMUmqeUiw"/>
-  <Contracts:Function xmi:id="_ppZzkOtaEeWkINMUmqeUiw" functionCode="IssuedLicense data = licenseOwners[_address];&#xA;if(data.issuedDate == 0)&#xA;&#x9;return false;&#xA;if((licenseLifetime&lt;1)||(licenseLifetime+now&lt;data.issuedDate))&#xA;&#x9;return true;&#xA;return false;&#xA;" base_Operation="_EtvZEOtaEeWkINMUmqeUiw"/>
+  <Contracts:Function xmi:id="_oPO7oOtaEeWkINMUmqeUiw" functionCode="if(msg.value&lt;licencePrice|| !issuable) &#xA;&#x9;throw;&#xA;&#xA; if(_address==address(0))&#xA;   issuedLicenses[licenseCount].licenseOwnerAdress = msg.sender;&#xA; else&#xA;   issuedLicenses[licenseCount].licenseOwnerAdress = _address;&#xA;&#xA;issuedLicenses[licenseCount].licenseOwnerName = _name;&#xA;issuedLicenses[licenseCount].issuedDate = now;&#xA;licenseOwners[_address] = issuedLicenses[licenseCount];&#xA;licenseIssued(_address,_name);&#xA;licenseCount++;&#xA;//paymentAddress.send(msg.value);&#xA;if(msg.value==licencePrice){&#xA;&#x9;paymentAddress.send(msg.value);&#xA;}else{&#xA;&#x9;paymentAddress.send(licencePrice);&#xA;&#x9;msg.sender.send(msg.value-licencePrice);&#xA;}&#xA;" base_Operation="_LllQEOtZEeWkINMUmqeUiw"/>
+  <Contracts:Function xmi:id="_ppZzkOtaEeWkINMUmqeUiw" functionCode="IssuedLicense data = licenseOwners[_address];&#xA;if(data.issuedDate == 0)&#xA;&#x9;return false;&#xA;if((licenseLifetime&lt;1)||(licenseLifetime+now&lt;data.issuedDate))&#xA;&#x9;return true;&#xA;return false;&#xA;" base_Operation="_EtvZEOtaEeWkINMUmqeUiw" returnType="constant"/>
   <Contracts:Event xmi:id="_4o-KMOtaEeWkINMUmqeUiw" base_Operation="_rEf4kOtaEeWkINMUmqeUiw"/>
   <Contracts:Function xmi:id="_-WkWcOtrEeWkINMUmqeUiw" functionCode="if(owner != msg.sender)&#xA;&#x9;throw;&#xA;&#xA;contracts[licenseId].stopIssuing();" base_Operation="_9XKkYOtqEeWkINMUmqeUiw"/>
   <Contracts:Function xmi:id="_7Drk8OwREeWXZ76iNScx7g" functionCode="if(owner != msg.sender)&#xA;&#x9;throw;&#xD;&#xA;if(!contracts[licenseId].getissuable())&#xA;&#x9;throw;&#xA;contracts[licenseId].changePaymentAddress(_newPaymentAddress);&#xA;" base_Operation="_7DpvwOwREeWXZ76iNScx7g"/>

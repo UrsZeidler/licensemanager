@@ -95,7 +95,9 @@ contract LicenseManager {
 }
 
 /*
-* The license issuer is a contract containing the description of the license.
+* The license issuer is a contract containing the description of a particluar license.
+* It grands a license to an address by reciving the fund and holds a register of the 
+* issued licenses.
 */
 contract LicenseIssuer {
     /*
@@ -165,7 +167,7 @@ contract LicenseIssuer {
 	/*
 	* Simply lookup the license and check if it is still valid.
 	*/
-	function checkLicense(address _address) public   returns (bool ) {
+	function checkLicense(address _address) public   constant  returns (bool ) {
 		 IssuedLicense data = licenseOwners[_address];
 		 if(data.issuedDate == 0)
 		 	return false;
@@ -218,7 +220,6 @@ contract LicenseIssuer {
 		    issuedLicenses[licenseCount].licenseOwnerAdress = msg.sender;
 		  else
 		    issuedLicenses[licenseCount].licenseOwnerAdress = _address;
-		 issuedLicenses[licenseCount].licenseOwnerAdress = _address;
 		 issuedLicenses[licenseCount].licenseOwnerName = _name;
 		 issuedLicenses[licenseCount].issuedDate = now;
 		 licenseOwners[_address] = issuedLicenses[licenseCount];

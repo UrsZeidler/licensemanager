@@ -12,6 +12,6 @@ contracts are responsible to issue and hold the assigned licenses.
 
 ![class](licensemanager/doc/Package_contracts_ClassDiagram.PNG)
 
-There is a [generated model doc](licensemanager/mix/contracts.md) describing the underlying model.
+There is a [generated model doc](licensemanager/doc/contracts.md) describing the underlying model.
 
 you can `tip the coder` by sending some ether : 0x25b2ce55746f54d88e9fc4d2f0f85e879c30bb05
