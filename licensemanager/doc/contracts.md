@@ -83,6 +83,7 @@ licenseId|uint|in|
 ## contract: LicenseIssuer
 
     overview:
+	function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public   returns (bool )
 	function checkLicense(address _address) public   returns (bool )
 	function changePaymentAddress(address _newPaymentAddress) public  
 	function stopIssuing() public  
@@ -97,7 +98,7 @@ The license issuer is a contract containing the description of the license.
 ### structs:
 
 IssuedLicense
-Hold all the issued license for the item.
+Hold one issued license for the item.
 
 
 
@@ -131,7 +132,22 @@ name|type|mapsTo|visiblity|doc
 ----|----|----|----|----
 issuedLicenses|uint|IssuedLicense|public|licenseOwners|address|IssuedLicense|public|-
 
+#### LicenseIssuer.checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public   returns (bool )
+
+Check the liceses by a given signature.
+
+
+name|type|direction|doc
+----|----|----|----
+factHash|bytes32|in|
+v|uint8|in|
+sig_r|bytes32|in|
+sig_s|bytes32|in|
+|bool|return|
+
 #### LicenseIssuer.checkLicense(address _address) public   returns (bool )
+
+Simply lookup the license and check if it is still valid.
 
 
 name|type|direction|doc

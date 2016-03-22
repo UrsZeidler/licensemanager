@@ -99,7 +99,7 @@ contract LicenseManager {
 */
 contract LicenseIssuer {
     /*
-    * Hold all the issued license for the item.
+    * Hold one issued license for the item.
     */
     struct IssuedLicense {
     	address licenseOwnerAdress;
@@ -143,7 +143,28 @@ contract LicenseIssuer {
 	}
 	
 	
+	/*
+	* Check the liceses by a given signature.
+	*/
+	function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public   returns (bool ) {
+		 address _address = ecrecover(factHash, v, sig_r, sig_s);
+		 IssuedLicense data = licenseOwners[_address];
+		 if(data.issuedDate == 0)
+		 	return false;
+		 if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))
+		 	return true;
+		 return false;
+		
+		//Start of user code LicenseIssuer.function.checkLicense
+		//TODO: implement
+		//End of user code
+	}
 	
+	
+	
+	/*
+	* Simply lookup the license and check if it is still valid.
+	*/
 	function checkLicense(address _address) public   returns (bool ) {
 		 IssuedLicense data = licenseOwners[_address];
 		 if(data.issuedDate == 0)
@@ -154,7 +175,7 @@ contract LicenseIssuer {
 		
 		//Start of user code LicenseIssuer.function.checkLicense
 		//TODO: implement
-    	//End of user code
+		//End of user code
 	}
 	
 	
@@ -193,6 +214,10 @@ contract LicenseIssuer {
 	function buyLicense(address _address,string _name) public   {
 		 if(msg.value<licencePrice|| !issuable) 
 		 	throw;
+		  if(_address==address(0))
+		    issuedLicenses[licenseCount].licenseOwnerAdress = msg.sender;
+		  else
+		    issuedLicenses[licenseCount].licenseOwnerAdress = _address;
 		 issuedLicenses[licenseCount].licenseOwnerAdress = _address;
 		 issuedLicenses[licenseCount].licenseOwnerName = _name;
 		 issuedLicenses[licenseCount].issuedDate = now;

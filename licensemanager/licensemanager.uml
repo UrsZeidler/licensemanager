@@ -153,20 +153,43 @@ The price is in finney.</body>
           </ownedComment>
           <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
         </ownedAttribute>
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_EtvZEOtaEeWkINMUmqeUiw" name="checkLicense">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_kbNQYOtaEeWkINMUmqeUiw" name="_address">
-            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
-          </ownedParameter>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_m4RvwOtaEeWkINMUmqeUiw" direction="return">
-            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_LedxoKKuEeWvY9GWZZMftw"/>
-          </ownedParameter>
-        </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_rEf4kOtaEeWkINMUmqeUiw" name="licenseIssued">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_AiPMgOtbEeWkINMUmqeUiw" name="ownerAddress">
             <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
           </ownedParameter>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1GEYOtbEeWkINMUmqeUiw" name="name">
             <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_pQPkUPBKEeWIBuibjpfIPQ" name="checkLicense">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_2CtC0PBNEeWIBuibjpfIPQ">
+            <body>Check the liceses by a given signature.</body>
+          </ownedComment>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_-YV_cPBKEeWIBuibjpfIPQ" name="factHash">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_x7cwUKMvEeWyXvjE6XZ9yw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_BKI8MPBMEeWIBuibjpfIPQ" name="v">
+            <type xmi:type="uml:DataType" href="../de.urszeidler.eclipse.solidity.ui/model/types.uml#_h-DfgKMvEeWyXvjE6XZ9yw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_FOYNsPBMEeWIBuibjpfIPQ" name="sig_r">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_x7cwUKMvEeWyXvjE6XZ9yw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_IoouEPBMEeWIBuibjpfIPQ" name="sig_s">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_x7cwUKMvEeWyXvjE6XZ9yw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_pQPkUvBKEeWIBuibjpfIPQ" direction="return">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_LedxoKKuEeWvY9GWZZMftw"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_EtvZEOtaEeWkINMUmqeUiw" name="checkLicense">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_9RmScPBNEeWIBuibjpfIPQ">
+            <body>Simply lookup the license and check if it is still valid.</body>
+          </ownedComment>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_kbNQYOtaEeWkINMUmqeUiw" name="_address">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_m4RvwOtaEeWkINMUmqeUiw" direction="return">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_LedxoKKuEeWvY9GWZZMftw"/>
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_s1GswOwZEeWXZ76iNScx7g" name="changePaymentAddress">
@@ -195,7 +218,7 @@ The price is in finney.</body>
         </ownedOperation>
         <nestedClassifier xmi:type="uml:Class" xmi:id="_0kNGgOtVEeWkINMUmqeUiw" name="IssuedLicense">
           <ownedComment xmi:type="uml:Comment" xmi:id="_vm0fIOtYEeWkINMUmqeUiw">
-            <body>Hold all the issued license for the item.</body>
+            <body>Hold one issued license for the item.</body>
           </ownedComment>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_-6SJgOtVEeWkINMUmqeUiw" name="licenseOwnerAdress">
             <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
@@ -231,7 +254,7 @@ The price is in finney.</body>
   <Contracts:Struct xmi:id="_3e4H4OtVEeWkINMUmqeUiw" base_Class="_0kNGgOtVEeWkINMUmqeUiw"/>
   <Contracts:Mapping xmi:id="_WgAdoOtWEeWkINMUmqeUiw" base_Property="_EoCWgOtWEeWkINMUmqeUiw" value="_0kNGgOtVEeWkINMUmqeUiw"/>
   <Contracts:Mapping xmi:id="_3EVkIOtZEeWkINMUmqeUiw" base_Property="_wDuBEOtZEeWkINMUmqeUiw" value="_0kNGgOtVEeWkINMUmqeUiw"/>
-  <Contracts:Function xmi:id="_oPO7oOtaEeWkINMUmqeUiw" functionCode="if(msg.value&lt;licencePrice|| !issuable) &#xA;&#x9;throw;&#xA;issuedLicenses[licenseCount].licenseOwnerAdress = _address;&#xA;issuedLicenses[licenseCount].licenseOwnerName = _name;&#xA;issuedLicenses[licenseCount].issuedDate = now;&#xA;licenseOwners[_address] = issuedLicenses[licenseCount];&#xA;licenseIssued(_address,_name);&#xA;licenseCount++;&#xA;//paymentAddress.send(msg.value);&#xA;if(msg.value==licencePrice){&#xA;&#x9;paymentAddress.send(msg.value);&#xA;}else{&#xA;&#x9;paymentAddress.send(licencePrice);&#xA;&#x9;msg.sender.send(msg.value-licencePrice);&#xA;}&#xA;" base_Operation="_LllQEOtZEeWkINMUmqeUiw"/>
+  <Contracts:Function xmi:id="_oPO7oOtaEeWkINMUmqeUiw" functionCode="if(msg.value&lt;licencePrice|| !issuable) &#xA;&#x9;throw;&#xA;&#xA; if(_address==address(0))&#xA;   issuedLicenses[licenseCount].licenseOwnerAdress = msg.sender;&#xA; else&#xA;   issuedLicenses[licenseCount].licenseOwnerAdress = _address;&#xA;&#xA;issuedLicenses[licenseCount].licenseOwnerAdress = _address;&#xA;issuedLicenses[licenseCount].licenseOwnerName = _name;&#xA;issuedLicenses[licenseCount].issuedDate = now;&#xA;licenseOwners[_address] = issuedLicenses[licenseCount];&#xA;licenseIssued(_address,_name);&#xA;licenseCount++;&#xA;//paymentAddress.send(msg.value);&#xA;if(msg.value==licencePrice){&#xA;&#x9;paymentAddress.send(msg.value);&#xA;}else{&#xA;&#x9;paymentAddress.send(licencePrice);&#xA;&#x9;msg.sender.send(msg.value-licencePrice);&#xA;}&#xA;" base_Operation="_LllQEOtZEeWkINMUmqeUiw"/>
   <Contracts:Function xmi:id="_ppZzkOtaEeWkINMUmqeUiw" functionCode="IssuedLicense data = licenseOwners[_address];&#xA;if(data.issuedDate == 0)&#xA;&#x9;return false;&#xA;if((licenseLifetime&lt;1)||(licenseLifetime+now&lt;data.issuedDate))&#xA;&#x9;return true;&#xA;return false;&#xA;" base_Operation="_EtvZEOtaEeWkINMUmqeUiw"/>
   <Contracts:Event xmi:id="_4o-KMOtaEeWkINMUmqeUiw" base_Operation="_rEf4kOtaEeWkINMUmqeUiw"/>
   <Contracts:Function xmi:id="_-WkWcOtrEeWkINMUmqeUiw" functionCode="if(owner != msg.sender)&#xA;&#x9;throw;&#xA;&#xA;contracts[licenseId].stopIssuing();" base_Operation="_9XKkYOtqEeWkINMUmqeUiw"/>
@@ -239,4 +262,5 @@ The price is in finney.</body>
   <Contracts:Function xmi:id="_y31EMOwZEeWXZ76iNScx7g" functionCode="if(licenseManager != msg.sender) throw;&#xA;paymentAddress = _newPaymentAddress;" base_Operation="_s1GswOwZEeWXZ76iNScx7g"/>
   <Contracts:Function xmi:id="_5XEYgOwZEeWXZ76iNScx7g" functionCode="if(licenseManager != msg.sender) throw;&#xA;issuable = false;" base_Operation="_2xePQOwZEeWXZ76iNScx7g"/>
   <Contracts:GetterSetter xmi:id="_eqXWQOwiEeWXZ76iNScx7g" base_Property="_kaWhgOtqEeWkINMUmqeUiw" setter="false"/>
+  <Contracts:Function xmi:id="_pQc_sPBKEeWIBuibjpfIPQ" functionCode="address _address = ecrecover(factHash, v, sig_r, sig_s);&#xA;&#xA;IssuedLicense data = licenseOwners[_address];&#xA;if(data.issuedDate == 0)&#xA;&#x9;return false;&#xA;if((licenseLifetime&lt;1)||(licenseLifetime+now&lt;data.issuedDate))&#xA;&#x9;return true;&#xA;return false;&#xA;" base_Operation="_pQPkUPBKEeWIBuibjpfIPQ"/>
 </xmi:XMI>

@@ -34,6 +34,13 @@ var LicenseManagerContract = web3.eth.contract([
 var LicenseIssuerContract = web3.eth.contract([
   {
     "constant": true,
+    "inputs": [{"name": "factHash","type": "bytes32"},{"name": "v","type": "uint8"},{"name": "sig_r","type": "bytes32"},{"name": "sig_s","type": "bytes32"}],    
+    "name": "checkLicense",
+    "outputs": [{"name": "","type": "bool"}],
+    "type": "function"
+  }
+,  {
+    "constant": true,
     "inputs": [{"name": "_address","type": "address"}],    
     "name": "checkLicense",
     "outputs": [{"name": "","type": "bool"}],
