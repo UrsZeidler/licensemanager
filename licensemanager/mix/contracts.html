@@ -1,107 +1,14 @@
 <!doctype>
 <html>
 <head>
-<script type='text/javascript'>
-// script for LicenseManager
-function LicenseManager_updateAttributes() {
-// update attributes
-var issuerName_res = contracts['LicenseManager'].contract.issuerName();
-	if(issuerName_res!=null)
-		document.getElementById('LicenseManager_issuerName_value').innerText = issuerName_res;
-var contractCount_res = contracts['LicenseManager'].contract.contractCount();
-	if(contractCount_res!=null)
-		document.getElementById('LicenseManager_contractCount_value').innerText = contractCount_res;
-}
-//call functions
-//function LicenseManager_changePaymentAddress
-function LicenseManager_changePaymentAddress_address_uint() {
-	var param__newPaymentAddress = document.getElementById('LicenseManager_changePaymentAddress_address_uint__newPaymentAddress').value;
-	var param_licenseId = document.getElementById('LicenseManager_changePaymentAddress_address_uint_licenseId').value;
-	var res = contracts['LicenseManager'].contract.changePaymentAddress(param__newPaymentAddress, param_licenseId);
-}
-//function LicenseManager_createIssuerContract
-function LicenseManager_createIssuerContract_string_string_string_uint_uint() {
-	var param_itemName = document.getElementById('LicenseManager_createIssuerContract_string_string_string_uint_uint_itemName').value;
-	var param_textHash = document.getElementById('LicenseManager_createIssuerContract_string_string_string_uint_uint_textHash').value;
-	var param_url = document.getElementById('LicenseManager_createIssuerContract_string_string_string_uint_uint_url').value;
-	var param_lifeTime = document.getElementById('LicenseManager_createIssuerContract_string_string_string_uint_uint_lifeTime').value;
-	var param_price = document.getElementById('LicenseManager_createIssuerContract_string_string_string_uint_uint_price').value;
-	var res = contracts['LicenseManager'].contract.createIssuerContract(param_itemName, param_textHash, param_url, param_lifeTime, param_price);
-}
-//function LicenseManager_changePaymentAddress
-function LicenseManager_changePaymentAddress_address() {
-	var param__newPaymentAdress = document.getElementById('LicenseManager_changePaymentAddress_address__newPaymentAdress').value;
-	var res = contracts['LicenseManager'].contract.changePaymentAddress(param__newPaymentAdress);
-}
-//function LicenseManager_stopIssuing
-function LicenseManager_stopIssuing_uint() {
-	var param_licenseId = document.getElementById('LicenseManager_stopIssuing_uint_licenseId').value;
-	var res = contracts['LicenseManager'].contract.stopIssuing(param_licenseId);
-}
-
-//delegated calls
-// script for LicenseIssuer
-function LicenseIssuer_updateAttributes() {
-// update attributes
-var licensedItemName_res = contracts['LicenseIssuer'].contract.licensedItemName();
-	if(licensedItemName_res!=null)
-		document.getElementById('LicenseIssuer_licensedItemName_value').innerText = licensedItemName_res;
-var licenseTextHash_res = contracts['LicenseIssuer'].contract.licenseTextHash();
-	if(licenseTextHash_res!=null)
-		document.getElementById('LicenseIssuer_licenseTextHash_value').innerText = licenseTextHash_res;
-var licenseUrl_res = contracts['LicenseIssuer'].contract.licenseUrl();
-	if(licenseUrl_res!=null)
-		document.getElementById('LicenseIssuer_licenseUrl_value').innerText = licenseUrl_res;
-var licencePrice_res = contracts['LicenseIssuer'].contract.licencePrice();
-	if(licencePrice_res!=null)
-		document.getElementById('LicenseIssuer_licencePrice_value').innerText = licencePrice_res;
-var licenseLifetime_res = contracts['LicenseIssuer'].contract.licenseLifetime();
-	if(licenseLifetime_res!=null)
-		document.getElementById('LicenseIssuer_licenseLifetime_value').innerText = licenseLifetime_res;
-var licenseCount_res = contracts['LicenseIssuer'].contract.licenseCount();
-	if(licenseCount_res!=null)
-		document.getElementById('LicenseIssuer_licenseCount_value').innerText = licenseCount_res;
-var issuable_res = contracts['LicenseIssuer'].contract.issuable();
-	if(issuable_res!=null)
-		document.getElementById('LicenseIssuer_issuable_value').innerText = issuable_res;
-}
-//call functions
-//function LicenseIssuer_buyLicense
-function LicenseIssuer_buyLicense_address_string() {
-	var param__address = document.getElementById('LicenseIssuer_buyLicense_address_string__address').value;
-	var param__name = document.getElementById('LicenseIssuer_buyLicense_address_string__name').value;
-	var res = contracts['LicenseIssuer'].contract.buyLicense(param__address, param__name);
-}
-//function LicenseIssuer_checkLicense
-function LicenseIssuer_checkLicense_address() {
-	var param__address = document.getElementById('LicenseIssuer_checkLicense_address__address').value;
-	var res = contracts['LicenseIssuer'].contract.checkLicense(param__address);
-	if(res!=null)
-		document.getElementById('LicenseIssuer_checkLicense_address_res').innerText = res;
-}
-//function LicenseIssuer_stopIssuing
-function LicenseIssuer_stopIssuing() {
-	var res = contracts['LicenseIssuer'].contract.stopIssuing();
-}
-//function LicenseIssuer_changePaymentAddress
-function LicenseIssuer_changePaymentAddress_address() {
-	var param__newPaymentAddress = document.getElementById('LicenseIssuer_changePaymentAddress_address__newPaymentAddress').value;
-	var res = contracts['LicenseIssuer'].contract.changePaymentAddress(param__newPaymentAddress);
-}
-//function LicenseIssuer_checkLicense
-function LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32() {
-	var param_factHash = document.getElementById('LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_factHash').value;
-	var param_v = document.getElementById('LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_v').value;
-	var param_sig_r = document.getElementById('LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_r').value;
-	var param_sig_s = document.getElementById('LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_s').value;
-	var res = contracts['LicenseIssuer'].contract.checkLicense(param_factHash, param_v, param_sig_r, param_sig_s);
-	if(res!=null)
-		document.getElementById('LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_res').innerText = res;
-}
-
-//delegated calls
-
+<!--
+<script type='text/javascript' src="contractsWeb3.js">
 </script>
+-->
+<script type='text/javascript' src="js/contracts-main.js">
+</script>
+
+<!-- start of style -->
 <style>
 .contract {
 	border-style: solid;
@@ -111,115 +18,220 @@ function LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32() {
 	border-style: solid;
 	border-width: 1px;
 	} 
+.Struct_Mapping{}
+.Value_Mapping{}
+.contract_attribute{}
+.contract_attribute_value{}
+.function_execution{}
+.function_parameter{}
+.function_result{}
+
 </style>
 </head>
 <body bgcolor='#E6E6FA'>
 	<h1>Sample Interface for contracts</h1>
-<div class="contract">
+<!-- gui for LicenseManager_contract -->
+<div class="contract" id="LicenseManager_contract">
 LicenseManager:
-  <div class="contract_attributes"> attributes:
-    <div class="contract_attribute"> issuerName:
+  <input type="text" id="LicenseManager_address"> <button id="LicenseManagerController.setAddress" onclick="LicenseManagerController.setAddress()">change LicenseManager Address</button>
+  <div class="contract_attributes" id="LicenseManager_contract_attributes"> attributes:
+    <div class="contract_attribute" id="LicenseManager_contract_attribute_owner"> owner:
+      <div class="contract_attribute_value" id="LicenseManager_owner_value"> </div>
+    </div>
+    <div class="contract_attribute" id="LicenseManager_contract_attribute_issuerName"> issuerName:
       <div class="contract_attribute_value" id="LicenseManager_issuerName_value"> </div>
     </div>
-    <div class="contract_attribute"> contractCount:
+    <div class="contract_attribute" id="LicenseManager_contract_attribute_contractCount"> contractCount:
       <div class="contract_attribute_value" id="LicenseManager_contractCount_value"> </div>
     </div>
-    <button onclick='LicenseManager_updateAttributes()'>update LicenseManager attributes</button>
+<div class="Value_Mapping" id="LicenseManager_contract_attribute_contracts">mapping  contracts:
+		<input type="number" id="LicenseManager_contract_attribute_contracts_input">(uint)
+    	<div class="Mapping_value" id="LicenseManager_contract_attribute_uint"> LicenseIssuer:
+      		<div class="contract_attribute_value" id="LicenseManager_contracts_value"> </div>
+    	</div>
   </div>
-
-  <div class="function_execution">
+    <button id="LicenseManager_updateAttributes" onclick="LicenseManagerController._updateAttributes()">update LicenseManager attributes</button>
+  </div>
+  <div class="function_execution" id="LicenseManager_contract_function_LicenseManager_changePaymentAddress_address">
 LicenseManager_changePaymentAddress:
-	<input type='text' id='LicenseManager_changePaymentAddress_address_uint__newPaymentAddress'>
-	<input type='text' id='LicenseManager_changePaymentAddress_address_uint_licenseId'>
-	<button onclick='LicenseManager_changePaymentAddress_address_uint()'>execute LicenseManager_changePaymentAddress</button>
-	<div class="function_result" id="LicenseManager_changePaymentAddress_address_uint_res"></div>
-  </div>
-  <div class="function_execution">
-LicenseManager_createIssuerContract:
-	<input type='text' id='LicenseManager_createIssuerContract_string_string_string_uint_uint_itemName'>
-	<input type='text' id='LicenseManager_createIssuerContract_string_string_string_uint_uint_textHash'>
-	<input type='text' id='LicenseManager_createIssuerContract_string_string_string_uint_uint_url'>
-	<input type='text' id='LicenseManager_createIssuerContract_string_string_string_uint_uint_lifeTime'>
-	<input type='text' id='LicenseManager_createIssuerContract_string_string_string_uint_uint_price'>
-	<button onclick='LicenseManager_createIssuerContract_string_string_string_uint_uint()'>execute LicenseManager_createIssuerContract</button>
-	<div class="function_result" id="LicenseManager_createIssuerContract_string_string_string_uint_uint_res"></div>
-  </div>
-  <div class="function_execution">
-LicenseManager_changePaymentAddress:
-	<input type='text' id='LicenseManager_changePaymentAddress_address__newPaymentAdress'>
-	<button onclick='LicenseManager_changePaymentAddress_address()'>execute LicenseManager_changePaymentAddress</button>
+	  <div class="function_parameter">_newPaymentAdress<input type="text" id="LicenseManager_changePaymentAddress_address__newPaymentAdress"></div>
+	<button id="LicenseManagerController.LicenseManager_changePaymentAddress_address" onclick="LicenseManagerController.LicenseManager_changePaymentAddress_address()">execute LicenseManager_changePaymentAddress</button>
 	<div class="function_result" id="LicenseManager_changePaymentAddress_address_res"></div>
   </div>
-  <div class="function_execution">
+  <div class="function_execution" id="LicenseManager_contract_function_LicenseManager_createIssuerContract_string_string_string_uint_uint">
+LicenseManager_createIssuerContract:
+	  <div class="function_parameter">itemName<input type="text" id="LicenseManager_createIssuerContract_string_string_string_uint_uint_itemName"></div>
+	  <div class="function_parameter">textHash<input type="text" id="LicenseManager_createIssuerContract_string_string_string_uint_uint_textHash"></div>
+	  <div class="function_parameter">url<input type="text" id="LicenseManager_createIssuerContract_string_string_string_uint_uint_url"></div>
+	  <div class="function_parameter">lifeTime<input type="number" id="LicenseManager_createIssuerContract_string_string_string_uint_uint_lifeTime"></div>
+	  <div class="function_parameter">price<input type="number" id="LicenseManager_createIssuerContract_string_string_string_uint_uint_price"></div>
+	<button id="LicenseManagerController.LicenseManager_createIssuerContract_string_string_string_uint_uint" onclick="LicenseManagerController.LicenseManager_createIssuerContract_string_string_string_uint_uint()">execute LicenseManager_createIssuerContract</button>
+	<div class="function_result" id="LicenseManager_createIssuerContract_string_string_string_uint_uint_res"></div>
+  </div>
+  <div class="function_execution" id="LicenseManager_contract_function_LicenseManager_stopIssuing_uint">
 LicenseManager_stopIssuing:
-	<input type='text' id='LicenseManager_stopIssuing_uint_licenseId'>
-	<button onclick='LicenseManager_stopIssuing_uint()'>execute LicenseManager_stopIssuing</button>
+	  <div class="function_parameter">licenseId<input type="number" id="LicenseManager_stopIssuing_uint_licenseId"></div>
+	<button id="LicenseManagerController.LicenseManager_stopIssuing_uint" onclick="LicenseManagerController.LicenseManager_stopIssuing_uint()">execute LicenseManager_stopIssuing</button>
 	<div class="function_result" id="LicenseManager_stopIssuing_uint_res"></div>
   </div>
+  <div class="function_execution" id="LicenseManager_contract_function_LicenseManager_changePaymentAddress_address_uint">
+LicenseManager_changePaymentAddress:
+	  <div class="function_parameter">_newPaymentAddress<input type="text" id="LicenseManager_changePaymentAddress_address_uint__newPaymentAddress"></div>
+	  <div class="function_parameter">licenseId<input type="number" id="LicenseManager_changePaymentAddress_address_uint_licenseId"></div>
+	<button id="LicenseManagerController.LicenseManager_changePaymentAddress_address_uint" onclick="LicenseManagerController.LicenseManager_changePaymentAddress_address_uint()">execute LicenseManager_changePaymentAddress</button>
+	<div class="function_result" id="LicenseManager_changePaymentAddress_address_uint_res"></div>
+  </div>
 
 </div>
-<div class="contract">
+<!-- gui for LicenseIssuer_contract -->
+<div class="contract" id="LicenseIssuer_contract">
 LicenseIssuer:
-  <div class="contract_attributes"> attributes:
-    <div class="contract_attribute"> licensedItemName:
+  <input type="text" id="LicenseIssuer_address"> <button id="LicenseIssuerController.setAddress" onclick="LicenseIssuerController.setAddress()">change LicenseIssuer Address</button>
+  <div class="contract_attributes" id="LicenseIssuer_contract_attributes"> attributes:
+    <div class="contract_attribute" id="LicenseIssuer_contract_attribute_licensedItemName"> licensedItemName:
       <div class="contract_attribute_value" id="LicenseIssuer_licensedItemName_value"> </div>
     </div>
-    <div class="contract_attribute"> licenseTextHash:
+    <div class="contract_attribute" id="LicenseIssuer_contract_attribute_licenseManager"> licenseManager:
+      <div class="contract_attribute_value" id="LicenseIssuer_licenseManager_value"> </div>
+    </div>
+    <div class="contract_attribute" id="LicenseIssuer_contract_attribute_licenseTextHash"> licenseTextHash:
       <div class="contract_attribute_value" id="LicenseIssuer_licenseTextHash_value"> </div>
     </div>
-    <div class="contract_attribute"> licenseUrl:
+    <div class="contract_attribute" id="LicenseIssuer_contract_attribute_licenseUrl"> licenseUrl:
       <div class="contract_attribute_value" id="LicenseIssuer_licenseUrl_value"> </div>
     </div>
-    <div class="contract_attribute"> licencePrice:
+    <div class="contract_attribute" id="LicenseIssuer_contract_attribute_licencePrice"> licencePrice:
       <div class="contract_attribute_value" id="LicenseIssuer_licencePrice_value"> </div>
     </div>
-    <div class="contract_attribute"> licenseLifetime:
+    <div class="contract_attribute" id="LicenseIssuer_contract_attribute_licenseLifetime"> licenseLifetime:
       <div class="contract_attribute_value" id="LicenseIssuer_licenseLifetime_value"> </div>
     </div>
-    <div class="contract_attribute"> licenseCount:
+    <div class="contract_attribute" id="LicenseIssuer_contract_attribute_licenseCount"> licenseCount:
       <div class="contract_attribute_value" id="LicenseIssuer_licenseCount_value"> </div>
     </div>
-    <div class="contract_attribute"> issuable:
+    <div class="contract_attribute" id="LicenseIssuer_contract_attribute_issuable"> issuable:
       <div class="contract_attribute_value" id="LicenseIssuer_issuable_value"> </div>
     </div>
-    <button onclick='LicenseIssuer_updateAttributes()'>update LicenseIssuer attributes</button>
+<!--struct -->
+<div class="Struct_Mapping" id="Struc_LicenseIssuer_contract_attribute_issuedLicenses">struc mapping  issuedLicenses:
+		<input type="number" id="LicenseIssuer_contract_attribute_issuedLicenses_input">(uint)
+    	<div class="Struct_attribute" id="LicenseIssuer_contract_attribute_issuedLicenses_licenseOwnerAdress"> licenseOwnerAdress:
+      		<div class="Struct_attribute_value" id="LicenseIssuer_issuedLicenses_licenseOwnerAdress_value"> </div>
+    	</div>
+    	<div class="Struct_attribute" id="LicenseIssuer_contract_attribute_issuedLicenses_licenseOwnerName"> licenseOwnerName:
+      		<div class="Struct_attribute_value" id="LicenseIssuer_issuedLicenses_licenseOwnerName_value"> </div>
+    	</div>
+    	<div class="Struct_attribute" id="LicenseIssuer_contract_attribute_issuedLicenses_issuedDate"> issuedDate:
+      		<div class="Struct_attribute_value" id="LicenseIssuer_issuedLicenses_issuedDate_value"> </div>
+    	</div>
   </div>
-
-  <div class="function_execution">
-LicenseIssuer_buyLicense:
-	<input type='text' id='LicenseIssuer_buyLicense_address_string__address'>
-	<input type='text' id='LicenseIssuer_buyLicense_address_string__name'>
-	<button onclick='LicenseIssuer_buyLicense_address_string()'>execute LicenseIssuer_buyLicense</button>
-	<div class="function_result" id="LicenseIssuer_buyLicense_address_string_res"></div>
+<!--struct -->
+<div class="Struct_Mapping" id="Struc_LicenseIssuer_contract_attribute_licenseOwners">struc mapping  licenseOwners:
+		<input type="text" id="LicenseIssuer_contract_attribute_licenseOwners_input">(address)
+    	<div class="Struct_attribute" id="LicenseIssuer_contract_attribute_licenseOwners_licenseOwnerAdress"> licenseOwnerAdress:
+      		<div class="Struct_attribute_value" id="LicenseIssuer_licenseOwners_licenseOwnerAdress_value"> </div>
+    	</div>
+    	<div class="Struct_attribute" id="LicenseIssuer_contract_attribute_licenseOwners_licenseOwnerName"> licenseOwnerName:
+      		<div class="Struct_attribute_value" id="LicenseIssuer_licenseOwners_licenseOwnerName_value"> </div>
+    	</div>
+    	<div class="Struct_attribute" id="LicenseIssuer_contract_attribute_licenseOwners_issuedDate"> issuedDate:
+      		<div class="Struct_attribute_value" id="LicenseIssuer_licenseOwners_issuedDate_value"> </div>
+    	</div>
   </div>
-  <div class="function_execution">
+    <button id="LicenseIssuer_updateAttributes" onclick="LicenseIssuerController._updateAttributes()">update LicenseIssuer attributes</button>
+  </div>
+  <div class="function_execution" id="LicenseIssuer_contract_function_LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32">
 LicenseIssuer_checkLicense:
-	<input type='text' id='LicenseIssuer_checkLicense_address__address'>
-	<button onclick='LicenseIssuer_checkLicense_address()'>execute LicenseIssuer_checkLicense</button>
+	  <div class="function_parameter">factHash<input type="text" id="LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_factHash"></div>
+	  <div class="function_parameter">v<input type="number" id="LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_v"></div>
+	  <div class="function_parameter">sig_r<input type="text" id="LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_r"></div>
+	  <div class="function_parameter">sig_s<input type="text" id="LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_s"></div>
+	<button id="LicenseIssuerController.LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32" onclick="LicenseIssuerController.LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32()">execute LicenseIssuer_checkLicense</button>
+	<div class="function_result" id="LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_res"></div>
+  </div>
+  <div class="function_execution" id="LicenseIssuer_contract_function_LicenseIssuer_checkLicense_address">
+LicenseIssuer_checkLicense:
+	  <div class="function_parameter">_address<input type="text" id="LicenseIssuer_checkLicense_address__address"></div>
+	<button id="LicenseIssuerController.LicenseIssuer_checkLicense_address" onclick="LicenseIssuerController.LicenseIssuer_checkLicense_address()">execute LicenseIssuer_checkLicense</button>
 	<div class="function_result" id="LicenseIssuer_checkLicense_address_res"></div>
   </div>
-  <div class="function_execution">
-LicenseIssuer_stopIssuing:
-	<button onclick='LicenseIssuer_stopIssuing()'>execute LicenseIssuer_stopIssuing</button>
-	<div class="function_result" id="LicenseIssuer_stopIssuing_res"></div>
-  </div>
-  <div class="function_execution">
+  <div class="function_execution" id="LicenseIssuer_contract_function_LicenseIssuer_changePaymentAddress_address">
 LicenseIssuer_changePaymentAddress:
-	<input type='text' id='LicenseIssuer_changePaymentAddress_address__newPaymentAddress'>
-	<button onclick='LicenseIssuer_changePaymentAddress_address()'>execute LicenseIssuer_changePaymentAddress</button>
+	  <div class="function_parameter">_newPaymentAddress<input type="text" id="LicenseIssuer_changePaymentAddress_address__newPaymentAddress"></div>
+	<button id="LicenseIssuerController.LicenseIssuer_changePaymentAddress_address" onclick="LicenseIssuerController.LicenseIssuer_changePaymentAddress_address()">execute LicenseIssuer_changePaymentAddress</button>
 	<div class="function_result" id="LicenseIssuer_changePaymentAddress_address_res"></div>
   </div>
-  <div class="function_execution">
-LicenseIssuer_checkLicense:
-	<input type='text' id='LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_factHash'>
-	<input type='text' id='LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_v'>
-	<input type='text' id='LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_r'>
-	<input type='text' id='LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_s'>
-	<button onclick='LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32()'>execute LicenseIssuer_checkLicense</button>
-	<div class="function_result" id="LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_res"></div>
+  <div class="function_execution" id="LicenseIssuer_contract_function_LicenseIssuer_stopIssuing">
+LicenseIssuer_stopIssuing:
+	<button id="LicenseIssuerController.LicenseIssuer_stopIssuing" onclick="LicenseIssuerController.LicenseIssuer_stopIssuing()">execute LicenseIssuer_stopIssuing</button>
+	<div class="function_result" id="LicenseIssuer_stopIssuing_res"></div>
+  </div>
+  <div class="function_execution" id="LicenseIssuer_contract_function_LicenseIssuer_buyLicense_address_string">
+LicenseIssuer_buyLicense:
+	  <div class="function_parameter">_address<input type="text" id="LicenseIssuer_buyLicense_address_string__address"></div>
+	  <div class="function_parameter">_name<input type="text" id="LicenseIssuer_buyLicense_address_string__name"></div>
+	<button id="LicenseIssuerController.LicenseIssuer_buyLicense_address_string" onclick="LicenseIssuerController.LicenseIssuer_buyLicense_address_string()">execute LicenseIssuer_buyLicense</button>
+	<div class="function_result" id="LicenseIssuer_buyLicense_address_string_res"></div>
   </div>
 
 </div>
+<div class="contract">LicenseManager
+<div id="LicenseManager_gui" ></div>
+</div>
+<div class="contract">LicenseIssuer
+<div id="LicenseIssuer_gui" ></div>
+</div>
+<div class="contract">test : LicenseManager
+<div id="TestLicenseManager_gui" ></div>
+</div>
+<div class="contract">test : LicenseIssuer
+<div id="TestLicenseIssuer_gui" ></div>
+</div>
+
+<script type='text/javascript'>
+var  defaultLicenseManagerController  = new LicenseManagerController();
+defaultLicenseManagerController.bindGui();
+
+LicenseManagerGui  = new LicenseManagerGuiFactory();
+if(contracts['LicenseManager']!=undefined){
+  	defaultLicenseManagerController.LicenseManager_instance = contracts['LicenseManager'].contract;
+  	document.getElementById('LicenseManager_address').value = contracts['LicenseManager'].contract.address; 
+  
+	defaultLicenseManagerController.bindGui();
+	defaultLicenseManagerController._updateAttributes();
+  
+}
+//LicenseManagerGui.placeDefaultGui();
+//var  defaultLicenseManagerModel  = new LicenseManagerModel('Test');
+//defaultLicenseManagerModel.create();
+LicenseManagerGui.prefix='Test';
+LicenseManagerGui.placeDefaultGui();
+testLicenseManagerController  = new LicenseManagerController();
+testLicenseManagerController.prefix='Test';
+testLicenseManagerController.bindGui();
+
+var  defaultLicenseIssuerController  = new LicenseIssuerController();
+defaultLicenseIssuerController.bindGui();
+
+LicenseIssuerGui  = new LicenseIssuerGuiFactory();
+if(contracts['LicenseIssuer']!=undefined){
+  	defaultLicenseIssuerController.LicenseIssuer_instance = contracts['LicenseIssuer'].contract;
+  	document.getElementById('LicenseIssuer_address').value = contracts['LicenseIssuer'].contract.address; 
+  
+	defaultLicenseIssuerController.bindGui();
+	defaultLicenseIssuerController._updateAttributes();
+  
+}
+//LicenseIssuerGui.placeDefaultGui();
+//var  defaultLicenseIssuerModel  = new LicenseIssuerModel('Test');
+//defaultLicenseIssuerModel.create();
+LicenseIssuerGui.prefix='Test';
+LicenseIssuerGui.placeDefaultGui();
+testLicenseIssuerController  = new LicenseIssuerController();
+testLicenseIssuerController.prefix='Test';
+testLicenseIssuerController.bindGui();
+
+</script>
 
 </body>
 </html>

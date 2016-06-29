@@ -5,7 +5,9 @@ A number of contracts to issue license.
 
 
 * [LicenseManager](#contract-licensemanager)
+
 * [LicenseIssuer](#contract-licenseissuer)
+
 
 ## contract: LicenseManager
 
@@ -26,7 +28,7 @@ The licensmanager creates an issuer contract and holds the payment address.
 
 name|type|visiblity|delegate|doc
 ----|----|----|----|----
-owner|address|private||
+owner|address|public||
 paymentAddress|address|private||
 issuerName|string|public||
 contractCount|uint|public||
@@ -83,8 +85,8 @@ licenseId|uint|in|
 ## contract: LicenseIssuer
 
     overview:
-	function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public   returns (bool )
-	function checkLicense(address _address) public   constant  returns (bool )
+	function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public  returns (bool )
+	function checkLicense(address _address) public   constant returns (bool )
 	function changePaymentAddress(address _newPaymentAddress) public  
 	function stopIssuing() public  
 	function buyLicense(address _address,string _name) public  
@@ -126,7 +128,7 @@ licenseLifetime|uint|public||
 licenseCount|uint|public||
 issuable|bool|public||
 paymentAddress|address|private||
-licenseManager|address|private||The address which manange the contract.
+licenseManager|address|public||The address which manange the contract.
 
 #### LicenseIssuer mappings
 
@@ -134,7 +136,7 @@ name|type|mapsTo|visiblity|doc
 ----|----|----|----|----
 issuedLicenses|uint|IssuedLicense|public|licenseOwners|address|IssuedLicense|public|-
 
-#### LicenseIssuer.checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public   returns (bool )
+#### LicenseIssuer.checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public  returns (bool )
 
 Check the liceses by a given signature.
 
@@ -147,7 +149,7 @@ sig_r|bytes32|in|
 sig_s|bytes32|in|
 |bool|return|
 
-#### LicenseIssuer.checkLicense(address _address) public   constant  returns (bool )
+#### LicenseIssuer.checkLicense(address _address) public   constant returns (bool )
 
 Simply lookup the license and check if it is still valid.
 
@@ -181,5 +183,13 @@ name|type|direction|doc
 ----|----|----|----
 _address|address|in|
 _name|string|in|
+
+#### event licenseIssued
+
+
+name|type|indexed|doc
+----|----|----|----
+ownerAddress|address||
+name|string||
 
 

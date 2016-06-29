@@ -1,3 +1,4 @@
+
 /*
 * A number of contracts to issue license.
 * (c) Urs Zeidler
@@ -8,7 +9,7 @@
 */
 contract LicenseManager {
 
-	address private owner;
+	address public owner;
 	address private paymentAddress;
 	string public issuerName;
 	uint public contractCount;
@@ -28,9 +29,10 @@ contract LicenseManager {
 	    //End of user code
 	}
 	
-	
 	/*
 	* Change the address which receive the payment for an issued license. Only new issued licenses are affected.
+	* 
+	* _newPaymentAdress -
 	*/
 	function changePaymentAddress(address _newPaymentAdress) public   {
 		 if(owner != msg.sender) throw;
@@ -42,10 +44,15 @@ contract LicenseManager {
 	}
 	
 	
-	
 	/*
 	* Create a new licenseissuer contract.
 	* The price is in finney.
+	* 
+	* itemName -
+	* textHash -
+	* url -
+	* lifeTime -
+	* price -
 	*/
 	function createIssuerContract(string itemName,string textHash,string url,uint lifeTime,uint price) public   {
 		 if(owner != msg.sender) throw;
@@ -58,9 +65,10 @@ contract LicenseManager {
 	}
 	
 	
-	
 	/*
 	* Stopps the licence issuer from issue any more licences.
+	* 
+	* licenseId -
 	*/
 	function stopIssuing(uint licenseId) public   {
 		 if(owner != msg.sender)
@@ -73,14 +81,16 @@ contract LicenseManager {
 	}
 	
 	
-	
 	/*
 	* Change the address which receive the payment for an issued license for a specific license issuer. 
+	* 
+	* _newPaymentAddress -
+	* licenseId -
 	*/
 	function changePaymentAddress(address _newPaymentAddress,uint licenseId) public   {
 		 if(owner != msg.sender)
 		 	throw;
-		 if(!contracts[licenseId].getissuable())
+		 if(!contracts[licenseId].getIssuable())
 		 	throw;
 		 contracts[licenseId].changePaymentAddress(_newPaymentAddress);
 		
@@ -117,12 +127,13 @@ contract LicenseIssuer {
 	uint public licenseCount;
 	bool public issuable;
 	address private paymentAddress;
-	address private licenseManager;
+	address public licenseManager;
 	mapping (uint=>IssuedLicense)public issuedLicenses;
 	mapping (address=>IssuedLicense)public licenseOwners;
 	// Start of user code LicenseIssuer.attributes
 	//TODO: implement
 	// End of user code
+	
 	
 	event licenseIssued(address ownerAddress,string name);
 	//
@@ -144,11 +155,17 @@ contract LicenseIssuer {
 	    //End of user code
 	}
 	
-	
 	/*
 	* Check the liceses by a given signature.
+	* 
+	* factHash -
+	* v -
+	* sig_r -
+	* sig_s -
+	* returns
+	*  -
 	*/
-	function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public   returns (bool ) {
+	function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public  returns (bool ) {
 		 address _address = ecrecover(factHash, v, sig_r, sig_s);
 		 IssuedLicense data = licenseOwners[_address];
 		 if(data.issuedDate == 0)
@@ -163,11 +180,14 @@ contract LicenseIssuer {
 	}
 	
 	
-	
 	/*
 	* Simply lookup the license and check if it is still valid.
+	* 
+	* _address -
+	* returns
+	*  -
 	*/
-	function checkLicense(address _address) public   constant  returns (bool ) {
+	function checkLicense(address _address) public   constant returns (bool ) {
 		 IssuedLicense data = licenseOwners[_address];
 		 if(data.issuedDate == 0)
 		 	return false;
@@ -181,9 +201,10 @@ contract LicenseIssuer {
 	}
 	
 	
-	
 	/*
 	* Change the payment address.
+	* 
+	* _newPaymentAddress -
 	*/
 	function changePaymentAddress(address _newPaymentAddress) public   {
 		 if(licenseManager != msg.sender) throw;
@@ -193,7 +214,6 @@ contract LicenseIssuer {
     	//TODO: implement
 	    //End of user code
 	}
-	
 	
 	
 	/*
@@ -209,9 +229,11 @@ contract LicenseIssuer {
 	}
 	
 	
-	
 	/*
 	* Issue a license for the item by sending the address data and the amount of money.
+	* 
+	* _address -
+	* _name -
 	*/
 	function buyLicense(address _address,string _name) public   {
 		 if(msg.value<licencePrice|| !issuable) 
@@ -227,10 +249,10 @@ contract LicenseIssuer {
 		 licenseCount++;
 		 //paymentAddress.send(msg.value);
 		 if(msg.value==licencePrice){
-		 	paymentAddress.send(msg.value);
+		 	var t1 = paymentAddress.send(msg.value);
 		 }else{
-		 	paymentAddress.send(licencePrice);
-		 	msg.sender.send(msg.value-licencePrice);
+		 	var t2 = paymentAddress.send(licencePrice);
+		 	var t = msg.sender.send(msg.value-licencePrice);
 		 }
 		
 		//Start of user code LicenseIssuer.function.buyLicense
@@ -238,8 +260,8 @@ contract LicenseIssuer {
     	//End of user code
 	}
 	
-	// getissuable
-	function getissuable() returns(bool) {
+	// getIssuable
+	function getIssuable() returns(bool) {
 		return issuable;
 	}
 	

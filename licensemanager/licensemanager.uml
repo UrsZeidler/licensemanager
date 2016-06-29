@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Contracts="http:///schemas/Contracts/_mMyBwK-8EeWyf-Y9sdI4kw/19" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/Contracts/_mMyBwK-8EeWyf-Y9sdI4kw/19 pathmap://UML_PROFILE/solidity_profiles.uml#_mMyo0K-8EeWyf-Y9sdI4kw">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Contracts="http:///schemas/Contracts/_HcCYMDMgEeaX2cAdiOKUjg/33" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/Contracts/_HcCYMDMgEeaX2cAdiOKUjg/33 pathmap://UML_PROFILE/solidity_profiles.uml#_HcC_QDMgEeaX2cAdiOKUjg">
   <uml:Model xmi:id="_TCiy8Op_EeW-WZmxJuA3BA" name="licensemanager">
     <packagedElement xmi:type="uml:Package" xmi:id="_ZGhHkOp_EeW-WZmxJuA3BA" name="use-cases">
       <packagedElement xmi:type="uml:Actor" xmi:id="_T8dBAOqAEeW-WZmxJuA3BA" name="license issuer"/>
@@ -49,7 +49,7 @@
         <ownedComment xmi:type="uml:Comment" xmi:id="_hucicOtKEeWkINMUmqeUiw">
           <body>The licensmanager creates an issuer contract and holds the payment address.</body>
         </ownedComment>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_G8KywOtKEeWkINMUmqeUiw" name="owner" visibility="private">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_G8KywOtKEeWkINMUmqeUiw" name="owner" visibility="public">
           <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Rg98UOtMEeWkINMUmqeUiw" name="paymentAddress" visibility="private">
@@ -149,7 +149,7 @@ issued licenses.</body>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_cWFeYOuREeWbt_EKc3qwXg" name="paymentAddress" visibility="private">
           <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_IsGeQOwZEeWXZ76iNScx7g" name="licenseManager" visibility="private">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_IsGeQOwZEeWXZ76iNScx7g" name="licenseManager" visibility="public">
           <ownedComment xmi:type="uml:Comment" xmi:id="_tg4ZwOx-EeWuW8ZKFRvBKQ">
             <body>The address which manange the contract.</body>
           </ownedComment>
@@ -235,15 +235,15 @@ issued licenses.</body>
       </packagedElement>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_TFNFYOp_EeW-WZmxJuA3BA">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_TFPhoOp_EeW-WZmxJuA3BA" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_TFPhoep_EeW-WZmxJuA3BA" key="Version" value="0.0.20"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_TFPhoup_EeW-WZmxJuA3BA" key="Comment" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_TFPho-p_EeW-WZmxJuA3BA" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_TFPhpOp_EeW-WZmxJuA3BA" key="Date" value="2015-12-31"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_TFPhpep_EeW-WZmxJuA3BA" key="Author" value=""/>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_IiMw0DVWEeaTXNblRk4VTg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_IiMw0TVWEeaTXNblRk4VTg" key="Version" value="0.0.34"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_IiMw0jVWEeaTXNblRk4VTg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_IiMw0zVWEeaTXNblRk4VTg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_IiMw1DVWEeaTXNblRk4VTg" key="Date" value="2016-06-15"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_IiMw1TVWEeaTXNblRk4VTg" key="Author" value="Urs Zeidler"/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_TFNscOp_EeW-WZmxJuA3BA" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILE/solidity_profiles.uml#_mMyo0K-8EeWyf-Y9sdI4kw"/>
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILE/solidity_profiles.uml#_HcC_QDMgEeaX2cAdiOKUjg"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILE/solidity_profiles.uml#_uCE5EKHREeWjOZ0I8ilEXA"/>
     </profileApplication>
@@ -260,7 +260,7 @@ issued licenses.</body>
   <Contracts:Function xmi:id="_ppZzkOtaEeWkINMUmqeUiw" functionCode="IssuedLicense data = licenseOwners[_address];&#xA;if(data.issuedDate == 0)&#xA;&#x9;return false;&#xA;if((licenseLifetime&lt;1)||(licenseLifetime+now&lt;data.issuedDate))&#xA;&#x9;return true;&#xA;return false;&#xA;" base_Operation="_EtvZEOtaEeWkINMUmqeUiw" returnType="constant"/>
   <Contracts:Event xmi:id="_4o-KMOtaEeWkINMUmqeUiw" base_Operation="_rEf4kOtaEeWkINMUmqeUiw"/>
   <Contracts:Function xmi:id="_-WkWcOtrEeWkINMUmqeUiw" functionCode="if(owner != msg.sender)&#xA;&#x9;throw;&#xA;&#xA;contracts[licenseId].stopIssuing();" base_Operation="_9XKkYOtqEeWkINMUmqeUiw"/>
-  <Contracts:Function xmi:id="_7Drk8OwREeWXZ76iNScx7g" functionCode="if(owner != msg.sender)&#xA;&#x9;throw;&#xD;&#xA;if(!contracts[licenseId].getissuable())&#xA;&#x9;throw;&#xA;contracts[licenseId].changePaymentAddress(_newPaymentAddress);&#xA;" base_Operation="_7DpvwOwREeWXZ76iNScx7g"/>
+  <Contracts:Function xmi:id="_7Drk8OwREeWXZ76iNScx7g" functionCode="if(owner != msg.sender)&#xA;&#x9;throw;&#xD;&#xA;if(!contracts[licenseId].getIssuable())&#xA;&#x9;throw;&#xA;contracts[licenseId].changePaymentAddress(_newPaymentAddress);&#xA;" base_Operation="_7DpvwOwREeWXZ76iNScx7g"/>
   <Contracts:Function xmi:id="_y31EMOwZEeWXZ76iNScx7g" functionCode="if(licenseManager != msg.sender) throw;&#xA;paymentAddress = _newPaymentAddress;" base_Operation="_s1GswOwZEeWXZ76iNScx7g"/>
   <Contracts:Function xmi:id="_5XEYgOwZEeWXZ76iNScx7g" functionCode="if(licenseManager != msg.sender) throw;&#xA;issuable = false;" base_Operation="_2xePQOwZEeWXZ76iNScx7g"/>
   <Contracts:GetterSetter xmi:id="_eqXWQOwiEeWXZ76iNScx7g" base_Property="_kaWhgOtqEeWkINMUmqeUiw" setter="false"/>

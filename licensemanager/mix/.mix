@@ -1,20 +1,21 @@
 {
 	"applicationUrlEth": "",
 	"applicationUrlHttp": "",
-	"deployBlockNumber": "",
-	"deploymentAddresses": {},
+	"deployBlockNumber": "1206188",
+	"deploymentAddresses": {
+		"LicenseManager": "0xd20de7759d64e5004ea2f7bfa5e6cde2f6d18d69",
+		"<LicenseManager - 0>": "0xd20de7759d64e5004ea2f7bfa5e6cde2f6d18d69"
+	},
 	"deploymentDir": "",
-	"deploymentTrHashes": "{}",
-	"files": [
-	] ,
-	"lastPackageDate": "",
-	"packageBase64": "",
-	"packageHash": "",
+	"deploymentTrHashes": "{\"LicenseManager.LicenseManager()\":\"0x389b02840ae5ad409e16b2618fec7a6f2709cd03e9d8466b966d42a3f801ee1d\",\"<LicenseManager - 0>.createIssuerContract()\":\"0xea0e0926d188b39810b5fb2ad09d5d7aa04f7156d0fc76313f8703383028fbcc\"}",
+	"files": [],
+	"lastPackageDate": "2016-06-26T22:57:02",
+	"localPackageUrl": "file:///home/urs/git/licensemanager/licensemanager/mix/package//www/",
 	"registerContentHashBlockNumber": -1,
 	"registerContentHashTrHash": "",
 	"registerUrlBlockNumber": -1,
 	"registerUrlTrHash": "",
-	"startUrl": "/contracts.html",
+	"startUrl": "/l.html",
 	"title": "licensemanager",
 	"states": [
 		{
@@ -55,22 +56,115 @@
 					"name": "user4",
 					"secret": "e9bf58b523b4c94255cad51b3f7efdc85a0c970bf42f1d191c126bb6f49bfb9d"
 				}
-			] ,
+			],
 			"blocks": [
+				{
+					"hash": "",
+					"number": 1,
+					"status": "mined",
+					"transactions": [
+						{
+							"contractId": "LicenseManager",
+							"functionId": "LicenseManager",
+							"gas": {
+								"value": "1335065"
+							},
+							"gasAuto": true,
+							"gasPrice": {
+								"unit": 18,
+								"value": "100000"
+							},
+							"isContractCreation": true,
+							"isFunctionCall": true,
+							"label": "LicenseManager.LicenseManager()",
+							"parameters": {
+								"_paymentAddress": "0x38f388fadf4a6a35c61c3f88194ec5ae162c8944",
+								"_name": "gzgzzzzgzgzg"
+							},
+							"saveStatus": true,
+							"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
+							"value": {
+								"unit": 18,
+								"value": "0"
+							}
+						},
+						{
+							"contractId": "<LicenseManager - 0>",
+							"functionId": "createIssuerContract",
+							"gas": {
+								"value": "711300"
+							},
+							"gasAuto": true,
+							"gasPrice": {
+								"unit": 18,
+								"value": "100000"
+							},
+							"isContractCreation": false,
+							"isFunctionCall": true,
+							"label": "<LicenseManager - 0>.createIssuerContract()",
+							"parameters": {
+								"itemName": "lc-1",
+								"lifeTime": "0",
+								"price": "1000",
+								"textHash": "hhhhh",
+								"url": ""
+							},
+							"saveStatus": true,
+							"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
+							"value": {
+								"unit": 18,
+								"value": "0"
+							}
+						}
+					]
+				},
+				{
+					"hash": "",
+					"number": 2,
+					"status": "mined",
+					"transactions": [
+						{
+							"contractId": "<LicenseManager - 0>",
+							"functionId": "createIssuerContract",
+							"gas": {
+								"value": "1061464"
+							},
+							"gasAuto": true,
+							"gasPrice": {
+								"unit": 18,
+								"value": "100000"
+							},
+							"isContractCreation": false,
+							"isFunctionCall": true,
+							"label": "<LicenseManager - 0>.createIssuerContract()",
+							"parameters": {
+								"itemName": "My Test Item",
+								"lifeTime": "0",
+								"price": "10000",
+								"textHash": "hash",
+								"url": "url"
+							},
+							"saveStatus": true,
+							"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
+							"value": {
+								"unit": 18,
+								"value": "0"
+							}
+						}
+					]
+				},
 				{
 					"hash": "",
 					"number": -1,
 					"status": "pending",
-					"transactions": [] 					
+					"transactions": []
 				}
-			] ,
-			"contracts": [] ,
+			],
+			"contracts": [],
 			"miner": {
 				"address": "38f388fadf4a6a35c61c3f88194ec5ae162c8944",
 				"balance": {
 					"objectName": "",
-					"value": "1000000",
-					"unit": 12,
 					"value": "1000000",
 					"unit": 12
 				},
@@ -78,8 +172,360 @@
 				"secret": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074"
 			},
 			"title": "Default",
-			"transactions": []
+			"transactions": [
+				{
+					"contractId": "LicenseIssuer",
+					"functionId": "LicenseIssuer",
+					"gas": {
+						"value": "250000"
+					},
+					"gasAuto": true,
+					"gasPrice": {
+						"unit": 18,
+						"value": "100000"
+					},
+					"isContractCreation": true,
+					"isFunctionCall": true,
+					"label": "LicenseIssuer.LicenseIssuer()",
+					"parameters": {},
+					"saveStatus": true,
+					"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
+					"value": {
+						"unit": 18,
+						"value": "0"
+					}
+				}
+			]
+		},
+		{
+			"accounts": [
+				{
+					"address": "38f388fadf4a6a35c61c3f88194ec5ae162c8944",
+					"balance": {
+						"unit": 12,
+						"value": "1000000"
+					},
+					"name": "user1",
+					"secret": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074"
+				},
+				{
+					"address": "06400992be45bc64a52b5c55d3df84596d6cb4a1",
+					"balance": {
+						"unit": 12,
+						"value": "1000000"
+					},
+					"name": "user2",
+					"secret": "db95780d2f30ca8211eec37cc110cc58a2d4f9308dea00ede6717a585efa2eb7"
+				},
+				{
+					"address": "fa4b795b491cc1975e89f3c78972c3e2e827c882",
+					"balance": {
+						"unit": 12,
+						"value": "1000000"
+					},
+					"name": "user3",
+					"secret": "090f51d202f847d2468fc87fb06f92c469b8a1927b4aecea796b6831f1331382"
+				},
+				{
+					"address": "b0dcdc575ef06dc30aaea069d8043c9d463c931c",
+					"balance": {
+						"unit": 12,
+						"value": "1000000"
+					},
+					"name": "user4",
+					"secret": "e9bf58b523b4c94255cad51b3f7efdc85a0c970bf42f1d191c126bb6f49bfb9d"
+				}
+			],
+			"blocks": [
+				{
+					"hash": "",
+					"number": 1,
+					"status": "mined",
+					"transactions": [
+						{
+							"contractId": "LicenseManager",
+							"functionId": "LicenseManager",
+							"gas": {
+								"value": "1335065"
+							},
+							"gasAuto": true,
+							"gasPrice": {
+								"unit": 18,
+								"value": "100000"
+							},
+							"isContractCreation": true,
+							"isFunctionCall": true,
+							"label": "LicenseManager.LicenseManager()",
+							"parameters": {
+								"_paymentAddress": "0x38f388fadf4a6a35c61c3f88194ec5ae162c8944",
+								"_name": "gzgzzzzgzgzg"
+							},
+							"saveStatus": true,
+							"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
+							"value": {
+								"unit": 18,
+								"value": "0"
+							}
+						},
+						{
+							"contractId": "<LicenseManager - 0>",
+							"functionId": "createIssuerContract",
+							"gas": {
+								"value": "711300"
+							},
+							"gasAuto": true,
+							"gasPrice": {
+								"unit": 18,
+								"value": "100000"
+							},
+							"isContractCreation": false,
+							"isFunctionCall": true,
+							"label": "<LicenseManager - 0>.createIssuerContract()",
+							"parameters": {
+								"itemName": "lc-1",
+								"lifeTime": "0",
+								"price": "1000",
+								"textHash": "hhhhh",
+								"url": ""
+							},
+							"saveStatus": true,
+							"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
+							"value": {
+								"unit": 18,
+								"value": "0"
+							}
+						}
+					]
+				},
+				{
+					"hash": "",
+					"number": 2,
+					"status": "mined",
+					"transactions": []
+				},
+				{
+					"hash": "",
+					"number": -1,
+					"status": "pending",
+					"transactions": [
+						{
+							"contractId": "<LicenseManager - 0>",
+							"functionId": "createIssuerContract",
+							"gas": {
+								"value": "1061464"
+							},
+							"gasAuto": true,
+							"gasPrice": {
+								"unit": 18,
+								"value": "100000"
+							},
+							"isContractCreation": false,
+							"isFunctionCall": true,
+							"label": "<LicenseManager - 0>.createIssuerContract()",
+							"parameters": {
+								"itemName": "My Test Item",
+								"lifeTime": "0",
+								"price": "10000",
+								"textHash": "hash",
+								"url": "url"
+							},
+							"saveStatus": true,
+							"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
+							"value": {
+								"unit": 18,
+								"value": "0"
+							}
+						}
+					]
+				}
+			],
+			"contracts": [],
+			"miner": {
+				"address": "38f388fadf4a6a35c61c3f88194ec5ae162c8944",
+				"balance": {
+					"objectName": "",
+					"value": "1000000",
+					"unit": 12
+				},
+				"name": "user1",
+				"secret": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074"
+			},
+			"title": "Two_licenceIssuer",
+			"transactions": [
+				{
+					"contractId": "LicenseIssuer",
+					"functionId": "LicenseIssuer",
+					"gas": {
+						"value": "250000"
+					},
+					"gasAuto": true,
+					"gasPrice": {
+						"unit": 18,
+						"value": "100000"
+					},
+					"isContractCreation": true,
+					"isFunctionCall": true,
+					"label": "LicenseIssuer.LicenseIssuer()",
+					"parameters": {},
+					"saveStatus": true,
+					"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
+					"value": {
+						"unit": 18,
+						"value": "0"
+					}
+				}
+			]
+		},
+		{
+			"accounts": [
+				{
+					"address": "38f388fadf4a6a35c61c3f88194ec5ae162c8944",
+					"balance": {
+						"unit": 12,
+						"value": "1000000"
+					},
+					"name": "user1",
+					"secret": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074"
+				},
+				{
+					"address": "06400992be45bc64a52b5c55d3df84596d6cb4a1",
+					"balance": {
+						"unit": 12,
+						"value": "1000000"
+					},
+					"name": "user2",
+					"secret": "db95780d2f30ca8211eec37cc110cc58a2d4f9308dea00ede6717a585efa2eb7"
+				},
+				{
+					"address": "fa4b795b491cc1975e89f3c78972c3e2e827c882",
+					"balance": {
+						"unit": 12,
+						"value": "1000000"
+					},
+					"name": "user3",
+					"secret": "090f51d202f847d2468fc87fb06f92c469b8a1927b4aecea796b6831f1331382"
+				},
+				{
+					"address": "b0dcdc575ef06dc30aaea069d8043c9d463c931c",
+					"balance": {
+						"unit": 12,
+						"value": "1000000"
+					},
+					"name": "user4",
+					"secret": "e9bf58b523b4c94255cad51b3f7efdc85a0c970bf42f1d191c126bb6f49bfb9d"
+				}
+			],
+			"blocks": [
+				{
+					"hash": "",
+					"number": 1,
+					"status": "mined",
+					"transactions": [
+						{
+							"contractId": "LicenseManager",
+							"functionId": "LicenseManager",
+							"gas": {
+								"value": "1335065"
+							},
+							"gasAuto": true,
+							"gasPrice": {
+								"unit": 18,
+								"value": "100000"
+							},
+							"isContractCreation": true,
+							"isFunctionCall": true,
+							"label": "LicenseManager.LicenseManager()",
+							"parameters": {
+								"_name": "A license manager for the license manager.",
+								"_paymentAddress": "0x38f388fadf4a6a35c61c3f88194ec5ae162c8944",
+								"itemName": "",
+								"textHash": "",
+								"url": "",
+								"lifeTime": "",
+								"price": "",
+								"_pa": "<LicenseManager - 0>"
+							},
+							"saveStatus": true,
+							"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
+							"value": {
+								"unit": 18,
+								"value": "0"
+							}
+						},
+						{
+							"contractId": "<LicenseManager - 0>",
+							"functionId": "createIssuerContract",
+							"gas": {
+								"value": "711300"
+							},
+							"gasAuto": true,
+							"gasPrice": {
+								"unit": 18,
+								"value": "100000"
+							},
+							"isContractCreation": false,
+							"isFunctionCall": true,
+							"label": "LicenseManager.createIssuerContract()",
+							"parameters": {
+								"itemName": "A simple license for the LicenseManager.",
+								"lifeTime": "0",
+								"price": "100",
+								"textHash": "No hash.",
+								"url": "No url."
+							},
+							"saveStatus": true,
+							"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
+							"value": {
+								"unit": 18,
+								"value": "0"
+							}
+						}
+					]
+				},
+				{
+					"hash": "",
+					"number": -1,
+					"status": "pending",
+					"transactions": []
+				}
+			],
+			"contracts": [],
+			"miner": {
+				"address": "38f388fadf4a6a35c61c3f88194ec5ae162c8944",
+				"balance": {
+					"objectName": "",
+					"value": "1000000",
+					"unit": 12
+				},
+				"name": "user1",
+				"secret": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074"
+			},
+			"title": "Testnet-deployment",
+			"transactions": [
+				{
+					"contractId": "LicenseIssuer",
+					"functionId": "LicenseIssuer",
+					"gas": {
+						"value": "250000"
+					},
+					"gasAuto": true,
+					"gasPrice": {
+						"unit": 18,
+						"value": "100000"
+					},
+					"isContractCreation": true,
+					"isFunctionCall": true,
+					"label": "LicenseIssuer.LicenseIssuer()",
+					"parameters": {},
+					"saveStatus": true,
+					"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
+					"value": {
+						"unit": 18,
+						"value": "0"
+					}
+				}
+			]
 		}
-	] ,
+	],
 	"defaultStateIndex": 0
 }

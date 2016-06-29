@@ -1,0 +1,123 @@
+<!doctype>
+<html>
+<head>
+<!--
+<script type='text/javascript' src="contractsWeb3.js">
+</script>
+-->
+<script type='text/javascript' src="package/compilation/contracts.sol.js">
+</script>
+	
+<script type='text/javascript' src="js/contracts-main.js">
+</script>
+
+<!-- start of style -->
+<style>
+.contract {
+	border-style: solid;
+	border-width: 1px;
+	} 
+.contract_attributes{
+	border-style: solid;
+	border-width: 1px;
+	} 
+.Struct_Mapping{}
+.Value_Mapping{}
+.contract_attribute{}
+.contract_attribute_value{}
+.function_execution{}
+.function_parameter{}
+.function_result{}
+
+</style>
+</head>
+<body bgcolor='#E6E6FA'>
+	<h1>Sample Interface for contracts</h1>
+
+The License manager:	<div id="LicenseManager-gui" ></div>
+The available license to issue:	<div id="1-GuiContainer" ></div>
+
+
+<script type='text/javascript'>
+// if(typeof web3 !== 'undefined')
+//     web3 = new Web3(web3.currentProvider);
+    
+web3.eth.defaultAccount = web3.eth.accounts[0];
+
+Gui = function(contract){
+	this.contract = contract;
+	this.prefix=contract.address;
+	this.price = contract.licencePrice();
+	var self=this;
+	
+	this.buyLicense=function() {
+			var e = document.getElementById(self.prefix+'LicenseIssuer_buyLicense_address_string__address');
+			var param__address = e.value;
+			var e = document.getElementById(self.prefix+'LicenseIssuer_buyLicense_address_string__name');
+			var param__name = e.value;
+			console.log(':' + self.prefix+' '+self.price);
+			var res = self.contract.buyLicense.sendTransaction(param__address,param__name,{value:self.price,gas:300000});
+		}
+	
+	this.bindGui=function() {
+		var btn = document.getElementById(this.prefix+'LicenseIssuerController.LicenseIssuer_buyLicense_address_string');
+		console.log('bind:LicenseIssuer_buyLicense ' + this.prefix+' '+btn+'  '+this.buyLicense);//LicenseIssuer_buyLicense);
+		btn.onclick = this.buyLicense;
+	}
+	
+}
+
+var lcContract = web3.eth.contract(JSON.parse(LicenseManager.abi));
+var liContract=	web3.eth.contract(JSON.parse(LicenseIssuer.abi));
+
+var lc = lcContract.at(contracts['LicenseManager'].address);
+var lmg = new LicenseManagerGuiMananger('LicenseManager-gui');
+lmg.addManager(lc);
+
+var m = new LicenseIssuerGuiMananger('1-GuiContainer');
+var issuerContracts = [];
+m.clearGui();
+var cc = lc.contractCount();
+for (i = 0; i < cc; i++) {
+	var b = lc.contracts(i);
+	var sb =  liContract.at(b);
+	m.addManager(sb);
+	issuerContracts.push(sb);
+	//new Gui(sb);
+// 	buyLi(sb,'addess','name');
+} 
+
+m.displayGui();
+lmg.displayGui();
+console.log('gui added');
+for (i = 0; i < issuerContracts.length; i++) {
+	var sb =  issuerContracts[i];
+	var g = new Gui(sb);
+	g.bindGui();
+} 
+
+
+
+//m.updateGui();
+//lmg.updateGui();
+
+// var res = lc.changePaymentAddress.sendTransaction('new item-1',{value:0,gas:200000});
+// var res = lc.createIssuerContract.sendTransaction('new item-1','','',0,100,{value:0,gas:200000});
+// console.log('send'+res);
+// var res = lc.stopIssuing.sendTransaction(1,{value:0,gas:300000});
+// console.log('stop'+res);
+var t = m.managers[0].getContract();
+var res = lc.createIssuerContract.sendTransaction('itemname','textHash','url',0,1000,{value:0,gas:1400000});
+console.log('createIssuer'+res);
+web3.eth.defaultAccount = web3.eth.accounts[1];
+var res = t.buyLicense.sendTransaction('','name',{value:1000000000000000000,gas:300000});
+console.log('buy1 '+res);
+var res = t.buyLicense.sendTransaction('','name1',{value:1000000000000000000,gas:300000});
+console.log('buy2 '+res);
+var res = t.buyLicense.sendTransaction('','name2',{value:1000000000000000000000,gas:300000});
+console.log('buy3 '+res);
+
+</script>
+
+</body>
+</html>
