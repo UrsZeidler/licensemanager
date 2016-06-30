@@ -19,11 +19,15 @@
 <style>
 .contract {
 
+	border-style: solid;
+	border-width: 1px;
+
 }
 
 .contract_attributes {
-	border-style: solid;
-	border-width: 1px;
+
+	border-top-style: solid;
+  	border-top-width: 1px;
 }
 
 .Struct_Mapping {
@@ -43,12 +47,15 @@
 }
 
 .function_execution {
-	display: inline;
-	
+	border-top-style: solid;
+  	border-top-width: 1px;
+  	width : 100%;
+	padding-bottom: 10px;
 }
 
 .function_parameter {
-	
+
+
 }
 
 .function_result {
@@ -87,7 +94,9 @@
 		<!-- content-->
 		<main class="dapp-content">
 		<div class="dapp-container">
-			<div id="LicenseManager_gui1"></div>
+			<div id="LicenseManager_gui1">  
+				<div class="dapp-progress">loading data from contract</div> 
+			</div>
 		</div>
 		</main>
 		<!-- actionbar -->
@@ -100,6 +109,7 @@
 
 
 	<script type='text/javascript'>
+	
 		// if(typeof web3 !== 'undefined')
 		//     web3 = new Web3(web3.currentProvider);
 		var liContract = web3.eth.contract(JSON.parse(LicenseIssuer.abi));
@@ -154,7 +164,7 @@
 						+ '	    <div class="contract_attribute" id="'+prefix+'LicenseIssuer_contract_attribute_licencePrice"> licencePrice:'
 						+ '	      <div class="contract_attribute_value" id="'+prefix+'LicenseIssuer_licencePrice_value">'
 						+ licencePrice
-						+ '</div>'
+						+ ' wei</div>'
 						+ '	    </div>'
 						+ '	    <div class="contract_attribute" id="'+prefix+'LicenseIssuer_contract_attribute_licenseLifetime"> licenseLifetime:'
 						+ '	      <div class="contract_attribute_value" id="'+prefix+'LicenseIssuer_licenseLifetime_value">'
@@ -202,13 +212,13 @@
 
 			this.issuerActions = function(index,prefix) {
 				return ''
-						+ '	  <div class="function_execution " id="'+prefix+'LicenseIssuer_contract_function_LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32">'
+						+ '	  <div class="function_execution" id="'+prefix+'LicenseIssuer_contract_function_LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32">'
 						+ '	LicenseIssuer_checkLicense: '
-						+ '		  <div class="function_parameter ">factHash<input  type="text" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_factHash"></div>'
-						+ '		  <div class="function_parameter ">v<input  type="number" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_v"></div>'
-						+ '		  <div class="function_parameter ">sig_r<input  type="text" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_r"></div>'
-						+ '		  <div class="function_parameter ">sig_s<input  type="text" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_s"></div>'
-						+ '		<button  id="'
+						+ '		  <div class="function_parameter row clear"><div class="col col-1-4">factHash</div>  <input class="col col-3-4"  type="text" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_factHash"/></div>'
+						+ '		  <div class="function_parameter row clear"><div class="col col-1-4">v</div>         <input class="col col-3-4" type="number" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_v"/></div>'
+						+ '		  <div class="function_parameter row clear"><div class="col col-1-4">sig_r</div>     <input class="col col-3-4" type="text" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_r"/></div>'
+						+ '		  <div class="function_parameter row clear"><div class="col col-1-4">sig_s</div>     <input class="col col-3-4" type="text" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_s"/></div>'
+						+ '		<button class="dapp-block-button" id="'
 						+ prefix
 						+ 'LicenseIssuerController.LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32" onclick="'
 						+ 'checkLicense_bytes32_uint8_bytes32_bytes32('+index+',\''+prefix +'\')">checkLicense</button>'
@@ -216,17 +226,17 @@
 						+ '	  </div>'
 						+ '	  <div class="function_execution" id="'+prefix+'LicenseIssuer_contract_function_LicenseIssuer_checkLicense_address">'
 						+ '	LicenseIssuer_checkLicense:'
-						+ '		  <div class="function_parameter">_address<input type="text" id="'+prefix+'LicenseIssuer_checkLicense_address__address"></div>'
-						+ '		<button id="'
+						+ '		  <div class="function_parameter">_address<input class="dapp-address-input" type="text" id="'+prefix+'LicenseIssuer_checkLicense_address__address"></div>'
+						+ '		<button class="dapp-block-button"id="'
 						+ prefix
 						+ 'LicenseIssuerController.LicenseIssuer_checkLicense_address" onclick="checkLicense_address('+index+',\''+ prefix +'\' )">checkLicense</button>'
 						+ '		<div class="function_result" id="'+prefix+'LicenseIssuer_checkLicense_address_res"></div>'
 						+ '	  </div>'
 						+ '	  <div class="function_execution" id="'+prefix+'LicenseIssuer_contract_function_LicenseIssuer_buyLicense_address_string">'
 						+ '	LicenseIssuer_buyLicense:'
-						+ '		  <div class="function_parameter">_address<input type="text" id="'+prefix+'LicenseIssuer_buyLicense_address_string__address"></div>'
+						+ '		  <div class="function_parameter">_address<input class="dapp-address-input" type="text" id="'+prefix+'LicenseIssuer_buyLicense_address_string__address"></div>'
 						+ '		  <div class="function_parameter">_name<input type="text" id="'+prefix+'LicenseIssuer_buyLicense_address_string__name"></div>'
-						+ '		<button id="'
+						+ '		<button class="dapp-block-button" id="'
 						+ prefix
 						+ 'LicenseIssuerController.LicenseIssuer_buyLicense_address_string" onclick="'
 						+ 'buyLicense('+index+',\''+prefix +'\')">buyLicense</button>'
@@ -239,14 +249,14 @@
 				return '	  <div class="function_execution" id="'+prefix+'LicenseIssuer_contract_function_LicenseIssuer_changePaymentAddress_address">'
 						+ '	LicenseIssuer_changePaymentAddress:'
 						+ '		  <div class="function_parameter">_newPaymentAddress<input type="text" id="'+prefix+'LicenseIssuer_changePaymentAddress_address__newPaymentAddress"></div>'
-						+ '		<button id="'
+						+ '		<button class="dapp-block-button"id="'
 						+ prefix
 						+ 'LicenseIssuerController.LicenseIssuer_changePaymentAddress_address" onclick="changePaymentAddress('+index+',\''+prefix +'\')">changePaymentAddress</button>'
 						+ '		<div class="function_result" id="'+prefix+'LicenseIssuer_changePaymentAddress_address_res"></div>'
 						+ '	  </div>'
 						+ '	  <div class="function_execution" id="'+prefix+'LicenseIssuer_contract_function_LicenseIssuer_stopIssuing">'
 						+ '	LicenseIssuer_stopIssuing:'
-						+ '		<button id="'
+						+ '		<button class="dapp-block-button"id="'
 						+ prefix
 						+ 'LicenseIssuerController.LicenseIssuer_stopIssuing" onclick="'
 						+ 'stopIssuing('+index+',\''+prefix +'\')">stopIssuing</button>'
@@ -281,7 +291,7 @@
 					+	'		  <div class="function_parameter">url<input type="text" id="'+this.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_url"></div>'
 					+	'		  <div class="function_parameter">lifeTime<input type="number" id="'+this.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_lifeTime"></div>'
 					+	'		  <div class="function_parameter">price<input type="number" id="'+this.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_price"></div>'
-					+	'		<button id="'+this.prefix+'LicenseManagerController.LicenseManager_createIssuerContract_string_string_string_uint_uint" onclick="createIssuerContract(\''+this.prefix +'\')">createIssuerContract</button>'
+					+	'		<button class="dapp-block-button"id="'+this.prefix+'LicenseManagerController.LicenseManager_createIssuerContract_string_string_string_uint_uint" onclick="createIssuerContract(\''+this.prefix +'\')">createIssuerContract</button>'
 					+	'		<div class="function_result" id="'+this.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_res"></div>'
 					+	'	  </div>'
 				}
