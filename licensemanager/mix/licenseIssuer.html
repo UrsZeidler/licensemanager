@@ -59,10 +59,11 @@
 }
 
 .function_parameter_name{
-margin-top: 19px;
+	margin-top: 24px;
 }
 .function_button{
-margin-top: 10px;
+	margin-top: 10px;
+	margin-left: 25%;
 }
 
 .function_result {
@@ -225,8 +226,8 @@ margin-top: 10px;
 			this.issuerActions = function(index,prefix) {
 				return ''
 						+ '	  <div class="function_execution" id="'+prefix+'LicenseIssuer_contract_function_LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32">'
-						+ '	LicenseIssuer_checkLicense: '
-						+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">factHash</div> <input class="col col-3-4"  type="text" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_factHash"/></div>'
+						+ 'CheckLicense by a signed message :'
+						+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">factHash</div> <input class="col col-3-4"  type="textArea" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_factHash"/></div>'
 						+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">v</div>         <input class="col col-3-4" type="number" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_v"/></div>'
 						+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">sig_r</div>     <input class="col col-3-4" type="text" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_r"/></div>'
 						+ '		  <div class="function_parameter row clear"><div class="col col-1-4 function_parameter_name">sig_s</div>     <input class="col col-3-4" type="text" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_s"/></div>'
@@ -237,7 +238,7 @@ margin-top: 10px;
 						+ '		<div class="function_result" id="'+prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_res"></div>'
 						+ '	  </div>'
 						+ '	  <div class="function_execution" id="'+prefix+'LicenseIssuer_contract_function_LicenseIssuer_checkLicense_address">'
-						+ '	LicenseIssuer_checkLicense:'
+						+ 'CheckLicense by address:'
 						+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">address</div><input class="dapp-address-input col col-3-4" type="text" id="'+prefix+'LicenseIssuer_checkLicense_address__address"></div>'
 						+ '		<button class="dapp-block-button function_button"id="'
 						+ prefix
@@ -245,7 +246,7 @@ margin-top: 10px;
 						+ '		<div class="function_result" id="'+prefix+'LicenseIssuer_checkLicense_address_res"></div>'
 						+ '	  </div>'
 						+ '	  <div class="function_execution" id="'+prefix+'LicenseIssuer_contract_function_LicenseIssuer_buyLicense_address_string">'
-						+ '	LicenseIssuer_buyLicense:'
+						+ 'Buy a license for an address, when you define no address the address of the sender is used.'
 						+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">address</div><input class="dapp-address-input col col-3-4" type="text" id="'+prefix+'LicenseIssuer_buyLicense_address_string__address"></div>'
 						+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">name</div><input class="col col-3-4" type="text" id="'+prefix+'LicenseIssuer_buyLicense_address_string__name"></div>'
 						+ '		<button class="dapp-block-button function_button" id="'
@@ -259,7 +260,7 @@ margin-top: 10px;
 
 			this.managerActions = function(index,prefix) {
 				return '	  <div class="function_execution" id="'+prefix+'LicenseIssuer_contract_function_LicenseIssuer_changePaymentAddress_address">'
-						+ '	LicenseIssuer_changePaymentAddress:'
+						+ 'ChangePaymentAddress:'
 						+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">new payment address</div><input class="col col-3-4" type="text" id="'+prefix+'LicenseIssuer_changePaymentAddress_address__newPaymentAddress"></div>'
 						+ '		<button class="dapp-block-button function_button"id="'
 						+ prefix
@@ -267,7 +268,7 @@ margin-top: 10px;
 						+ '		<div class="function_result" id="'+prefix+'LicenseIssuer_changePaymentAddress_address_res"></div>'
 						+ '	  </div>'
 						+ '	  <div class="function_execution" id="'+prefix+'LicenseIssuer_contract_function_LicenseIssuer_stopIssuing">'
-						+ '	LicenseIssuer_stopIssuing:'
+						+ 'StopIssuing:'
 						+ '		<button class="dapp-block-button function_button"id="'
 						+ prefix
 						+ 'LicenseIssuerController.LicenseIssuer_stopIssuing" onclick="'
@@ -297,7 +298,7 @@ margin-top: 10px;
 				var txt = '';
 				if (this.mode !== 'issue'){
 					txt = 	'	  <div class="function_execution" id="'+this.prefix+'LicenseManager_contract_function_LicenseManager_createIssuerContract_string_string_string_uint_uint">'
-					+	'	LicenseManager_createIssuerContract:'
+					+	'Create IssuerContract. Create a new issuer contract.'
 					+	'		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">itemName</div><input class="col col-3-4" type="text" id="'+this.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_itemName"></div>'
 					+	'		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">textHash</div><input class="col col-3-4" type="text" id="'+this.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_textHash"></div>'
 					+	'		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">url</div><input class="col col-3-4" type="text" id="'+this.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_url"></div>'
@@ -330,37 +331,37 @@ margin-top: 10px;
 
 		web3.eth.defaultAccount = web3.eth.accounts[0];
 
-		Gui = function(contract) {
-			this.contract = contract;
-			this.prefix = contract.address;
-			this.price = contract.licencePrice();
-			var self = this;
+// 		Gui = function(contract) {
+// 			this.contract = contract;
+// 			this.prefix = contract.address;
+// 			this.price = contract.licencePrice();
+// 			var self = this;
 
-			this.buyLicense = function() {
-				var e = document.getElementById(self.prefix
-						+ 'LicenseIssuer_buyLicense_address_string__address');
-				var param__address = e.value;
-				var e = document.getElementById(self.prefix
-						+ 'LicenseIssuer_buyLicense_address_string__name');
-				var param__name = e.value;
-				console.log(':' + self.prefix + ' ' + self.price);
-				var res = self.contract.buyLicense.sendTransaction(
-						param__address, param__name, {
-							value : self.price,
-							gas : 300000
-						});
-			}
+// 			this.buyLicense = function() {
+// 				var e = document.getElementById(self.prefix
+// 						+ 'LicenseIssuer_buyLicense_address_string__address');
+// 				var param__address = e.value;
+// 				var e = document.getElementById(self.prefix
+// 						+ 'LicenseIssuer_buyLicense_address_string__name');
+// 				var param__name = e.value;
+// 				console.log(':' + self.prefix + ' ' + self.price);
+// 				var res = self.contract.buyLicense.sendTransaction(
+// 						param__address, param__name, {
+// 							value : self.price,
+// 							gas : 300000
+// 						});
+// 			}
 
-			this.bindGui = function() {
-				var btn = document
-						.getElementById(this.prefix
-								+ 'LicenseIssuerController.LicenseIssuer_buyLicense_address_string');
-				console.log('bind:LicenseIssuer_buyLicense ' + this.prefix
-						+ ' ' + btn + '  ' + this.buyLicense);//LicenseIssuer_buyLicense);
-				btn.onclick = this.buyLicense;
-			}
+// 			this.bindGui = function() {
+// 				var btn = document
+// 						.getElementById(this.prefix
+// 								+ 'LicenseIssuerController.LicenseIssuer_buyLicense_address_string');
+// 				console.log('bind:LicenseIssuer_buyLicense ' + this.prefix
+// 						+ ' ' + btn + '  ' + this.buyLicense);//LicenseIssuer_buyLicense);
+// 				btn.onclick = this.buyLicense;
+// 			}
 
-		}
+// 		}
 
 		// startup
 		var lcContract = web3.eth.contract(JSON.parse(LicenseManager.abi));
@@ -422,6 +423,10 @@ margin-top: 10px;
 							value : price,
 							gas : 300000
 						});
+				if(res!=null){
+					txt = 'The transaction is send: '+res;
+					document.getElementById(prefix+'LicenseIssuer_buyLicense_address_string_res').innerText = txt;
+				}
 		}
 
 		function changePaymentAddress(index,prefix) {
