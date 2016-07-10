@@ -17,6 +17,12 @@ contract LicenseManager {
 	// Start of user code LicenseManager.attributes
 	//TODO: implement
 	// End of user code
+	
+	modifier onlyOwner
+	{
+	     if(owner != msg.sender) throw;
+	    _
+	}
 	//
 	// constructor for LicenseManager
 	//
@@ -25,7 +31,9 @@ contract LicenseManager {
 	issuerName = _name;
 	paymentAddress = _paymentAddress;
 	    //Start of user code Constructor.LicenseManager
-		//TODO: implement
+	    owner = msg.sender;
+	issuerName = _name;
+	paymentAddress = _paymentAddress;
 	    //End of user code
 	}
 	
@@ -34,12 +42,10 @@ contract LicenseManager {
 	* 
 	* _newPaymentAdress -
 	*/
-	function changePaymentAddress(address _newPaymentAdress) public   {
-		 if(owner != msg.sender) throw;
-		 paymentAddress = _newPaymentAdress;
+	function changePaymentAddress(address _newPaymentAdress) public  onlyOwner  {
 		
-		//Start of user code LicenseManager.function.changePaymentAddress
-		//TODO: implement
+		//Start of user code LicenseManager.function.changePaymentAddress_address
+		 paymentAddress = _newPaymentAdress;
 		//End of user code
 	}
 	
@@ -54,13 +60,12 @@ contract LicenseManager {
 	* lifeTime -
 	* price -
 	*/
-	function createIssuerContract(string itemName,string textHash,string url,uint lifeTime,uint price) public   {
-		 if(owner != msg.sender) throw;
+	function createIssuerContract(string itemName,string textHash,string url,uint lifeTime,uint price) public  onlyOwner  {
+		 
+		
+		//Start of user code LicenseManager.function.createIssuerContract_string_string_string_uint_uint
 		 contracts[contractCount] = new LicenseIssuer(itemName, textHash, url, lifeTime, price, paymentAddress);
 		 contractCount++;
-		
-		//Start of user code LicenseManager.function.createIssuerContract
-		//TODO: implement
 		//End of user code
 	}
 	
@@ -70,13 +75,11 @@ contract LicenseManager {
 	* 
 	* licenseId -
 	*/
-	function stopIssuing(uint licenseId) public   {
-		 if(owner != msg.sender)
-		 	throw;
-		 contracts[licenseId].stopIssuing();
+	function stopIssuing(uint licenseId) public  onlyOwner  {
+		 
 		
-		//Start of user code LicenseManager.function.stopIssuing
-		//TODO: implement
+		//Start of user code LicenseManager.function.stopIssuing_uint
+		 contracts[licenseId].stopIssuing();
 		//End of user code
 	}
 	
@@ -87,15 +90,13 @@ contract LicenseManager {
 	* _newPaymentAddress -
 	* licenseId -
 	*/
-	function changePaymentAddress(address _newPaymentAddress,uint licenseId) public   {
-		 if(owner != msg.sender)
-		 	throw;
+	function changePaymentAddress(address _newPaymentAddress,uint licenseId) public  onlyOwner  {
+		 
+		
+		//Start of user code LicenseManager.function.changePaymentAddress_address_uint
 		 if(!contracts[licenseId].getIssuable())
 		 	throw;
 		 contracts[licenseId].changePaymentAddress(_newPaymentAddress);
-		
-		//Start of user code LicenseManager.function.changePaymentAddress
-		//TODO: implement
 		//End of user code
 	}
 	
@@ -134,6 +135,18 @@ contract LicenseIssuer {
 	//TODO: implement
 	// End of user code
 	
+	modifier onlyExactAmount
+	{
+	    if(msg.value!=licencePrice|| !issuable) throw;
+	    _
+	}
+	
+	modifier onlyLicenseManager
+	{
+	    if(licenseManager != msg.sender) throw;
+	    _
+	}
+	
 	
 	event licenseIssued(address ownerAddress,string name);
 	//
@@ -151,7 +164,14 @@ contract LicenseIssuer {
 	licenseManager = msg.sender;
 	
 	    //Start of user code Constructor.LicenseIssuer
-		//TODO: implement
+	licensedItemName = itemName;
+	licenseTextHash = textHash;
+	licenseUrl = url;
+	licencePrice = price  * 1 finney;
+	licenseLifetime = lifeTime;
+	paymentAddress = _pa;
+	issuable = true;
+	licenseManager = msg.sender;
 	    //End of user code
 	}
 	
@@ -166,6 +186,8 @@ contract LicenseIssuer {
 	*  -
 	*/
 	function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public  returns (bool ) {
+		
+		//Start of user code LicenseIssuer.function.checkLicense_bytes32_uint8_bytes32_bytes32
 		 address _address = ecrecover(factHash, v, sig_r, sig_s);
 		 IssuedLicense data = licenseOwners[_address];
 		 if(data.issuedDate == 0)
@@ -173,9 +195,6 @@ contract LicenseIssuer {
 		 if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))
 		 	return true;
 		 return false;
-		
-		//Start of user code LicenseIssuer.function.checkLicense
-		//TODO: implement
 		//End of user code
 	}
 	
@@ -188,15 +207,15 @@ contract LicenseIssuer {
 	*  -
 	*/
 	function checkLicense(address _address) public   constant returns (bool ) {
+		 
+		
+		//Start of user code LicenseIssuer.function.checkLicense_address
 		 IssuedLicense data = licenseOwners[_address];
 		 if(data.issuedDate == 0)
 		 	return false;
 		 if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))
 		 	return true;
 		 return false;
-		
-		//Start of user code LicenseIssuer.function.checkLicense
-		//TODO: implement
 		//End of user code
 	}
 	
@@ -206,25 +225,23 @@ contract LicenseIssuer {
 	* 
 	* _newPaymentAddress -
 	*/
-	function changePaymentAddress(address _newPaymentAddress) public   {
-		 if(licenseManager != msg.sender) throw;
-		 paymentAddress = _newPaymentAddress;
+	function changePaymentAddress(address _newPaymentAddress) public  onlyLicenseManager  {
+		 
 		
-		//Start of user code LicenseIssuer.function.changePaymentAddress
-    	//TODO: implement
-	    //End of user code
+		//Start of user code LicenseIssuer.function.changePaymentAddress_address
+		 paymentAddress = _newPaymentAddress;
+		//End of user code
 	}
 	
 	
 	/*
 	* Stop accecpting buying a license.
 	*/
-	function stopIssuing() public   {
-		 if(licenseManager != msg.sender) throw;
-		 issuable = false;
+	function stopIssuing() public  onlyLicenseManager  {
+		 
 		
 		//Start of user code LicenseIssuer.function.stopIssuing
-    	//TODO: implement
+		 issuable = false;
     	//End of user code
 	}
 	
@@ -235,9 +252,10 @@ contract LicenseIssuer {
 	* _address -
 	* _name -
 	*/
-	function buyLicense(address _address,string _name) public   {
-		 if(msg.value<licencePrice|| !issuable) 
-		 	throw;
+	function buyLicense(address _address,string _name) public  onlyExactAmount  {
+		 
+		
+		//Start of user code LicenseIssuer.function.buyLicense_address_string
 		  if(_address==address(0))
 		    issuedLicenses[licenseCount].licenseOwnerAdress = msg.sender;
 		  else
@@ -247,17 +265,8 @@ contract LicenseIssuer {
 		 licenseOwners[_address] = issuedLicenses[licenseCount];
 		 licenseIssued(_address,_name);
 		 licenseCount++;
-		 //paymentAddress.send(msg.value);
-		 if(msg.value==licencePrice){
-		 	var t1 = paymentAddress.send(msg.value);
-		 }else{
-		 	var t2 = paymentAddress.send(licencePrice);
-		 	var t = msg.sender.send(msg.value-licencePrice);
-		 }
-		
-		//Start of user code LicenseIssuer.function.buyLicense
-    	//TODO: implement
-    	//End of user code
+		 bool ret = paymentAddress.send(msg.value);
+		//End of user code
 	}
 	
 	// getIssuable
