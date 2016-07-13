@@ -164,12 +164,15 @@ issued licenses.</body>
           </ownedComment>
           <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
         </ownedAttribute>
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_rEf4kOtaEeWkINMUmqeUiw" name="licenseIssued">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_rEf4kOtaEeWkINMUmqeUiw" name="LicenseIssued">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_AiPMgOtbEeWkINMUmqeUiw" name="ownerAddress">
             <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_bcZf4KKsEeWvY9GWZZMftw"/>
           </ownedParameter>
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_D1GEYOtbEeWkINMUmqeUiw" name="name">
             <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_W0LXkKKsEeWvY9GWZZMftw"/>
+          </ownedParameter>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_WLhboEd9Eeamn8JLGGotFg" name="succesful">
+            <type xmi:type="uml:DataType" href="pathmap://UML_LIBRARIES/solidity_types.uml#_LedxoKKuEeWvY9GWZZMftw"/>
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="_pQPkUPBKEeWIBuibjpfIPQ" name="checkLicense">

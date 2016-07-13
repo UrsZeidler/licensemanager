@@ -135,20 +135,20 @@ contract LicenseIssuer {
 	//TODO: implement
 	// End of user code
 	
-	modifier onlyExactAmount
-	{
-	    if(msg.value!=licencePrice|| !issuable) throw;
-	    _
-	}
-	
 	modifier onlyLicenseManager
 	{
 	    if(licenseManager != msg.sender) throw;
 	    _
 	}
 	
+	modifier onlyExactAmount
+	{
+	    if(msg.value!=licencePrice|| !issuable) throw;
+	    _
+	}
 	
-	event licenseIssued(address ownerAddress,string name);
+	
+	event LicenseIssued(address ownerAddress,string name,bool succesful);
 	//
 	// constructor for LicenseIssuer
 	//
@@ -257,15 +257,16 @@ contract LicenseIssuer {
 		
 		//Start of user code LicenseIssuer.function.buyLicense_address_string
 		  if(_address==address(0))
-		    issuedLicenses[licenseCount].licenseOwnerAdress = msg.sender;
-		  else
-		    issuedLicenses[licenseCount].licenseOwnerAdress = _address;
+		    _address = msg.sender;
+		
+		 uint date = licenseOwners[_address].issuedDate;
+		 if(date!=0) throw;
 		 issuedLicenses[licenseCount].licenseOwnerName = _name;
 		 issuedLicenses[licenseCount].issuedDate = now;
 		 licenseOwners[_address] = issuedLicenses[licenseCount];
-		 licenseIssued(_address,_name);
 		 licenseCount++;
 		 bool ret = paymentAddress.send(msg.value);
+		 LicenseIssued(_address,_name,ret);
 		//End of user code
 	}
 	

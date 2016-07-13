@@ -184,12 +184,13 @@ name|type|direction|doc
 _address|address|in|
 _name|string|in|
 
-#### event licenseIssued
+#### event LicenseIssued
 
 
 name|type|indexed|doc
 ----|----|----|----
 ownerAddress|address||
 name|string||
+succesful|bool||
 
 

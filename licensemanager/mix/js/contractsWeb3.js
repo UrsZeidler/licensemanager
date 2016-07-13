@@ -101,8 +101,8 @@ var LicenseIssuerContract = web3.eth.contract([
   }
  ,
   { "constant": true,
-    "inputs": [{"name": "ownerAddress","type": "address"},{"name": "name","type": "string"}],    
-    "name": "licenseIssued",
+    "inputs": [{"name": "ownerAddress","type": "address"},{"name": "name","type": "string"},{"name": "succesful","type": "bool"}],    
+    "name": "LicenseIssued",
     "type": "event"  }
 ] );   
 
