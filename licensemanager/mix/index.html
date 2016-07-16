@@ -1,12 +1,12 @@
 <!doctype>
 <html>
-<head>
+<head><script src="deployment.js"></script>
 <!--
 <script type='text/javascript' src="contractsWeb3.js">
 </script>
 -->
 <script type='text/javascript'
-	src="package/compilation/contracts.sol.js">
+	src="js/contracts.sol.js">
 	
 </script>
 
@@ -19,9 +19,7 @@
 <style>
 .contract {
 
-	border-style: solid;
-	border-width: 1px;
-
+	padding-bottom: 10px;
 }
 
 .contract_attributes {
@@ -70,8 +68,8 @@
 	
 }
 .simple_border {
-	border-style: solid;
-	border-width: 1px;
+	border-top-style: solid;
+	border-top-width: 1px;
 	
 }
 </style>
@@ -81,35 +79,40 @@
 
 
 
-
-
-
-	<header class="dapp-header">
-		<h1>Issue or Manage Licenses</h1>
+	<header class="dapp-header dapp-full-header">
+		<br/>
+			<nav>
+				<ul>
+					<li>
+					<a href="#" 
+						onclick="lmgf.changeMode('issue')"> <i
+							class="icon-arrow-down3"></i> <span>Issuer</span>
+					</a> <a href="#" onclick="lmgf.changeMode('manage')"> <i
+							class="icon-arrow-up2"></i> <span>Manager</span>
+					</a>
+					<a href="#" onclick="lmgf.changeMode('check')"> <i
+							class="icon-arrow-up1"></i> <span>Check</span>
+					</a>
+					</li>
+				</ul>
+			</nav>
+		<span>Issue, Manage or Check Licenses</span>
 	</header>
 
 	<div class="dapp-flex-content">
 
-		<!-- aside -->
+		<!-- aside
 		<aside class="dapp-aside">
-			<nav>
-				<ul>
-					<li><a href="#" class="active"
-						onclick="lmgf.changeMode('issue')"> <i
-							class="icon-arrow-down3"></i> <span>Issuer</span>
-					</a> <a href="#" onclick="lmgf.changeMode('manager')"> <i
-							class="icon-arrow-up2"></i> <span>Manager</span>
-					</a></li>
-				</ul>
-			</nav>
 		</aside>
-
+ -->
 		<!-- content-->
 		<main class="dapp-content">
 		<div class="dapp-container">
 			<div id="LicenseManager_gui1">  
 				<div class="dapp-progress">loading data from contract</div> 
 			</div>
+			
+			
 		</div>
 		</main>
 		<!-- actionbar -->
@@ -124,8 +127,23 @@
 	<script type='text/javascript'>
 	
 
-		web3.eth.defaultAccount = web3.eth.accounts[0];
+	//	web3.eth.defaultAccount = web3.eth.accounts[0];
+   web3.eth.getAccounts(function(e,accounts){
+        // Check if there are accounts available
+        if (!e && accounts && accounts.length > 0) {
+            // Create a dialog requesting the transaction
+        	web3.eth.defaultAccount = web3.eth.accounts[0];
 
+          } else {
+//         if(mist!=undefined)
+            mist.requestAccount(function(e, account) {
+                if(!e) {
+                    // Create a dialog requesting the transaction
+                    web3.eth.defaultAccount = account;
+                }
+            });
+        }
+    });
 
 		// startup
 		var liContract = web3.eth.contract(JSON.parse(LicenseIssuer.abi));
@@ -136,8 +154,8 @@
 		//------
 		window.onload = function(){
 			lmgf.readDataFromContract();
-			lmgf.placeDefaultGui();
-
+			//lmgf.placeDefaultGui();
+			lmgf.changeMode('issue')
 		};
 		
 		// actions for the gui
@@ -185,8 +203,8 @@
 				var price = lmgf.contractData[index][4];
 				var res = lmgf.issuerContracts[index].buyLicense.sendTransaction(
 						param__address, param__name, {
-							value : price,
-							gas : 300000
+							value : price
+// 							,gas : 300000
 						});
 				if(res!=null){
 					txt = 'The transaction is send: '+res;

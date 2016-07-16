@@ -6,7 +6,7 @@ function LicenseManagerGuiFactory1(licenseManager, contract) {
 	this.contractData = [];
 	this.issuerName = licenseManager.issuerName();
 	this.issuerContractDefinition = contract;
-	this.mode = 'issue';// 'manage'//'issue'
+	this.mode = 'issue';// 'manage'//'issue' //'check'
 
 	// reads the data from contract
 	this.readDataFromContract = function() {
@@ -24,78 +24,60 @@ function LicenseManagerGuiFactory1(licenseManager, contract) {
 
 			this.contractData.push(data);
 			//add eventlistner
-			var licenseIssued = lic.LicenseIssued({},{fromBlock: 1});
-			licenseIssued.watch(function(error,result){
-				if(!error){
-					console.log(result);
-				}
-			});
+//			var licenseIssued = lic.LicenseIssued({},{fromBlock: 1});
+//			licenseIssued.watch(function(error,result){
+//				if(!error){
+//					var e = document.getElementById(this.prefix + 'eventLog');
+//					var elemDiv = document.createElement('div');
+//					elemDiv.id= this.prefix +'event';
+//					e.appendChild(elemDiv);
+//					elemDiv.innerHtml = this.licenceIssuedLogDataGui(lic.address,result.blockHash,result.blockNumber,result.name,result.issued);
+//				}else
+//					console.log(error);
+//			});
 		}
 	}
 
-	
+	this.licenceIssuedLogDataGui = function(prefix, blockHash, blockNumber, name,
+			issued) {
+		return '<ul class="dapp-account-list"><li > '
+        +'<a class="dapp-identicon dapp-small" style="background-image: url(identiconimage.png)"></a>'
+        +'<h3>'+name+'</h3>'
+        +'<span>'+prefix+'</span>'
+        +' </li>'
+        ;
+		
+	}
 	
 	this.licenceIssueerDataGui = function(prefix, itemName, licenseHash, licenseUrl,
 			licencePrice, lifeTime, licenseCount, issuable, index) {
-		return '	  <div class="contract_attributes " id="'
+		var txt =
+		 '  <div class="contract_attributes " id="'
 				+ prefix
 				+ 'LicenseIssuer_contract_attributes">'
 				+ '	    <div class="contract_attribute " id="'
 				+ prefix
-				+ 'LicenseIssuer_contract_attribute_licensedItemName"> licensedItemName:'
+				+ 'LicenseIssuer_contract_attribute_licensedItemName">'
 				+ '	      <div class="contract_attribute_value " id="'
 				+ prefix
-				+ 'LicenseIssuer_licensedItemName_value">'
+				+ 'LicenseIssuer_licensedItemName_value"><h3>'
 				+ itemName
-				+ '</div>'
-				+ '	    </div>'
-				+ '	    <div class="contract_attribute " id="'
-				+ prefix
-				+ 'LicenseIssuer_contract_attribute_licenseTextHash"> licenseTextHash:'
-				+ '	      <div class="contract_attribute_value" id="'
-				+ prefix
-				+ 'LicenseIssuer_licenseTextHash_value">'
-				+ licenseHash
-				+ '</div>'
-				+ '	    </div>'
-				+ '	    <div class="contract_attribute" id="'
-				+ prefix
-				+ 'LicenseIssuer_contract_attribute_licenseUrl"> licenseUrl:'
-				+ '	      <div class="contract_attribute_value" id="'
-				+ prefix
-				+ 'LicenseIssuer_licenseUrl_value">'
-				+ licenseUrl
-				+ '</div>'
-				+ '	    </div>'
-				+ '	    <div class="contract_attribute" id="'
-				+ prefix
-				+ 'LicenseIssuer_contract_attribute_licencePrice"> licencePrice:'
-				+ '	      <div class="contract_attribute_value" id="'
-				+ prefix
-				+ 'LicenseIssuer_licencePrice_value">'
-				+ Number(web3.fromWei(licencePrice, "finney"))
-				+ ' finney</div>'
-				+ '	    </div>'
-				+ '	    <div class="contract_attribute" id="'
-				+ prefix
-				+ 'LicenseIssuer_contract_attribute_licenseLifetime"> licenseLifetime:'
-				+ '	      <div class="contract_attribute_value" id="'
-				+ prefix
-				+ 'LicenseIssuer_licenseLifetime_value">'
-				+ lifeTime
-				+ '</div>'
-				+ '	    </div>'
-				+ '	    <div class="contract_attribute" id="'
-				+ prefix
-				+ 'LicenseIssuer_contract_attribute_licenseCount"> licenseCount:'
-				+ '	      <div class="contract_attribute_value" id="' + prefix
-				+ 'LicenseIssuer_licenseCount_value">' + licenseCount
-				+ '</div>' + '	    </div>'
-				+ '	    <div class="contract_attribute" id="' + prefix
-				+ 'LicenseIssuer_contract_attribute_issuable"> issuable:'
-				+ '	      <div class="contract_attribute_value" id="' + prefix
-				+ 'LicenseIssuer_issuable_value">' + issuable + '</div></div>'
-
+				+ '</h3>the license hash is"'+licenseHash+'" you could find it <a href="'+licenseUrl+'" >here</a> <span>it costs '+Number(web3.fromWei(licencePrice, "finney"))+' finneys.</span> The liftime is '+lifeTime+' and '+licenseCount+' license are issued.'
+				;
+		
+		if(issuable==true)
+			txt = txt +'<figure class="icon-check"></figure>';
+		else
+			txt = txt +'<figure class="icon-pin"></figure>';
+//		
+//				+ '	    <div class="contract_attribute" id="' + prefix
+//				+ 'LicenseIssuer_contract_attribute_issuable"> issuable:'
+//				+ '	      <div class="contract_attribute_value" id="' + prefix
+//				+ 'LicenseIssuer_issuable_value">' + issuable + '</div></div>'
+//				;
+		
+		txt = txt + '</div></div><div id="'+prefix+'eventLog"></div>';
+		return txt;
 	}
 
 	this.createSubObjects = function() {
@@ -105,13 +87,19 @@ function LicenseManagerGuiFactory1(licenseManager, contract) {
 			var sb = this.issuerContracts[i];
 
 			d = this.contractData[i];
-			txt = txt
+			txt = txt +'<!-- test1 --><div class="contract" id="'+d[0] +'LicenseIssuer_contract_gui">'
 					+ this.licenceIssueerDataGui(d[0], d[1], d[2], d[3], d[4], d[5],
-							d[6], d[7], d[8], i);
-			if (this.mode === 'issue')
-				txt = txt + this.issuerActions(i, d[0]);
+							d[6], d[7], i);
+			if (this.mode === 'issue' && d[7]==true)
+				//if(d[7]==true)
+					txt = txt + this.issuerActions(i, d[0]);
+			else if (this.mode === 'check' && d[7]==true)
+				txt = txt + this.checkActions(i, d[0]);
 			else
-				txt = txt + this.managerActions(i, d[0]);
+				if(d[7]==true)
+					txt = txt + this.managerActions(i, d[0]);
+			
+			txt = txt + '</div><!-- test2 --></div>';
 
 		}
 		return txt;
@@ -122,55 +110,125 @@ function LicenseManagerGuiFactory1(licenseManager, contract) {
 		console.log(this.prefix + ' place gui');
 		document.getElementById(this.prefix + 'LicenseManager_gui1').innerHTML = this
 				.createDefaultGui();
+		
+		// add eventlog
+		var guiFactoryFunction = this.licenceIssuedLogDataGui;
+		for (var i = 0; i < this.issuerContracts.length; i++) {
+			var lic = this.issuerContracts[i];
+			var licenseIssued = lic.LicenseIssued({},{fromBlock: 1291000});
+			licenseIssued.watch(function(error,result){
+				if(!error){
+					var e = document.getElementById(result.address + 'eventLog');
+					var elemDiv = document.createElement('div');
+					elemDiv.id= result.blockNumber +'event';
+					e.appendChild(elemDiv);
+					//console.log(result.address+ 'eventLog'+result.blockHash+' '+result.blockNumber+' '+result.args.name+' '+result.args.succesful+' ');
+					elemDiv.innerHTML = guiFactoryFunction(result.args.ownerAddress,result.blockHash,result.blockNumber,result.args.name,result.args.succesful);
+				}else
+					console.log(error);
+			});
+
+		}
 	}
 
-	this.issuerActions = function(index, prefix) {
+	this.checkActions = function(index, prefix) {
 		return '' + '	  <div class="function_execution" id="'
-				+ prefix
-				+ 'LicenseIssuer_contract_function_LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32">'
-				+ 'CheckLicense by a signed message :'
-				+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">factHash</div> <input class="col col-3-4"  type="textArea" id="'
-				+ prefix
-				+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_factHash"/></div>'
-				+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">v</div>         <input class="col col-3-4" type="number" id="'
-				+ prefix
-				+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_v"/></div>'
-				+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">sig_r</div>     <input class="col col-3-4" type="text" id="'
-				+ prefix
-				+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_r"/></div>'
-				+ '		  <div class="function_parameter row clear"><div class="col col-1-4 function_parameter_name">sig_s</div>     <input class="col col-3-4" type="text" id="'
-				+ prefix
-				+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_s"/></div>'
-				+ '		<button class="dapp-block-button function_button" id="'
-				+ prefix
-				+ 'LicenseIssuerController.LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32" onclick="'
-				+ 'checkLicense_bytes32_uint8_bytes32_bytes32('
-				+ index
-				+ ',\''
-				+ prefix
-				+ '\')">check License</button>'
-				+ '		<div class="function_result" id="'
-				+ prefix
-				+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_res"></div>'
-				+ '	  </div>'
-				+ '	  <div class="function_execution" id="'
-				+ prefix
-				+ 'LicenseIssuer_contract_function_LicenseIssuer_checkLicense_address">'
-				+ 'CheckLicense by address:'
-				+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">address</div><input class="dapp-address-input col col-3-4" type="text" id="'
-				+ prefix
-				+ 'LicenseIssuer_checkLicense_address__address"></div>'
-				+ '		<button class="dapp-block-button function_button"id="'
-				+ prefix
-				+ 'LicenseIssuerController.LicenseIssuer_checkLicense_address" onclick="checkLicense_address('
-				+ index
-				+ ',\''
-				+ prefix
-				+ '\' )">check License</button>'
-				+ '		<div class="function_result" id="'
-				+ prefix
-				+ 'LicenseIssuer_checkLicense_address_res"></div>'
-				+ '	  </div>'
+		+ prefix
+		+ 'LicenseIssuer_contract_function_LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32">'
+		+ 'CheckLicense by a signed message :'
+		+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">factHash</div> <input class="col col-3-4"  type="textArea" id="'
+		+ prefix
+		+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_factHash"/></div>'
+		+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">v</div>         <input class="col col-3-4" type="number" id="'
+		+ prefix
+		+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_v"/></div>'
+		+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">sig_r</div>     <input class="col col-3-4" type="text" id="'
+		+ prefix
+		+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_r"/></div>'
+		+ '		  <div class="function_parameter row clear"><div class="col col-1-4 function_parameter_name">sig_s</div>     <input class="col col-3-4" type="text" id="'
+		+ prefix
+		+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_s"/></div>'
+		+ '		<button class="dapp-block-button function_button" id="'
+		+ prefix
+		+ 'LicenseIssuerController.LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32" onclick="'
+		+ 'checkLicense_bytes32_uint8_bytes32_bytes32('
+		+ index
+		+ ',\''
+		+ prefix
+		+ '\')">check License</button>'
+		+ '		<div class="function_result" id="'
+		+ prefix
+		+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_res"></div>'
+		+ '	  </div>'
+		+ '	  <div class="function_execution" id="'
+		+ prefix
+		+ 'LicenseIssuer_contract_function_LicenseIssuer_checkLicense_address">'
+		+ 'CheckLicense by address:'
+		+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">address</div><input class="dapp-address-input col col-3-4" type="text" id="'
+		+ prefix
+		+ 'LicenseIssuer_checkLicense_address__address"></div>'
+		+ '		<button class="dapp-block-button function_button"id="'
+		+ prefix
+		+ 'LicenseIssuerController.LicenseIssuer_checkLicense_address" onclick="checkLicense_address('
+		+ index
+		+ ',\''
+		+ prefix
+		+ '\' )">check License</button>'
+		+ '		<div class="function_result" id="'
+		+ prefix
+		+ 'LicenseIssuer_checkLicense_address_res"></div>'
+		+ '	  </div>'
+
+		;
+	}
+	
+	this.issuerActions = function(index, prefix) {
+		return ''// + '	  <div class="function_execution" id="'
+//				+ prefix
+//				+ 'LicenseIssuer_contract_function_LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32">'
+//				+ 'CheckLicense by a signed message :'
+//				+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">factHash</div> <input class="col col-3-4"  type="textArea" id="'
+//				+ prefix
+//				+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_factHash"/></div>'
+//				+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">v</div>         <input class="col col-3-4" type="number" id="'
+//				+ prefix
+//				+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_v"/></div>'
+//				+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">sig_r</div>     <input class="col col-3-4" type="text" id="'
+//				+ prefix
+//				+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_r"/></div>'
+//				+ '		  <div class="function_parameter row clear"><div class="col col-1-4 function_parameter_name">sig_s</div>     <input class="col col-3-4" type="text" id="'
+//				+ prefix
+//				+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_s"/></div>'
+//				+ '		<button class="dapp-block-button function_button" id="'
+//				+ prefix
+//				+ 'LicenseIssuerController.LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32" onclick="'
+//				+ 'checkLicense_bytes32_uint8_bytes32_bytes32('
+//				+ index
+//				+ ',\''
+//				+ prefix
+//				+ '\')">check License</button>'
+//				+ '		<div class="function_result" id="'
+//				+ prefix
+//				+ 'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_res"></div>'
+//				+ '	  </div>'
+//				+ '	  <div class="function_execution" id="'
+//				+ prefix
+//				+ 'LicenseIssuer_contract_function_LicenseIssuer_checkLicense_address">'
+//				+ 'CheckLicense by address:'
+//				+ '		  <div class="function_parameter row clear "><div class="col col-1-4 function_parameter_name">address</div><input class="dapp-address-input col col-3-4" type="text" id="'
+//				+ prefix
+//				+ 'LicenseIssuer_checkLicense_address__address"></div>'
+//				+ '		<button class="dapp-block-button function_button"id="'
+//				+ prefix
+//				+ 'LicenseIssuerController.LicenseIssuer_checkLicense_address" onclick="checkLicense_address('
+//				+ index
+//				+ ',\''
+//				+ prefix
+//				+ '\' )">check License</button>'
+//				+ '		<div class="function_result" id="'
+//				+ prefix
+//				+ 'LicenseIssuer_checkLicense_address_res"></div>'
+//				+ '	  </div>'
 				+ '	  <div class="function_execution" id="'
 				+ prefix
 				+ 'LicenseIssuer_contract_function_LicenseIssuer_buyLicense_address_string">'
@@ -248,13 +306,13 @@ function LicenseManagerGuiFactory1(licenseManager, contract) {
 				+ '	      <div class="contract_attribute_value " id="'
 				+ this.prefix + 'LicenseManager_contractCount_value">'
 				+ this.issuerContracts.length + '</div>' + '	    </div>'
-				+ this.managerAction() + '	  </div>' + this.createSubObjects()
-				+ '	</div>';
+				+ this.managerAction() + '	  </div>' 
+				+ '	</div>'+ this.createSubObjects();
 	}
 
 	this.managerAction = function() {
 		var txt = '';
-		if (this.mode !== 'issue') {
+		if (this.mode === 'manage') {
 			txt = '	  <div class="function_execution" id="'
 					+ this.prefix
 					+ 'LicenseManager_contract_function_LicenseManager_createIssuerContract_string_string_string_uint_uint">'
@@ -293,11 +351,11 @@ function LicenseManagerGuiFactory1(licenseManager, contract) {
 		document.getElementById(this.prefix + 'LicenseManager_gui1').innerHTML = '';
 		this.placeDefaultGui();
 		// for testing
-		if (this.mode === 'issue')
-			web3.eth.defaultAccount = web3.eth.accounts[1];
-		else
-			web3.eth.defaultAccount = web3.eth.accounts[0];
+//		if (this.mode === 'issue')
+//			web3.eth.defaultAccount = web3.eth.accounts[1];
+//		else
+//			web3.eth.defaultAccount = web3.eth.accounts[0];
 
-		console.log(web3.eth.defaultAccount);
+		console.log('changeMode to: '+mode+' '+web3.eth.defaultAccount);
 	}
 }

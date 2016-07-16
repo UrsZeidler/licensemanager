@@ -260,7 +260,7 @@ contract LicenseIssuer {
 		    _address = msg.sender;
 		
 		 uint date = licenseOwners[_address].issuedDate;
-		 if(date!=0) throw;
+		 if( (date!=0 && (licenseLifetime<1)||(licenseLifetime+now<data.issuedDate)) ) throw;
 		 issuedLicenses[licenseCount].licenseOwnerName = _name;
 		 issuedLicenses[licenseCount].issuedDate = now;
 		 licenseOwners[_address] = issuedLicenses[licenseCount];
