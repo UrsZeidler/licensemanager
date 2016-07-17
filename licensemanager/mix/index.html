@@ -188,11 +188,11 @@
 					document.getElementById(prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_res').innerText = res;
 		}
 		
-		function changePaymentAddress(index,prefix) {
+		function changePaymentAddress(index,prefix) { 
 				var e = document.getElementById(prefix+'LicenseIssuer_changePaymentAddress_address__newPaymentAddress');
 				var param__newPaymentAddress = e.value;
-				console.log(':' +self.LicenseIssuer_instance+':');
-				var res = lmgf.issuerContracts[index].changePaymentAddress(param__newPaymentAddress);
+				console.log(':' +lmgf.lm+':');
+				var res = lmgf.lm.changePaymentAddress(param__newPaymentAddress,index);
 		}
 
 		function buyLicense(index,prefix) {
@@ -212,11 +212,11 @@
 				}
 		}
 
-		function changePaymentAddress(index,prefix) {
-				var e = document.getElementById(prefix+'LicenseIssuer_changePaymentAddress_address__newPaymentAddress');
-				var param__newPaymentAddress = e.value;
-				var res = lmgf.issuerContracts[index].changePaymentAddress(param__newPaymentAddress);
-		}
+// 		function changePaymentAddress(index,prefix) {
+// 				var e = document.getElementById(prefix+'LicenseIssuer_changePaymentAddress_address__newPaymentAddress');
+// 				var param__newPaymentAddress = e.value;
+// 				var res = lmgf. .issuerContracts[index].changePaymentAddress(param__newPaymentAddress);
+// 		}
 
 		function createIssuerContract(prefix){
 			//console.log('function:createIssuerContract' + self.prefix);

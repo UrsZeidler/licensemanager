@@ -100,6 +100,11 @@ contract LicenseManager {
 		//End of user code
 	}
 	
+	function() {
+		// Start of user code LicenseManager default.function
+		throw;
+		// End of user code
+	}
 	// Start of user code LicenseManager.operations
 	//TODO: implement
 	// End of user code
@@ -135,15 +140,15 @@ contract LicenseIssuer {
 	//TODO: implement
 	// End of user code
 	
-	modifier onlyLicenseManager
-	{
-	    if(licenseManager != msg.sender) throw;
-	    _
-	}
-	
 	modifier onlyExactAmount
 	{
 	    if(msg.value!=licencePrice|| !issuable) throw;
+	    _
+	}
+	
+	modifier onlyLicenseManager
+	{
+	    if(licenseManager != msg.sender) throw;
 	    _
 	}
 	
@@ -260,7 +265,7 @@ contract LicenseIssuer {
 		    _address = msg.sender;
 		
 		 uint date = licenseOwners[_address].issuedDate;
-		 if( (date!=0 && (licenseLifetime<1)||(licenseLifetime+now<data.issuedDate)) ) throw;
+		 if( (date!=0 && (licenseLifetime<1)||(licenseLifetime+now<date)) ) throw;
 		 issuedLicenses[licenseCount].licenseOwnerName = _name;
 		 issuedLicenses[licenseCount].issuedDate = now;
 		 licenseOwners[_address] = issuedLicenses[licenseCount];
@@ -275,6 +280,11 @@ contract LicenseIssuer {
 		return issuable;
 	}
 	
+	function() {
+		// Start of user code LicenseIssuer default.function
+		throw;
+		// End of user code
+	}
 	// Start of user code LicenseIssuer.operations
 	//TODO: implement
 	// End of user code
