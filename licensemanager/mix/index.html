@@ -160,7 +160,6 @@
 		
 		// actions for the gui
 		function stopIssuing(index,prefix){
-			console.log('stopp issues:'+lmgf.issuerContracts[index]);
 			lmgf.lm.stopIssuing(index);
 		}
 		
@@ -169,7 +168,6 @@
 			var param__address = e.value;
 			var res = lmgf.issuerContracts[index].checkLicense(param__address);
 			var target = document.getElementById(prefix+'LicenseIssuer_checkLicense_address_res');
-			console.log('checkLicense_address:'+res+' '+prefix+' '+target.id);
 			if(res!=null)
 				target.innerText = res;
 		}
@@ -191,7 +189,6 @@
 		function changePaymentAddress(index,prefix) { 
 				var e = document.getElementById(prefix+'LicenseIssuer_changePaymentAddress_address__newPaymentAddress');
 				var param__newPaymentAddress = e.value;
-				console.log(':' +lmgf.lm+':');
 				var res = lmgf.lm.changePaymentAddress(param__newPaymentAddress,index);
 		}
 
@@ -212,32 +209,18 @@
 				}
 		}
 
-// 		function changePaymentAddress(index,prefix) {
-// 				var e = document.getElementById(prefix+'LicenseIssuer_changePaymentAddress_address__newPaymentAddress');
-// 				var param__newPaymentAddress = e.value;
-// 				var res = lmgf. .issuerContracts[index].changePaymentAddress(param__newPaymentAddress);
-// 		}
-
 		function createIssuerContract(prefix){
-			//console.log('function:createIssuerContract' + self.prefix);
 			var e = document.getElementById(prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_itemName');
-//			console.log(':' + self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_itemName'+": "+e);
 			var param_itemName = e.value;
 			var e = document.getElementById(prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_textHash');
-//			console.log(':' + self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_textHash'+": "+e);
 			var param_textHash = e.value;
 			var e = document.getElementById(prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_url');
-//			console.log(':' + self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_url'+": "+e);
 			var param_url = e.value;
 			var e = document.getElementById(prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_lifeTime');
-//			console.log(':' + self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_lifeTime'+": "+e);
 			var param_lifeTime = e.value;
 			var e = document.getElementById(prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_price');
-//			console.log(':' + self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_price'+": "+e);
 			var param_price = e.value;
-//			console.log(':' +self.LicenseManager_instance+':');
 			var res = lmgf.lm.createIssuerContract(param_itemName, param_textHash, param_url, param_lifeTime, param_price);
-
 		}
 		
 	</script>
