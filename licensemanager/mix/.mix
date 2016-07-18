@@ -15,7 +15,7 @@
 	"registerContentHashTrHash": "",
 	"registerUrlBlockNumber": -1,
 	"registerUrlTrHash": "",
-	"startUrl": "/licenseIssuer.html",
+	"startUrl": "/test/contractstests.html",
 	"title": "licensemanager",
 	"states": [
 		{
@@ -451,27 +451,35 @@
 								"unit": 18,
 								"value": "0"
 							}
-						},
+						}
+					]
+				},
+				{
+					"hash": "",
+					"number": 2,
+					"status": "mined",
+					"transactions": [
 						{
-							"contractId": "<LicenseManager - 0>",
-							"functionId": "createIssuerContract",
+							"contractId": "LicenseIssuer",
+							"functionId": "LicenseIssuer",
 							"gas": {
-								"value": "711300"
+								"value": "250000"
 							},
 							"gasAuto": true,
 							"gasPrice": {
 								"unit": 18,
 								"value": "100000"
 							},
-							"isContractCreation": false,
+							"isContractCreation": true,
 							"isFunctionCall": true,
-							"label": "LicenseManager.createIssuerContract()",
+							"label": "LicenseIssuer.LicenseIssuer()",
 							"parameters": {
-								"itemName": "A simple license for the LicenseManager.",
-								"lifeTime": "0",
-								"price": "100",
-								"textHash": "No hash.",
-								"url": "No url."
+								"itemName": "TestIssuer",
+								"textHash": "wws",
+								"url": "wdd",
+								"lifeTime": "2",
+								"price": "10",
+								"_pa": "0x06400992be45bc64a52b5c55d3df84596d6cb4a1"
 							},
 							"saveStatus": true,
 							"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
@@ -500,7 +508,7 @@
 				"name": "user1",
 				"secret": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074"
 			},
-			"title": "Testnet-deployment",
+			"title": "Manager/Isuuer",
 			"transactions": [
 				{
 					"contractId": "LicenseIssuer",

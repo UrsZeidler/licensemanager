@@ -140,15 +140,15 @@ contract LicenseIssuer {
 	//TODO: implement
 	// End of user code
 	
-	modifier onlyExactAmount
-	{
-	    if(msg.value!=licencePrice|| !issuable) throw;
-	    _
-	}
-	
 	modifier onlyLicenseManager
 	{
 	    if(licenseManager != msg.sender) throw;
+	    _
+	}
+	
+	modifier onlyExactAmount
+	{
+	    if(msg.value!=licencePrice|| !issuable) throw;
 	    _
 	}
 	
@@ -159,15 +159,6 @@ contract LicenseIssuer {
 	//
 	function LicenseIssuer(string itemName, string textHash, string url, uint lifeTime, uint price, address _pa){
 	    
-	licensedItemName = itemName;
-	licenseTextHash = textHash;
-	licenseUrl = url;
-	licencePrice = price  * 1 finney;
-	licenseLifetime = lifeTime;
-	paymentAddress = _pa;
-	issuable = true;
-	licenseManager = msg.sender;
-	
 	    //Start of user code Constructor.LicenseIssuer
 	licensedItemName = itemName;
 	licenseTextHash = textHash;

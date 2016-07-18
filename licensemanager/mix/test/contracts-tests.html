@@ -1,0 +1,80 @@
+<!doctype>
+<html>
+<head>
+<script type='text/javascript' src="contracts-test.js">
+</script>
+<style>
+.contract {
+	border-style: solid;
+	border-width: 1px;
+	} 
+.contract_attributes{
+	border-style: solid;
+	border-width: 1px;
+	} 
+.Struct_Mapping{}
+.Value_Mapping{}
+.contract_attribute{}
+.contract_attribute_value{}
+.function_execution{}
+.function_parameter{}
+.function_result{}
+.failed_state{
+	border-style: solid;
+	border-width: 1px;
+}
+
+</style>
+</head>
+<body bgcolor='#E6E6FA'>
+	<h1>Tests for contracts</h1>
+
+
+<div id="all-testResult" ></div>
+<h1>Events</h1>
+<div id="eventLog" ></div>
+<script type='text/javascript'>
+web3.eth.defaultAccount = web3.eth.accounts[0];
+// execute all LicenseManager tests if set 
+if(contracts['LicenseManager'] !=undefined){
+	var contract = contracts['LicenseManager'].contract;
+	var instance = new TestLicenseManager(contract);
+	instance.prefix = 'all';
+
+
+
+//console.log(instance+'-->');
+	instance.allTests();
+}// execute all LicenseIssuer tests if set 
+if(contracts['LicenseIssuer'] !=undefined){
+	var contract = contracts['LicenseIssuer'].contract;
+	var instance = new TestLicenseIssuer(contract);
+	instance.prefix = 'all';
+
+var event_LicenseIssued = contract.LicenseIssued({},{fromBlock: 0});
+event_LicenseIssued.watch(function(error,result){
+	if(!error){
+		var e = document.getElementById('eventLog');
+		var elemDiv = document.createElement('div');
+		elemDiv.id= result.blockNumber +'event';
+		e.appendChild(elemDiv);
+		//console.log(result.address+ 'eventLog'+result.blockHash+' '+result.blockNumber+' '+result.args.name+' '+result.args.succesful+' ');
+		elemDiv.innerHTML = '<div>'
+        +'<span>'+result.args.ownerAddress+'</span>'
+        +'<span>'+result.args.name+'</span>'
+        +'<span>'+result.args.succesful+'</span>'
++ '</div>';
+		}else
+		console.log(error);
+	});
+
+
+//console.log(instance+'-->');
+	instance.allTests();
+}	//Start of user code moreCustomTests_contracts
+	//TODO: implement
+	//End of user code
+
+</script>
+</body>
+</html>

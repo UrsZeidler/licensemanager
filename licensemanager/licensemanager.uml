@@ -263,7 +263,7 @@ issued licenses.</body>
   <Contracts:Contract xmi:id="_E7waMOtKEeWkINMUmqeUiw" base_Class="_0L_RQOtJEeWkINMUmqeUiw" ConstructorCode="owner = msg.sender;&#xA;issuerName = _name;&#xA;paymentAddress = _paymentAddress;" ConstructorArgs="address _paymentAddress, string _name" defaultFunction="true"/>
   <Contracts:Function xmi:id="_iwsXsOtMEeWkINMUmqeUiw" functionCode="&#xA;" base_Operation="_WDVUQOtMEeWkINMUmqeUiw"/>
   <Contracts:Function xmi:id="_zfB9QOtMEeWkINMUmqeUiw" functionCode="" base_Operation="_p1DyUOtMEeWkINMUmqeUiw"/>
-  <Contracts:Contract xmi:id="_6nktQOtMEeWkINMUmqeUiw" base_Class="_23yo0OtMEeWkINMUmqeUiw" ConstructorCode="&#xA;licensedItemName = itemName;&#xA;licenseTextHash = textHash;&#xA;licenseUrl = url;&#xA;licencePrice = price  * 1 finney;&#xA;licenseLifetime = lifeTime;&#xA;paymentAddress = _pa;&#xA;issuable = true;&#xA;licenseManager = msg.sender;&#xA;" ConstructorArgs="string itemName, string textHash, string url, uint lifeTime, uint price, address _pa" defaultFunction="true"/>
+  <Contracts:Contract xmi:id="_6nktQOtMEeWkINMUmqeUiw" base_Class="_23yo0OtMEeWkINMUmqeUiw" ConstructorCode="" ConstructorArgs="string itemName, string textHash, string url, uint lifeTime, uint price, address _pa" defaultFunction="true"/>
   <Contracts:Mapping xmi:id="_BTcA8OtQEeWkINMUmqeUiw" base_Property="_w-z74OtPEeWkINMUmqeUiw" value="_23yo0OtMEeWkINMUmqeUiw"/>
   <Contracts:Struct xmi:id="_3e4H4OtVEeWkINMUmqeUiw" base_Class="_0kNGgOtVEeWkINMUmqeUiw"/>
   <Contracts:Mapping xmi:id="_WgAdoOtWEeWkINMUmqeUiw" base_Property="_EoCWgOtWEeWkINMUmqeUiw" value="_0kNGgOtVEeWkINMUmqeUiw"/>

@@ -133,6 +133,7 @@ this.createDefaultGui=function() {
 +	'	    <div class="contract_attribute" id="'+this.prefix+'LicenseManager_contract_attribute_contractCount"> contractCount:'
 +	'	      <div class="contract_attribute_value" id="'+this.prefix+'LicenseManager_contractCount_value"> </div>'
 +	'	    </div>'
++	'	'
 +	'	<div class="Value_Mapping" id="'+this.prefix+'LicenseManager_contract_attribute_contracts">mapping  contracts:'
 +	'			<input type="number" id="'+this.prefix+'LicenseManager_contract_attribute_contracts_input">(uint)'
 +	'	    	<div class="Mapping_value" id="'+this.prefix+'LicenseManager_contract_attribute_uint"> LicenseIssuer:'
@@ -174,8 +175,79 @@ this.createDefaultGui=function() {
 +	'	</div>'
 ;
 }
+
+//default attributes
+this.createAttributesGui=function() {
+	return 	'    <div class="contract_attribute" id="'+this.prefix+'LicenseManager_contract_attribute_owner"> owner:'
++	'	      <div class="contract_attribute_value" id="'+this.prefix+'LicenseManager_owner_value"> </div>'
++	'	    </div>'
++	'	    <div class="contract_attribute" id="'+this.prefix+'LicenseManager_contract_attribute_issuerName"> issuerName:'
++	'	      <div class="contract_attribute_value" id="'+this.prefix+'LicenseManager_issuerName_value"> </div>'
++	'	    </div>'
++	'	    <div class="contract_attribute" id="'+this.prefix+'LicenseManager_contract_attribute_contractCount"> contractCount:'
++	'	      <div class="contract_attribute_value" id="'+this.prefix+'LicenseManager_contractCount_value"> </div>'
++	'	    </div>'
++	'	'
+;
 }
 
+
+
+this.createLicenseManager_changePaymentAddress_addressGui=function() {
+return 	'  <div class="function_execution" id="'+this.prefix+'LicenseManager_contract_function_LicenseManager_changePaymentAddress_address">'
++	'LicenseManager_changePaymentAddress:'
++	'	  <div class="function_parameter">_newPaymentAdress<input type="text" id="'+this.prefix+'LicenseManager_changePaymentAddress_address__newPaymentAdress"></div>'
++	'	<button id="'+this.prefix+'LicenseManagerController.LicenseManager_changePaymentAddress_address" onclick="'+this.prefix+'LicenseManagerController.LicenseManager_changePaymentAddress_address()">execute LicenseManager_changePaymentAddress</button>'
++	'	<div class="function_result" id="'+this.prefix+'LicenseManager_changePaymentAddress_address_res"></div>'
++	'  </div>'
+;
+}
+this.createLicenseManager_createIssuerContract_string_string_string_uint_uintGui=function() {
+return 	'  <div class="function_execution" id="'+this.prefix+'LicenseManager_contract_function_LicenseManager_createIssuerContract_string_string_string_uint_uint">'
++	'LicenseManager_createIssuerContract:'
++	'	  <div class="function_parameter">itemName<input type="text" id="'+this.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_itemName"></div>'
++	'	  <div class="function_parameter">textHash<input type="text" id="'+this.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_textHash"></div>'
++	'	  <div class="function_parameter">url<input type="text" id="'+this.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_url"></div>'
++	'	  <div class="function_parameter">lifeTime<input type="number" id="'+this.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_lifeTime"></div>'
++	'	  <div class="function_parameter">price<input type="number" id="'+this.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_price"></div>'
++	'	<button id="'+this.prefix+'LicenseManagerController.LicenseManager_createIssuerContract_string_string_string_uint_uint" onclick="'+this.prefix+'LicenseManagerController.LicenseManager_createIssuerContract_string_string_string_uint_uint()">execute LicenseManager_createIssuerContract</button>'
++	'	<div class="function_result" id="'+this.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_res"></div>'
++	'  </div>'
+;
+}
+this.createLicenseManager_stopIssuing_uintGui=function() {
+return 	'  <div class="function_execution" id="'+this.prefix+'LicenseManager_contract_function_LicenseManager_stopIssuing_uint">'
++	'LicenseManager_stopIssuing:'
++	'	  <div class="function_parameter">licenseId<input type="number" id="'+this.prefix+'LicenseManager_stopIssuing_uint_licenseId"></div>'
++	'	<button id="'+this.prefix+'LicenseManagerController.LicenseManager_stopIssuing_uint" onclick="'+this.prefix+'LicenseManagerController.LicenseManager_stopIssuing_uint()">execute LicenseManager_stopIssuing</button>'
++	'	<div class="function_result" id="'+this.prefix+'LicenseManager_stopIssuing_uint_res"></div>'
++	'  </div>'
+;
+}
+this.createLicenseManager_changePaymentAddress_address_uintGui=function() {
+return 	'  <div class="function_execution" id="'+this.prefix+'LicenseManager_contract_function_LicenseManager_changePaymentAddress_address_uint">'
++	'LicenseManager_changePaymentAddress:'
++	'	  <div class="function_parameter">_newPaymentAddress<input type="text" id="'+this.prefix+'LicenseManager_changePaymentAddress_address_uint__newPaymentAddress"></div>'
++	'	  <div class="function_parameter">licenseId<input type="number" id="'+this.prefix+'LicenseManager_changePaymentAddress_address_uint_licenseId"></div>'
++	'	<button id="'+this.prefix+'LicenseManagerController.LicenseManager_changePaymentAddress_address_uint" onclick="'+this.prefix+'LicenseManagerController.LicenseManager_changePaymentAddress_address_uint()">execute LicenseManager_changePaymentAddress</button>'
++	'	<div class="function_result" id="'+this.prefix+'LicenseManager_changePaymentAddress_address_uint_res"></div>'
++	'  </div>'
+;
+}
+
+
+//print the contract div around
+this.createLicenseManagerSeletonGui=function(inner) {
+	return 	'<!-- gui for LicenseManager_contract -->'
++	'	<div class="contract" id="'+this.prefix+'LicenseManager_contract">'
++ inner
++'</div>';
+}
+
+
+//eventguis
+
+}//end guifactory
 // script for LicenseManager gui controller
 function LicenseManagerController() {
 
@@ -304,7 +376,7 @@ this.LicenseManager_changePaymentAddress_address_uint=function() {
 
 //delegated calls
 
-}	
+}// end controller	
 
 
 // script for LicenseManager
@@ -354,7 +426,7 @@ function LicenseManagerManager(prefix,contract) {
 		return this.c.LicenseManager_instance;
 	}
 
-}
+}// end of manager
 
 function LicenseManagerGuiMananger(guiId){
 	this.prefix = guiId;
@@ -393,7 +465,8 @@ function LicenseManagerGuiMananger(guiId){
 		}
 //		console.log('update');
 	}
-}
+}// end of gui mananger
+
 //gui factory LicenseIssuer
 function LicenseIssuerGuiFactory() {
 	this.prefix='';
@@ -434,6 +507,7 @@ this.createDefaultGui=function() {
 +	'	    <div class="contract_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_issuable"> issuable:'
 +	'	      <div class="contract_attribute_value" id="'+this.prefix+'LicenseIssuer_issuable_value"> </div>'
 +	'	    </div>'
++	'	'
 +	'	<!--struct -->'
 +	'	<div class="Struct_Mapping" id="'+this.prefix+'Struc_LicenseIssuer_contract_attribute_issuedLicenses">struc mapping  issuedLicenses:'
 +	'			<input type="number" id="'+this.prefix+'LicenseIssuer_contract_attribute_issuedLicenses_input">(uint)'
@@ -499,8 +573,146 @@ this.createDefaultGui=function() {
 +	'	</div>'
 ;
 }
+
+//default attributes
+this.createAttributesGui=function() {
+	return 	'    <div class="contract_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_licensedItemName"> licensedItemName:'
++	'	      <div class="contract_attribute_value" id="'+this.prefix+'LicenseIssuer_licensedItemName_value"> </div>'
++	'	    </div>'
++	'	    <div class="contract_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_licenseManager"> licenseManager:'
++	'	      <div class="contract_attribute_value" id="'+this.prefix+'LicenseIssuer_licenseManager_value"> </div>'
++	'	    </div>'
++	'	    <div class="contract_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_licenseTextHash"> licenseTextHash:'
++	'	      <div class="contract_attribute_value" id="'+this.prefix+'LicenseIssuer_licenseTextHash_value"> </div>'
++	'	    </div>'
++	'	    <div class="contract_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_licenseUrl"> licenseUrl:'
++	'	      <div class="contract_attribute_value" id="'+this.prefix+'LicenseIssuer_licenseUrl_value"> </div>'
++	'	    </div>'
++	'	    <div class="contract_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_licencePrice"> licencePrice:'
++	'	      <div class="contract_attribute_value" id="'+this.prefix+'LicenseIssuer_licencePrice_value"> </div>'
++	'	    </div>'
++	'	    <div class="contract_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_licenseLifetime"> licenseLifetime:'
++	'	      <div class="contract_attribute_value" id="'+this.prefix+'LicenseIssuer_licenseLifetime_value"> </div>'
++	'	    </div>'
++	'	    <div class="contract_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_licenseCount"> licenseCount:'
++	'	      <div class="contract_attribute_value" id="'+this.prefix+'LicenseIssuer_licenseCount_value"> </div>'
++	'	    </div>'
++	'	    <div class="contract_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_issuable"> issuable:'
++	'	      <div class="contract_attribute_value" id="'+this.prefix+'LicenseIssuer_issuable_value"> </div>'
++	'	    </div>'
++	'	'
+;
 }
 
+
+
+this.createLicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32Gui=function() {
+return 	'  <div class="function_execution" id="'+this.prefix+'LicenseIssuer_contract_function_LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32">'
++	'LicenseIssuer_checkLicense:'
++	'	  <div class="function_parameter">factHash<input type="text" id="'+this.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_factHash"></div>'
++	'	  <div class="function_parameter">v<input type="number" id="'+this.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_v"></div>'
++	'	  <div class="function_parameter">sig_r<input type="text" id="'+this.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_r"></div>'
++	'	  <div class="function_parameter">sig_s<input type="text" id="'+this.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_s"></div>'
++	'	<button id="'+this.prefix+'LicenseIssuerController.LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32" onclick="'+this.prefix+'LicenseIssuerController.LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32()">execute LicenseIssuer_checkLicense</button>'
++	'	<div class="function_result" id="'+this.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_res"></div>'
++	'  </div>'
+;
+}
+this.createLicenseIssuer_checkLicense_addressGui=function() {
+return 	'  <div class="function_execution" id="'+this.prefix+'LicenseIssuer_contract_function_LicenseIssuer_checkLicense_address">'
++	'LicenseIssuer_checkLicense:'
++	'	  <div class="function_parameter">_address<input type="text" id="'+this.prefix+'LicenseIssuer_checkLicense_address__address"></div>'
++	'	<button id="'+this.prefix+'LicenseIssuerController.LicenseIssuer_checkLicense_address" onclick="'+this.prefix+'LicenseIssuerController.LicenseIssuer_checkLicense_address()">execute LicenseIssuer_checkLicense</button>'
++	'	<div class="function_result" id="'+this.prefix+'LicenseIssuer_checkLicense_address_res"></div>'
++	'  </div>'
+;
+}
+this.createLicenseIssuer_changePaymentAddress_addressGui=function() {
+return 	'  <div class="function_execution" id="'+this.prefix+'LicenseIssuer_contract_function_LicenseIssuer_changePaymentAddress_address">'
++	'LicenseIssuer_changePaymentAddress:'
++	'	  <div class="function_parameter">_newPaymentAddress<input type="text" id="'+this.prefix+'LicenseIssuer_changePaymentAddress_address__newPaymentAddress"></div>'
++	'	<button id="'+this.prefix+'LicenseIssuerController.LicenseIssuer_changePaymentAddress_address" onclick="'+this.prefix+'LicenseIssuerController.LicenseIssuer_changePaymentAddress_address()">execute LicenseIssuer_changePaymentAddress</button>'
++	'	<div class="function_result" id="'+this.prefix+'LicenseIssuer_changePaymentAddress_address_res"></div>'
++	'  </div>'
+;
+}
+this.createLicenseIssuer_stopIssuingGui=function() {
+return 	'  <div class="function_execution" id="'+this.prefix+'LicenseIssuer_contract_function_LicenseIssuer_stopIssuing">'
++	'LicenseIssuer_stopIssuing:'
++	'	<button id="'+this.prefix+'LicenseIssuerController.LicenseIssuer_stopIssuing" onclick="'+this.prefix+'LicenseIssuerController.LicenseIssuer_stopIssuing()">execute LicenseIssuer_stopIssuing</button>'
++	'	<div class="function_result" id="'+this.prefix+'LicenseIssuer_stopIssuing_res"></div>'
++	'  </div>'
+;
+}
+this.createLicenseIssuer_buyLicense_address_stringGui=function() {
+return 	'  <div class="function_execution" id="'+this.prefix+'LicenseIssuer_contract_function_LicenseIssuer_buyLicense_address_string">'
++	'LicenseIssuer_buyLicense:'
++	'	  <div class="function_parameter">_address<input type="text" id="'+this.prefix+'LicenseIssuer_buyLicense_address_string__address"></div>'
++	'	  <div class="function_parameter">_name<input type="text" id="'+this.prefix+'LicenseIssuer_buyLicense_address_string__name"></div>'
++	'	<button id="'+this.prefix+'LicenseIssuerController.LicenseIssuer_buyLicense_address_string" onclick="'+this.prefix+'LicenseIssuerController.LicenseIssuer_buyLicense_address_string()">execute LicenseIssuer_buyLicense</button>'
++	'	<div class="function_result" id="'+this.prefix+'LicenseIssuer_buyLicense_address_string_res"></div>'
++	'  </div>'
+;
+}
+
+this.createissuedLicensesStructGui=function() {
+return 	'<!--struct -->'
++	'<div class="Struct_Mapping" id="'+this.prefix+'Struc_LicenseIssuer_contract_attribute_issuedLicenses">struc mapping  issuedLicenses:'
++	'		<input type="number" id="'+this.prefix+'LicenseIssuer_contract_attribute_issuedLicenses_input">(uint)'
++	'    	<div class="Struct_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_issuedLicenses_licenseOwnerAdress"> licenseOwnerAdress:'
++	'      		<div class="Struct_attribute_value" id="'+this.prefix+'LicenseIssuer_issuedLicenses_licenseOwnerAdress_value"> </div>'
++	'    	</div>'
++	'    	<div class="Struct_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_issuedLicenses_licenseOwnerName"> licenseOwnerName:'
++	'      		<div class="Struct_attribute_value" id="'+this.prefix+'LicenseIssuer_issuedLicenses_licenseOwnerName_value"> </div>'
++	'    	</div>'
++	'    	<div class="Struct_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_issuedLicenses_issuedDate"> issuedDate:'
++	'      		<div class="Struct_attribute_value" id="'+this.prefix+'LicenseIssuer_issuedLicenses_issuedDate_value"> </div>'
++	'    	</div>'
++	'  </div>'
+;
+}
+
+this.createlicenseOwnersStructGui=function() {
+return 	'<!--struct -->'
++	'<div class="Struct_Mapping" id="'+this.prefix+'Struc_LicenseIssuer_contract_attribute_licenseOwners">struc mapping  licenseOwners:'
++	'		<input type="text" id="'+this.prefix+'LicenseIssuer_contract_attribute_licenseOwners_input">(address)'
++	'    	<div class="Struct_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_licenseOwners_licenseOwnerAdress"> licenseOwnerAdress:'
++	'      		<div class="Struct_attribute_value" id="'+this.prefix+'LicenseIssuer_licenseOwners_licenseOwnerAdress_value"> </div>'
++	'    	</div>'
++	'    	<div class="Struct_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_licenseOwners_licenseOwnerName"> licenseOwnerName:'
++	'      		<div class="Struct_attribute_value" id="'+this.prefix+'LicenseIssuer_licenseOwners_licenseOwnerName_value"> </div>'
++	'    	</div>'
++	'    	<div class="Struct_attribute" id="'+this.prefix+'LicenseIssuer_contract_attribute_licenseOwners_issuedDate"> issuedDate:'
++	'      		<div class="Struct_attribute_value" id="'+this.prefix+'LicenseIssuer_licenseOwners_issuedDate_value"> </div>'
++	'    	</div>'
++	'  </div>'
+;
+}
+
+
+//print the contract div around
+this.createLicenseIssuerSeletonGui=function(inner) {
+	return 	'<!-- gui for LicenseIssuer_contract -->'
++	'	<div class="contract" id="'+this.prefix+'LicenseIssuer_contract">'
++ inner
++'</div>';
+}
+
+
+//eventguis
+this.createLicenseIssuedLogDataGui = function(prefix, blockHash, blockNumber,
+ownerAddress,name,succesful) {
+		return '<ul class="dapp-account-list"><li > '
+        +'<a class="dapp-identicon dapp-small" style="background-image: url(identiconimage.png)"></a>'
+		+'<span>'+prefix+' ('+blockNumber+')</span>'
+        +'<span>'+ownerAddress+'</span>'
+        +'<span>'+name+'</span>'
+        +'<span>'+succesful+'</span>'
+        +' </li>'
+        ;
+}
+
+}//end guifactory
 // script for LicenseIssuer gui controller
 function LicenseIssuerController() {
 
@@ -676,7 +888,7 @@ this.LicenseIssuer_buyLicense_address_string=function() {
 
 //delegated calls
 
-}	
+}// end controller	
 
 
 // script for LicenseIssuer
@@ -726,7 +938,7 @@ function LicenseIssuerManager(prefix,contract) {
 		return this.c.LicenseIssuer_instance;
 	}
 
-}
+}// end of manager
 
 function LicenseIssuerGuiMananger(guiId){
 	this.prefix = guiId;
@@ -765,4 +977,5 @@ function LicenseIssuerGuiMananger(guiId){
 		}
 //		console.log('update');
 	}
-}
+}// end of gui mananger
+
