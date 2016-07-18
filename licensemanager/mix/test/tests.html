@@ -1,0 +1,52 @@
+<!doctype>
+<html>
+<head>
+<!--
+<script type='text/javascript' src="contractsWeb3.js">
+</script>
+-->
+<script type='text/javascript' src="package/compilation/contracts.sol.js">
+</script>
+	
+<script type='text/javascript' src="js/contracts-main.js">
+</script>
+
+<!-- start of style -->
+<style>
+.contract {
+	border-style: solid;
+	border-width: 1px;
+	} 
+.contract_attributes{
+	border-style: solid;
+	border-width: 1px;
+	} 
+.Struct_Mapping{}
+.Value_Mapping{}
+.contract_attribute{}
+.contract_attribute_value{}
+.function_execution{}
+.function_parameter{}
+.function_result{}
+
+</style>
+</head>
+<body bgcolor='#E6E6FA'>
+	<h1>Tests</h1>
+
+Tests for LicenseManager
+<div id="LicenseManager-restResult" ></div>
+
+
+<script type='text/javascript'>
+
+if(contracts['LicenseManager']!=undefined){
+	var contract = contracts['LicenseManager'].contract;
+	var lm = new TestLicenseManager(contract);
+	lm.allTests();
+}
+
+</script>
+
+</body>
+</html>
