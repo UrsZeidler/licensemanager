@@ -140,15 +140,15 @@ contract LicenseIssuer {
 	//TODO: implement
 	// End of user code
 	
-	modifier onlyLicenseManager
-	{
-	    if(licenseManager != msg.sender) throw;
-	    _
-	}
-	
 	modifier onlyExactAmount
 	{
 	    if(msg.value!=licencePrice|| !issuable) throw;
+	    _
+	}
+	
+	modifier onlyLicenseManager
+	{
+	    if(licenseManager != msg.sender) throw;
 	    _
 	}
 	
@@ -188,7 +188,7 @@ contract LicenseIssuer {
 		 IssuedLicense data = licenseOwners[_address];
 		 if(data.issuedDate == 0)
 		 	return false;
-		 if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))
+//		 if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))
 		 	return true;
 		 return false;
 		//End of user code
@@ -209,8 +209,10 @@ contract LicenseIssuer {
 		 IssuedLicense data = licenseOwners[_address];
 		 if(data.issuedDate == 0)
 		 	return false;
-		 if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))
+		 if((licenseLifetime<1))
 		 	return true;
+//		 if(licenseLifetime+now<data.issuedDate)
+//		 	return true;
 		 return false;
 		//End of user code
 	}

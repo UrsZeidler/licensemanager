@@ -8,7 +8,7 @@
 <script type='text/javascript' src="package/compilation/contracts.sol.js">
 </script>
 	
-<script type='text/javascript' src="js/contracts-main.js">
+<script type='text/javascript' src="../js/contracts-main.js">
 </script>
 
 <!-- start of style -->
@@ -36,14 +36,36 @@
 
 Tests for LicenseManager
 <div id="LicenseManager-restResult" ></div>
+<div id="LicenseManager-restResult1" ></div>
 
 
 <script type='text/javascript'>
 
 if(contracts['LicenseManager']!=undefined){
 	var contract = contracts['LicenseManager'].contract;
-	var lm = new TestLicenseManager(contract);
-	lm.allTests();
+	
+	
+	var c = new ContractsPage('LicenseManager-restResult');
+	c.licensmanager.addManager(contract);
+	var issuerContract = contracts['LicenseIssuer'];
+	
+	var lmContract = web3.eth.contract(contracts['LicenseIssuer'].interface);
+	for (var i = 0; i < contract.contractCount(); i++) {
+		var add = contract.contracts(i);
+		console.log('address: '+add);
+		c.licenseIssuers.addManager(lmContract.at(add));
+
+	}
+
+	
+	c.createDefaultGui();
+	
+// 	var w = new LicenseManagerGuiMananger('LicenseManager-restResult');
+// 	w.addManager(contract);
+// 	w.displaySimpleGui();
+	
+	
+	
 }
 
 </script>

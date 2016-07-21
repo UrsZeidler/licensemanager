@@ -151,11 +151,19 @@ function TestLicenseIssuer(contract) {
 	this.testAttributes=function() {
 	//Start of user code attributeTests_LicenseIssuer
 		this.printTest("testOperation1", "TestLicenseIssuer", true);
-		
+		var licensedItemName =	this.test_instance.licensedItemName();
+		this.printTest("attribute_address", "licensedItemName: "+licensedItemName, true);	
 		var licencePrice =	this.test_instance.licencePrice();
 		this.printTest("attribute_address", "licencePrice: "+licencePrice, true);	
+		var licenseLifetime =	this.test_instance.licenseLifetime();
+		this.printTest("attribute_address", "licenseLifetime: "+licenseLifetime, true);	
 		var licenseCount =	this.test_instance.licenseCount();
 		this.printTest("attribute_address", "licenseCount: "+licenseCount, true);	
+		var licenseManager =	this.test_instance.licenseManager();
+		this.printTest("attribute_address", "licenseManager: "+licenseManager, true);	
+		var issuable =	this.test_instance.issuable();
+		this.printTest("attribute_address", "issuable: "+issuable, true);	
+		
 	//End of user code
 	}
 
@@ -242,7 +250,7 @@ function TestLicenseIssuer(contract) {
 		var licenseCountAfter =	this.test_instance.licenseCount();
 		this.printTest("testOperation1", licenseCountBefore +" before buyLicense_address_string and after "+licenseCountAfter, licenseCountBefore<licenseCountAfter);		
 		
-		var res = this.test_instance.checkLicense(web3.eth.defaultAccount);		
+		var res = this.test_instance.checkLicense(account);		
 		this.printTest("testOperation1", "checkLicense_address:"+res, res===true);	
 		
 		var res = this.test_instance.stopIssuing();
@@ -260,7 +268,7 @@ function TestLicenseIssuer(contract) {
 		var licenseCountAfter =	this.test_instance.licenseCount();
 		this.printTest("testOperation1", licenseCountBefore +" before buyLicense_address_string and after "+licenseCountAfter, licenseCountBefore=licenseCountAfter);		
 
-		var res = this.test_instance.checkLicense(account);		
+		var res = this.test_instance.checkLicense(web3.eth.accounts[0]);		
 		this.printTest("testOperation1", "checkLicense_address:"+res, res===true);		
 
 		//End of user code

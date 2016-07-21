@@ -1,7 +1,6 @@
 
 var LicenseManagerContract = web3.eth.contract([
 {"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"type":"function"},
-{"constant":true,"inputs":[],"name":"paymentAddress","outputs":[{"name":"","type":"address"}],"type":"function"},
 {"constant":true,"inputs":[],"name":"issuerName","outputs":[{"name":"","type":"string"}],"type":"function"},
 {"constant":true,"inputs":[],"name":"contractCount","outputs":[{"name":"","type":"uint"}],"type":"function"},
 {"constant": true,"inputs": [{"name": "","type": "uint"}],"name": "contracts","outputs": [
@@ -42,14 +41,13 @@ var LicenseManagerContract = web3.eth.contract([
 
 var LicenseIssuerContract = web3.eth.contract([
 {"constant":true,"inputs":[],"name":"licensedItemName","outputs":[{"name":"","type":"string"}],"type":"function"},
+{"constant":true,"inputs":[],"name":"licenseManager","outputs":[{"name":"","type":"address"}],"type":"function"},
 {"constant":true,"inputs":[],"name":"licenseTextHash","outputs":[{"name":"","type":"string"}],"type":"function"},
 {"constant":true,"inputs":[],"name":"licenseUrl","outputs":[{"name":"","type":"string"}],"type":"function"},
 {"constant":true,"inputs":[],"name":"licencePrice","outputs":[{"name":"","type":"uint"}],"type":"function"},
 {"constant":true,"inputs":[],"name":"licenseLifetime","outputs":[{"name":"","type":"uint"}],"type":"function"},
 {"constant":true,"inputs":[],"name":"licenseCount","outputs":[{"name":"","type":"uint"}],"type":"function"},
 {"constant":true,"inputs":[],"name":"issuable","outputs":[{"name":"","type":"bool"}],"type":"function"},
-{"constant":true,"inputs":[],"name":"paymentAddress","outputs":[{"name":"","type":"address"}],"type":"function"},
-{"constant":true,"inputs":[],"name":"licenseManager","outputs":[{"name":"","type":"address"}],"type":"function"},
 {"constant": true,"inputs": [{"name": "","type": "uint"}],"name": "issuedLicenses","outputs": [
 { "name": "licenseOwnerAdress", "type": "address"}
 ,{ "name": "licenseOwnerName", "type": "string"}
