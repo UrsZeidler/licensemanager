@@ -140,15 +140,15 @@ contract LicenseIssuer {
 	//TODO: implement
 	// End of user code
 	
-	modifier onlyExactAmount
-	{
-	    if(msg.value!=licencePrice|| !issuable) throw;
-	    _
-	}
-	
 	modifier onlyLicenseManager
 	{
 	    if(licenseManager != msg.sender) throw;
+	    _
+	}
+	
+	modifier onlyExactAmount
+	{
+	    if(msg.value!=licencePrice|| !issuable) throw;
 	    _
 	}
 	

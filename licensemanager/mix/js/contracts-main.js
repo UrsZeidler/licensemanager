@@ -1011,11 +1011,8 @@ function ContractsPage(prefix) {
 	
 // default Gui
 this.placeDefaultGui=function() {
-	var e = document.getElementById(this.prefix);
-	if(e!=null)
-		e.innerHTML = this.createDefaultGui();
-	else
-		console.log(this.prefix+' contracts_gui not found');
+this.createDefaultGui();
+
 }
 // default Gui
 this.createDefaultGui=function() {
