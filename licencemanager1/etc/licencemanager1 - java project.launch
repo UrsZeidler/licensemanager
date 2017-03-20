@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="de.urszeidler.eclipse.solidity.laucher.core.launch.uml2solidity">
+<booleanAttribute key="COMPILER_ABI" value="true"/>
+<booleanAttribute key="COMPILER_ASM" value="false"/>
+<booleanAttribute key="COMPILER_ASM_JSON" value="false"/>
+<booleanAttribute key="COMPILER_AST" value="false"/>
+<booleanAttribute key="COMPILER_AST_JSON" value="false"/>
+<booleanAttribute key="COMPILER_BIN" value="true"/>
+<booleanAttribute key="COMPILER_BIN_RUNTIME" value="false"/>
+<booleanAttribute key="COMPILER_DEVDOC" value="false"/>
+<booleanAttribute key="COMPILER_FORMAL" value="false"/>
+<booleanAttribute key="COMPILER_HASHES" value="false"/>
+<booleanAttribute key="COMPILER_INTERFACT" value="false"/>
+<booleanAttribute key="COMPILER_OPCODE" value="false"/>
+<booleanAttribute key="COMPILER_OPTIMIZE" value="false"/>
+<stringAttribute key="COMPILER_PROGRAMM" value="/usr/bin/solc"/>
+<stringAttribute key="COMPILER_TARGET" value="bin"/>
+<booleanAttribute key="COMPILER_USERDOC" value="true"/>
+<booleanAttribute key="COMPILE_CONTRACTS" value="true"/>
+<stringAttribute key="CONTRACT_FILE_HEADER" value="/*&#10;*&#10;*&#10;*/"/>
+<booleanAttribute key="GENERATE_ABI" value="false"/>
+<stringAttribute key="GENERATE_ABI_TARGET" value="/licencemanager1/mix/abi"/>
+<booleanAttribute key="GENERATE_CONTRACT_FILES" value="true"/>
+<booleanAttribute key="GENERATE_HTML" value="false"/>
+<booleanAttribute key="GENERATE_JAVA_INTERFACE" value="true"/>
+<booleanAttribute key="GENERATE_JAVA_NONBLOCKING" value="true"/>
+<booleanAttribute key="GENERATE_JAVA_TESTS" value="true"/>
+<booleanAttribute key="GENERATE_JS_CONTROLLER" value="false"/>
+<stringAttribute key="GENERATE_JS_CONTROLLER_TARGET" value="/licencemanager1/mix/js"/>
+<booleanAttribute key="GENERATE_JS_TEST" value="true"/>
+<booleanAttribute key="GENERATE_JS_TEST_CONTROLLER" value="false"/>
+<stringAttribute key="GENERATE_JS_TEST_TARGET" value="/licencemanager1/mix/test"/>
+<booleanAttribute key="GENERATE_MARKDOWN" value="true"/>
+<booleanAttribute key="GENERATE_MIX" value="false"/>
+<stringAttribute key="GENERATE_UML_DOC_IMAGE_URL" value=""/>
+<booleanAttribute key="GENERATE_WEB3" value="false"/>
+<stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_address" value="org.adridadou.ethereum.values.EthAddress"/>
+<stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_bool" value="Boolean"/>
+<stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_byte" value="Byte"/>
+<stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_bytes32" value="Byte[]"/>
+<stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_int" value="Integer"/>
+<stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_new sol type" value="java type"/>
+<stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_string" value="String"/>
+<stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_uint" value="Integer"/>
+<stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_uint256" value="java.math.BigInteger"/>
+<stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_uint8" value="Integer"/>
+<stringAttribute key="GENERATION_JAVA_INTERFACE_PACKAGE_PREFIX" value="de.urszeidler.ethereum.licencemanager1"/>
+<stringAttribute key="GENERATION_JAVA_INTERFACE_TARGET" value="/licencemanager1/src/main/java"/>
+<stringAttribute key="GENERATION_JAVA_TEST_TARGET" value="/licencemanager1/src/test/java"/>
+<stringAttribute key="GENERATION_TARGET" value="/licencemanager1/src/main/resources/contracts"/>
+<stringAttribute key="GENERATION_TARGET_DOC" value="/licencemanager1/doc"/>
+<stringAttribute key="JS_FILE_HEADER" value="// file header"/>
+<booleanAttribute key="de.urszeidler.eclipse.solidity.generation.example.useCaseDoc" value="true"/>
+<stringAttribute key="de.urszeidler.eclipse.solidity.generation.example.usecaseDocTarget" value="/licencemanager1/doc"/>
+<booleanAttribute key="enable_version" value="true"/>
+<stringAttribute key="modelUri" value="/licencemanager1/model/licensemanager.uml"/>
+<stringAttribute key="version_pragma" value="pragma solidity ^0.4.0;"/>
+</launchConfiguration>

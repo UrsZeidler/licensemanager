@@ -1,0 +1,8 @@
+BUILDER_PROJECT_SETTINGS=true
+COMPILER_PROGRAMM=/home/urs/etc/solidity-compiler/0.4.8/solc
+COMPILER_TARGET_COMBINE_ABI=/licencemanager1/src/main/resources/contracts/combined.json
+ENABLE_GAS_OPTIMIZE=true
+ESTIMATE_GAS_COSTS=true
+SELECTED_COMPILER=/home/urs/etc/solidity-compiler/0.4.8/solc
+SOL_SRC_DIRECTORY=/licencemanager1/src/main/resources/contracts
+eclipse.preferences.version=1

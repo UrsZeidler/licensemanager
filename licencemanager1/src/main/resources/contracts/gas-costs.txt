@@ -1,0 +1,45 @@
+
+======= LicenseIssuer =======
+Gas estimation:
+construction:
+   [???] + 674400 = [???]
+external:
+   checkLicense(address):	524
+   licenseManager():	337
+   licenseCount():	286
+   licencePrice():	308
+   getIssuable():	343
+   stopIssuing():	20440
+   licenseUrl():	[???]
+   paymentAddress():	480
+   changePaymentAddress(address):	20598
+   checkLicense(bytes32,uint8,bytes32,bytes32):	[???]
+   licenseTextHash():	[???]
+   licenseLifetime():	484
+   licenseOwners(address):	[???]
+   licensedItemName():	[???]
+   issuedLicenses(uint256):	[???]
+   issuable():	584
+   buyLicense(address,string):	[???]
+   fallback:	484
+internal:
+   ():	12
+
+======= LicenseManager =======
+Gas estimation:
+construction:
+   [???] + 1227600 = [???]
+external:
+   issuerName():	[???]
+   stopIssuing(uint256):	[???]
+   contracts(uint256):	431
+   changePaymentAddress(address,uint256):	[???]
+   paymentAddress():	403
+   createIssuerContract(string,string,string,uint256,uint256):	[???]
+   changePaymentAddress(address):	20575
+   contractCount():	396
+   owner():	491
+   changeOwner(address):	20641
+   fallback:	330
+internal:
+   ():	12

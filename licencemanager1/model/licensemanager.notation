@@ -408,6 +408,10 @@
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-7GicOwREeWXZ76iNScx7g" source="PapyrusCSSForceValue">
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-7GicewREeWXZ76iNScx7g" key="mutable" value="true"/>
         </eAnnotations>
+        <children xmi:type="notation:Shape" xmi:id="_dXXfkAkSEeeF3tHc9z_8OQ" type="Operation_ClassOperationLabel">
+          <element xmi:type="uml:Operation" href="licensemanager.uml#_dWLMwAkSEeeF3tHc9z_8OQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_dXXfkQkSEeeF3tHc9z_8OQ"/>
+        </children>
         <children xmi:type="notation:Shape" xmi:id="_WDZlsOtMEeWkINMUmqeUiw" type="Operation_ClassOperationLabel">
           <element xmi:type="uml:Operation" href="licensemanager.uml#_WDVUQOtMEeWkINMUmqeUiw"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_WDZlsetMEeWkINMUmqeUiw"/>
@@ -423,6 +427,10 @@
         <children xmi:type="notation:Shape" xmi:id="_-6RcAOwREeWXZ76iNScx7g" type="Operation_ClassOperationLabel">
           <element xmi:type="uml:Operation" href="licensemanager.uml#_7DpvwOwREeWXZ76iNScx7g"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_-6RcAewREeWXZ76iNScx7g"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_t5iyoAl5Eee6vuJnEjPB9w" type="Operation_ClassOperationLabel">
+          <element xmi:type="uml:Operation" href="licensemanager.uml#_tvZ_MAl5Eee6vuJnEjPB9w"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_t5iyoQl5Eee6vuJnEjPB9w"/>
         </children>
         <styles xmi:type="notation:TitleStyle" xmi:id="_0MC7qetJEeWkINMUmqeUiw"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_0MC7qutJEeWkINMUmqeUiw"/>
@@ -530,6 +538,10 @@
         <children xmi:type="notation:Shape" xmi:id="_rEpCgOtaEeWkINMUmqeUiw" type="Operation_ClassOperationLabel">
           <element xmi:type="uml:Operation" href="licensemanager.uml#_rEf4kOtaEeWkINMUmqeUiw"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_rEpCgetaEeWkINMUmqeUiw"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_TLT3EAkZEeeF3tHc9z_8OQ" type="Operation_ClassOperationLabel">
+          <element xmi:type="uml:Operation" href="licensemanager.uml#_TK3LIAkZEeeF3tHc9z_8OQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_TLT3EQkZEeeF3tHc9z_8OQ"/>
         </children>
         <children xmi:type="notation:Shape" xmi:id="_pQ6SsPBKEeWIBuibjpfIPQ" type="Operation_ClassOperationLabel">
           <element xmi:type="uml:Operation" href="licensemanager.uml#_pQPkUPBKEeWIBuibjpfIPQ"/>

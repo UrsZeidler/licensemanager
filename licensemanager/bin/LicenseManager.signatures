@@ -1,0 +1,7 @@
+2e9868f8: issuerName()
+40426fb0: stopIssuing(uint256)
+474da79a: contracts(uint256)
+5e601fed: changePaymentAddress(address,uint256)
+67eb9bab: createIssuerContract(string,string,string,uint256,uint256)
+7124d613: changePaymentAddress(address)
+8736381a: contractCount()

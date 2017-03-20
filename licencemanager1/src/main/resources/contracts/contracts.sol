@@ -1,4 +1,8 @@
-
+/*
+*
+*
+*/
+pragma solidity ^0.4.0;
 /*
 * A number of contracts to issue license.
 * (c) Urs Zeidler
@@ -10,7 +14,7 @@
 contract LicenseManager {
 
 	address public owner;
-	address private paymentAddress;
+	address public paymentAddress;
 	string public issuerName;
 	uint public contractCount;
 	mapping (uint=>LicenseIssuer)public contracts;
@@ -21,21 +25,18 @@ contract LicenseManager {
 	modifier onlyOwner
 	{
 	     if(owner != msg.sender) throw;
-	    _
+	    _;
 	}
-	//
-	// constructor for LicenseManager
-	//
-	function LicenseManager(address _paymentAddress, string _name){
-	    owner = msg.sender;
-	issuerName = _name;
-	paymentAddress = _paymentAddress;
-	    //Start of user code Constructor.LicenseManager
-	    owner = msg.sender;
-	issuerName = _name;
-	paymentAddress = _paymentAddress;
-	    //End of user code
+	
+	
+	function LicenseManager(address _paymentAddress,string _name) public   {
+		//Start of user code LicenseManager.constructor.LicenseManager_address_string
+		owner = msg.sender;
+		issuerName = _name;
+		paymentAddress = _paymentAddress;
+		//End of user code
 	}
+	
 	
 	/*
 	* Change the address which receive the payment for an issued license. Only new issued licenses are affected.
@@ -45,7 +46,8 @@ contract LicenseManager {
 	function changePaymentAddress(address _newPaymentAdress) public  onlyOwner  {
 		
 		//Start of user code LicenseManager.function.changePaymentAddress_address
-		 paymentAddress = _newPaymentAdress;
+		owner = _newPaymentAdress;
+//		paymentAddress = _newPaymentAdress;
 		//End of user code
 	}
 	
@@ -100,6 +102,14 @@ contract LicenseManager {
 		//End of user code
 	}
 	
+	
+	
+	function changeOwner(address _newOwner) public  onlyOwner  {
+		//Start of user code LicenseManager.function.changeOwner_address
+		owner = _newOwner;
+		//End of user code
+	}
+	
 	function() {
 		// Start of user code LicenseManager default.function
 		throw;
@@ -111,8 +121,8 @@ contract LicenseManager {
 }
 
 /*
-* The license issuer is a contract containing the description of a particluar license.
-* It grands a license to an address by reciving the fund and holds a register of the 
+* The license issuer is a contract containing the description of a particular license.
+* It grands a license to an address by receiving the fund and holds a register of the 
 * issued licenses.
 */
 contract LicenseIssuer {
@@ -128,11 +138,11 @@ contract LicenseIssuer {
 	string public licensedItemName;
 	string public licenseTextHash;
 	string public licenseUrl;
-	uint public licencePrice;
+	uint256 public licencePrice;
 	uint public licenseLifetime;
 	uint public licenseCount;
 	bool public issuable;
-	address private paymentAddress;
+	address public paymentAddress;
 	address public licenseManager;
 	mapping (uint=>IssuedLicense)public issuedLicenses;
 	mapping (address=>IssuedLicense)public licenseOwners;
@@ -143,36 +153,35 @@ contract LicenseIssuer {
 	modifier onlyExactAmount
 	{
 	    if(msg.value!=licencePrice|| !issuable) throw;
-	    _
+	    _;
 	}
 	
 	modifier onlyLicenseManager
 	{
 	    if(licenseManager != msg.sender) throw;
-	    _
+	    _;
 	}
 	
 	
 	event LicenseIssued(address ownerAddress,string name,bool succesful);
-	//
-	// constructor for LicenseIssuer
-	//
-	function LicenseIssuer(string itemName, string textHash, string url, uint lifeTime, uint price, address _pa){
-	    
-	    //Start of user code Constructor.LicenseIssuer
-	licensedItemName = itemName;
-	licenseTextHash = textHash;
-	licenseUrl = url;
-	licencePrice = price  * 1 finney;
-	licenseLifetime = lifeTime;
-	paymentAddress = _pa;
-	issuable = true;
-	licenseManager = msg.sender;
-	    //End of user code
+	
+	
+	function LicenseIssuer(string itemName,string textHash,string url,uint lifeTime,uint price,address _pa) public   {
+		//Start of user code LicenseIssuer.constructor.LicenseIssuer_string_string_string_uint_uint_address
+		licensedItemName = itemName;
+		licenseTextHash = textHash;
+		licenseUrl = url;
+		licencePrice = price  * 1 finney;
+		licenseLifetime = lifeTime;
+		paymentAddress = _pa;
+		issuable = true;
+		licenseManager = msg.sender;
+		//End of user code
 	}
 	
+	
 	/*
-	* Check the licenses by a given signature.
+	* Check the liceses by a given signature.
 	* 
 	* factHash -
 	* v -
@@ -181,15 +190,15 @@ contract LicenseIssuer {
 	* returns
 	*  -
 	*/
-	function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public  returns (bool ) {
+	function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public   constant returns (bool ) {
 		
 		//Start of user code LicenseIssuer.function.checkLicense_bytes32_uint8_bytes32_bytes32
 		 address _address = ecrecover(factHash, v, sig_r, sig_s);
 		 IssuedLicense data = licenseOwners[_address];
 		 if(data.issuedDate == 0)
 		 	return false;
-//		 if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))
-//		 	return true;
+		 if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))
+		 	return true;
 		 return false;
 		//End of user code
 	}
@@ -250,7 +259,7 @@ contract LicenseIssuer {
 	* _address -
 	* _name -
 	*/
-	function buyLicense(address _address,string _name) public  onlyExactAmount  {
+	function buyLicense(address _address,string _name) public  onlyExactAmount payable  {
 		 
 		
 		//Start of user code LicenseIssuer.function.buyLicense_address_string
@@ -261,6 +270,7 @@ contract LicenseIssuer {
 		 if( (date!=0 && (licenseLifetime<1)||(licenseLifetime+now<date)) ) throw;
 		 issuedLicenses[licenseCount].licenseOwnerName = _name;
 		 issuedLicenses[licenseCount].issuedDate = now;
+		 issuedLicenses[licenseCount].licenseOwnerAdress = _address;
 		 licenseOwners[_address] = issuedLicenses[licenseCount];
 		 licenseCount++;
 		 bool ret = paymentAddress.send(msg.value);
@@ -268,8 +278,8 @@ contract LicenseIssuer {
 		//End of user code
 	}
 	
-	// getIssuable
-	function getIssuable() returns(bool) {
+	// getIssuable getter for the field issuable
+	function getIssuable() constant returns(bool) {
 		return issuable;
 	}
 	

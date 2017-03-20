@@ -1,7 +1,35 @@
+//a simple bean class arount the contract
+// the LicenseManagerModel
+function LicenseManagerModel(contract) {
+this.contract = contract;
+this.getOwner = function(){
+return contract.owner(); 
+}
+this.getIssuerName = function(){
+return contract.issuerName(); 
+}
+this.getContractCount = function(){
+return contract.contractCount(); 
+}
+this.changePaymentAddress = function(_newPaymentAdress){
+return contract.changePaymentAddress(_newPaymentAdress); 
+}
+this.createIssuerContract = function(itemName,textHash,url,lifeTime,price){
+return contract.createIssuerContract(itemName,textHash,url,lifeTime,price); 
+}
+this.stopIssuing = function(licenseId){
+return contract.stopIssuing(licenseId); 
+}
+this.changePaymentAddress = function(_newPaymentAddress,licenseId){
+return contract.changePaymentAddress(_newPaymentAddress,licenseId); 
+}
+}// end of function LicenseManagerModel
+
 //test class for LicenseManager
 function TestLicenseManager(contract) {
 	
 	this.test_instance = contract;
+	this.model = new LicenseManagerModel(contract);
 	this.prefix='';
 	this.messageBlockId = "testResult";
 	var self = this;
@@ -107,10 +135,56 @@ function TestLicenseManager(contract) {
 //End of user code
 	}
 }
+//a simple bean class arount the contract
+// the LicenseIssuerModel
+function LicenseIssuerModel(contract) {
+this.contract = contract;
+this.getLicensedItemName = function(){
+return contract.licensedItemName(); 
+}
+this.getLicenseManager = function(){
+return contract.licenseManager(); 
+}
+this.getLicenseTextHash = function(){
+return contract.licenseTextHash(); 
+}
+this.getLicenseUrl = function(){
+return contract.licenseUrl(); 
+}
+this.getLicencePrice = function(){
+return contract.licencePrice(); 
+}
+this.getLicenseLifetime = function(){
+return contract.licenseLifetime(); 
+}
+this.getLicenseCount = function(){
+return contract.licenseCount(); 
+}
+this.getIssuable = function(){
+return contract.issuable(); 
+}
+this.checkLicense = function(factHash,v,sig_r,sig_s){
+return contract.checkLicense(factHash,v,sig_r,sig_s); 
+}
+this.checkLicense = function(_address){
+return contract.checkLicense(_address); 
+}
+this.changePaymentAddress = function(_newPaymentAddress){
+return contract.changePaymentAddress(_newPaymentAddress); 
+}
+this.stopIssuing = function(){
+return contract.stopIssuing(); 
+}
+this.buyLicense = function(_address,_name){
+return contract.buyLicense(_address,_name); 
+}
+}// end of function LicenseIssuerModel
+
 //test class for LicenseIssuer
 function TestLicenseIssuer(contract) {
 	
 	this.test_instance = contract;
+	this.model = new LicenseIssuerModel(contract);
 	this.prefix='';
 	this.messageBlockId = "testResult";
 	var self = this;

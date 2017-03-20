@@ -12,10 +12,12 @@ A number of contracts to issue license.
 ## contract: LicenseManager
 
     overview:
+	constructor LicenseManager(address _paymentAddress,string _name)
 	function changePaymentAddress(address _newPaymentAdress) public  onlyOwner 
 	function createIssuerContract(string itemName,string textHash,string url,uint lifeTime,uint price) public  onlyOwner 
 	function stopIssuing(uint licenseId) public  onlyOwner 
 	function changePaymentAddress(address _newPaymentAddress,uint licenseId) public  onlyOwner 
+	function changeOwner(address _newOwner) public  onlyOwner 
 
 
 
@@ -29,7 +31,7 @@ The licensmanager creates an issuer contract and holds the payment address.
 name|type|visiblity|delegate|doc
 ----|----|----|----|----
 owner|address|public||
-paymentAddress|address|private||
+paymentAddress|address|public||
 issuerName|string|public||
 contractCount|uint|public||
 
@@ -38,6 +40,14 @@ contractCount|uint|public||
 name|type|mapsTo|visiblity|doc
 ----|----|----|----|----
 contracts|uint|LicenseIssuer|public|-
+
+#### LicenseManager.LicenseManager(address _paymentAddress,string _name) public  
+
+
+name|type|doc
+----|----|----
+_paymentAddress|address|
+_name|string|
 
 #### LicenseManager.changePaymentAddress(address _newPaymentAdress) public  onlyOwner 
 
@@ -81,25 +91,47 @@ name|type|direction|doc
 _newPaymentAddress|address|in|
 licenseId|uint|in|
 
+#### LicenseManager.changeOwner(address _newOwner) public  onlyOwner 
+
+
+name|type|direction|doc
+----|----|----|----
+_newOwner|address|in|
+
 
 ## contract: LicenseIssuer
 
     overview:
-	function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public  returns (bool )
+	constructor LicenseIssuer(string itemName,string textHash,string url,uint lifeTime,uint price,address _pa)
+	function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public   constant returns (bool )
 	function checkLicense(address _address) public   constant returns (bool )
 	function changePaymentAddress(address _newPaymentAddress) public  onlyLicenseManager 
 	function stopIssuing() public  onlyLicenseManager 
-	function buyLicense(address _address,string _name) public  onlyExactAmount 
+	function buyLicense(address _address,string _name) public  onlyExactAmount payable 
 
 
 
-The license issuer is a contract containing the description of a particluar license.
-It grands a license to an address by reciving the fund and holds a register of the 
+The license issuer is a contract containing the description of a particular license.
+It grands a license to an address by receiving the fund and holds a register of the 
 issued licenses.
 
 
 
 ### structs:
+
+IssuedLicense
+Hold one issued license for the item.
+
+
+
+#### IssuedLicense properties
+
+name|type|visiblity|delegate|doc
+----|----|----|----|----
+licenseOwnerAdress|address|public||
+licenseOwnerName|string|public||
+issuedDate|uint|public||
+
 
 
 #### LicenseIssuer properties
@@ -109,11 +141,11 @@ name|type|visiblity|delegate|doc
 licensedItemName|string|public||
 licenseTextHash|string|public||
 licenseUrl|string|public||
-licencePrice|uint|public||
+licencePrice|uint256|public||
 licenseLifetime|uint|public||
 licenseCount|uint|public||
 issuable|bool|public||
-paymentAddress|address|private||
+paymentAddress|address|public||
 licenseManager|address|public||The address which manange the contract.
 
 #### LicenseIssuer mappings
@@ -122,7 +154,19 @@ name|type|mapsTo|visiblity|doc
 ----|----|----|----|----
 issuedLicenses|uint|IssuedLicense|public|licenseOwners|address|IssuedLicense|public|-
 
-#### LicenseIssuer.checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public  returns (bool )
+#### LicenseIssuer.LicenseIssuer(string itemName,string textHash,string url,uint lifeTime,uint price,address _pa) public  
+
+
+name|type|doc
+----|----|----
+itemName|string|
+textHash|string|
+url|string|
+lifeTime|uint|
+price|uint|
+_pa|address|
+
+#### LicenseIssuer.checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public   constant returns (bool )
 
 Check the liceses by a given signature.
 
@@ -160,7 +204,7 @@ Stop accecpting buying a license.
 
 
 
-#### LicenseIssuer.buyLicense(address _address,string _name) public  onlyExactAmount 
+#### LicenseIssuer.buyLicense(address _address,string _name) public  onlyExactAmount payable 
 
 Issue a license for the item by sending the address data and the amount of money.
 

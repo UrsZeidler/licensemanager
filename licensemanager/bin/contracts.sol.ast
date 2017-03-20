@@ -1,0 +1,1173 @@
+ContractDefinition "LicenseManager"
+   Source: "contract LicenseManager {\n\n\taddress private owner;\n\taddress private paymentAddress;\n\tstring public issuerName;\n\tuint public contractCount;\n\tmapping (uint=>LicenseIssuer)public contracts;\n\t// Start of user code LicenseManager.attributes\n\t//TODO: implement\n\t// End of user code\n\t//\n\t// constructor for LicenseManager\n\t//\n\tfunction LicenseManager(address _paymentAddress, string _name){\n\t    owner = msg.sender;\n\tissuerName = _name;\n\tpaymentAddress = _paymentAddress;\n\t    //Start of user code Constructor.LicenseManager\n\t\t//TODO: implement\n\t    //End of user code\n\t}\n\t\n\t/*\n\t* Change the address which receive the payment for an issued license. Only new issued licenses are affected.\n\t* \n\t* _newPaymentAdress -\n\t*/\n\tfunction changePaymentAddress(address _newPaymentAdress) public   {\n\t\t if(owner != msg.sender) throw;\n\t\t paymentAddress = _newPaymentAdress;\n\t\t\n\t\t//Start of user code LicenseManager.function.changePaymentAddress\n\t\t//TODO: implement\n\t\t//End of user code\n\t}\n\t\n\t\n\t/*\n\t* Create a new licenseissuer contract.\n\t* The price is in finney.\n\t* \n\t* itemName -\n\t* textHash -\n\t* url -\n\t* lifeTime -\n\t* price -\n\t*/\n\tfunction createIssuerContract(string itemName,string textHash,string url,uint lifeTime,uint price) public   {\n\t\t if(owner != msg.sender) throw;\n\t\t contracts[contractCount] = new LicenseIssuer(itemName, textHash, url, lifeTime, price, paymentAddress);\n\t\t contractCount++;\n\t\t\n\t\t//Start of user code LicenseManager.function.createIssuerContract\n\t\t//TODO: implement\n\t\t//End of user code\n\t}\n\t\n\t\n\t/*\n\t* Stopps the licence issuer from issue any more licences.\n\t* \n\t* licenseId -\n\t*/\n\tfunction stopIssuing(uint licenseId) public   {\n\t\t if(owner != msg.sender)\n\t\t \tthrow;\n\t\t contracts[licenseId].stopIssuing();\n\t\t\n\t\t//Start of user code LicenseManager.function.stopIssuing\n\t\t//TODO: implement\n\t\t//End of user code\n\t}\n\t\n\t\n\t/*\n\t* Change the address which receive the payment for an issued license for a specific license issuer. \n\t* \n\t* _newPaymentAddress -\n\t* licenseId -\n\t*/\n\tfunction changePaymentAddress(address _newPaymentAddress,uint licenseId) public   {\n\t\t if(owner != msg.sender)\n\t\t \tthrow;\n\t\t if(!contracts[licenseId].getissuable())\n\t\t \tthrow;\n\t\t contracts[licenseId].changePaymentAddress(_newPaymentAddress);\n\t\t\n\t\t//Start of user code LicenseManager.function.changePaymentAddress\n\t\t//TODO: implement\n\t\t//End of user code\n\t}\n\t\n\t// Start of user code LicenseManager.operations\n\t//TODO: implement\n\t// End of user code\n}"
+  VariableDeclaration "owner"
+     Type: address
+     Source: "address private owner"
+    ElementaryTypeName address
+       Source: "address"
+  VariableDeclaration "paymentAddress"
+     Type: address
+     Source: "address private paymentAddress"
+    ElementaryTypeName address
+       Source: "address"
+  VariableDeclaration "issuerName"
+     Type: string storage ref
+     Source: "string public issuerName"
+    ElementaryTypeName string
+       Source: "string"
+  VariableDeclaration "contractCount"
+     Type: uint256
+     Source: "uint public contractCount"
+    ElementaryTypeName uint
+       Source: "uint"
+  VariableDeclaration "contracts"
+     Type: mapping(uint256 => contract LicenseIssuer)
+     Source: "mapping (uint=>LicenseIssuer)public contracts"
+    Mapping
+       Source: "mapping (uint=>LicenseIssuer)"
+      ElementaryTypeName uint
+         Source: "uint"
+      UserDefinedTypeName "LicenseIssuer"
+         Source: "LicenseIssuer"
+  FunctionDefinition "LicenseManager" - public
+     Source: "function LicenseManager(address _paymentAddress, string _name){\n\t    owner = msg.sender;\n\tissuerName = _name;\n\tpaymentAddress = _paymentAddress;\n\t    //Start of user code Constructor.LicenseManager\n\t\t//TODO: implement\n\t    //End of user code\n\t}"
+    ParameterList
+       Source: "(address _paymentAddress, string _name)"
+      VariableDeclaration "_paymentAddress"
+         Type: address
+         Source: "address _paymentAddress"
+        ElementaryTypeName address
+           Source: "address"
+      VariableDeclaration "_name"
+         Type: string memory
+         Source: "string _name"
+        ElementaryTypeName string
+           Source: "string"
+    ParameterList
+       Source: ""
+    Block
+       Source: "{\n\t    owner = msg.sender;\n\tissuerName = _name;\n\tpaymentAddress = _paymentAddress;\n\t    //Start of user code Constructor.LicenseManager\n\t\t//TODO: implement\n\t    //End of user code\n\t}"
+      ExpressionStatement
+         Source: "owner = msg.sender"
+        Assignment using operator =
+           Type: address
+           Source: "owner = msg.sender"
+          Identifier owner
+             Type: address
+             Source: "owner"
+          MemberAccess to member sender
+             Type: address
+             Source: "msg.sender"
+            Identifier msg
+               Type: msg
+               Source: "msg"
+      ExpressionStatement
+         Source: "issuerName = _name"
+        Assignment using operator =
+           Type: string storage ref
+           Source: "issuerName = _name"
+          Identifier issuerName
+             Type: string storage ref
+             Source: "issuerName"
+          Identifier _name
+             Type: string memory
+             Source: "_name"
+      ExpressionStatement
+         Source: "paymentAddress = _paymentAddress"
+        Assignment using operator =
+           Type: address
+           Source: "paymentAddress = _paymentAddress"
+          Identifier paymentAddress
+             Type: address
+             Source: "paymentAddress"
+          Identifier _paymentAddress
+             Type: address
+             Source: "_paymentAddress"
+  FunctionDefinition "changePaymentAddress" - public
+     Source: "function changePaymentAddress(address _newPaymentAdress) public   {\n\t\t if(owner != msg.sender) throw;\n\t\t paymentAddress = _newPaymentAdress;\n\t\t\n\t\t//Start of user code LicenseManager.function.changePaymentAddress\n\t\t//TODO: implement\n\t\t//End of user code\n\t}"
+    ParameterList
+       Source: "(address _newPaymentAdress)"
+      VariableDeclaration "_newPaymentAdress"
+         Type: address
+         Source: "address _newPaymentAdress"
+        ElementaryTypeName address
+           Source: "address"
+    ParameterList
+       Source: ""
+    Block
+       Source: "{\n\t\t if(owner != msg.sender) throw;\n\t\t paymentAddress = _newPaymentAdress;\n\t\t\n\t\t//Start of user code LicenseManager.function.changePaymentAddress\n\t\t//TODO: implement\n\t\t//End of user code\n\t}"
+      IfStatement
+         Source: "if(owner != msg.sender) throw"
+        BinaryOperation using operator !=
+           Type: bool
+           Source: "owner != msg.sender"
+          Identifier owner
+             Type: address
+             Source: "owner"
+          MemberAccess to member sender
+             Type: address
+             Source: "msg.sender"
+            Identifier msg
+               Type: msg
+               Source: "msg"
+        Throw
+           Source: "throw"
+      ExpressionStatement
+         Source: "paymentAddress = _newPaymentAdress"
+        Assignment using operator =
+           Type: address
+           Source: "paymentAddress = _newPaymentAdress"
+          Identifier paymentAddress
+             Type: address
+             Source: "paymentAddress"
+          Identifier _newPaymentAdress
+             Type: address
+             Source: "_newPaymentAdress"
+  FunctionDefinition "createIssuerContract" - public
+     Source: "function createIssuerContract(string itemName,string textHash,string url,uint lifeTime,uint price) public   {\n\t\t if(owner != msg.sender) throw;\n\t\t contracts[contractCount] = new LicenseIssuer(itemName, textHash, url, lifeTime, price, paymentAddress);\n\t\t contractCount++;\n\t\t\n\t\t//Start of user code LicenseManager.function.createIssuerContract\n\t\t//TODO: implement\n\t\t//End of user code\n\t}"
+    ParameterList
+       Source: "(string itemName,string textHash,string url,uint lifeTime,uint price)"
+      VariableDeclaration "itemName"
+         Type: string memory
+         Source: "string itemName"
+        ElementaryTypeName string
+           Source: "string"
+      VariableDeclaration "textHash"
+         Type: string memory
+         Source: "string textHash"
+        ElementaryTypeName string
+           Source: "string"
+      VariableDeclaration "url"
+         Type: string memory
+         Source: "string url"
+        ElementaryTypeName string
+           Source: "string"
+      VariableDeclaration "lifeTime"
+         Type: uint256
+         Source: "uint lifeTime"
+        ElementaryTypeName uint
+           Source: "uint"
+      VariableDeclaration "price"
+         Type: uint256
+         Source: "uint price"
+        ElementaryTypeName uint
+           Source: "uint"
+    ParameterList
+       Source: ""
+    Block
+       Source: "{\n\t\t if(owner != msg.sender) throw;\n\t\t contracts[contractCount] = new LicenseIssuer(itemName, textHash, url, lifeTime, price, paymentAddress);\n\t\t contractCount++;\n\t\t\n\t\t//Start of user code LicenseManager.function.createIssuerContract\n\t\t//TODO: implement\n\t\t//End of user code\n\t}"
+      IfStatement
+         Source: "if(owner != msg.sender) throw"
+        BinaryOperation using operator !=
+           Type: bool
+           Source: "owner != msg.sender"
+          Identifier owner
+             Type: address
+             Source: "owner"
+          MemberAccess to member sender
+             Type: address
+             Source: "msg.sender"
+            Identifier msg
+               Type: msg
+               Source: "msg"
+        Throw
+           Source: "throw"
+      ExpressionStatement
+         Source: "contracts[contractCount] = new LicenseIssuer(itemName, textHash, url, lifeTime, price, paymentAddress)"
+        Assignment using operator =
+           Type: contract LicenseIssuer
+           Source: "contracts[contractCount] = new LicenseIssuer(itemName, textHash, url, lifeTime, price, paymentAddress)"
+          IndexAccess
+             Type: contract LicenseIssuer
+             Source: "contracts[contractCount]"
+            Identifier contracts
+               Type: mapping(uint256 => contract LicenseIssuer)
+               Source: "contracts"
+            Identifier contractCount
+               Type: uint256
+               Source: "contractCount"
+          FunctionCall
+             Type: contract LicenseIssuer
+             Source: "new LicenseIssuer(itemName, textHash, url, lifeTime, price, paymentAddress)"
+            NewExpression
+               Type: function (string memory,string memory,string memory,uint256,uint256,address) returns (contract LicenseIssuer)
+               Source: "new LicenseIssuer"
+              UserDefinedTypeName "LicenseIssuer"
+                 Source: "LicenseIssuer"
+            Identifier itemName
+               Type: string memory
+               Source: "itemName"
+            Identifier textHash
+               Type: string memory
+               Source: "textHash"
+            Identifier url
+               Type: string memory
+               Source: "url"
+            Identifier lifeTime
+               Type: uint256
+               Source: "lifeTime"
+            Identifier price
+               Type: uint256
+               Source: "price"
+            Identifier paymentAddress
+               Type: address
+               Source: "paymentAddress"
+      ExpressionStatement
+         Source: "contractCount++"
+        UnaryOperation (postfix) ++
+           Type: uint256
+           Source: "contractCount++"
+          Identifier contractCount
+             Type: uint256
+             Source: "contractCount"
+  FunctionDefinition "stopIssuing" - public
+     Source: "function stopIssuing(uint licenseId) public   {\n\t\t if(owner != msg.sender)\n\t\t \tthrow;\n\t\t contracts[licenseId].stopIssuing();\n\t\t\n\t\t//Start of user code LicenseManager.function.stopIssuing\n\t\t//TODO: implement\n\t\t//End of user code\n\t}"
+    ParameterList
+       Source: "(uint licenseId)"
+      VariableDeclaration "licenseId"
+         Type: uint256
+         Source: "uint licenseId"
+        ElementaryTypeName uint
+           Source: "uint"
+    ParameterList
+       Source: ""
+    Block
+       Source: "{\n\t\t if(owner != msg.sender)\n\t\t \tthrow;\n\t\t contracts[licenseId].stopIssuing();\n\t\t\n\t\t//Start of user code LicenseManager.function.stopIssuing\n\t\t//TODO: implement\n\t\t//End of user code\n\t}"
+      IfStatement
+         Source: "if(owner != msg.sender)\n\t\t \tthrow"
+        BinaryOperation using operator !=
+           Type: bool
+           Source: "owner != msg.sender"
+          Identifier owner
+             Type: address
+             Source: "owner"
+          MemberAccess to member sender
+             Type: address
+             Source: "msg.sender"
+            Identifier msg
+               Type: msg
+               Source: "msg"
+        Throw
+           Source: "throw"
+      ExpressionStatement
+         Source: "contracts[licenseId].stopIssuing()"
+        FunctionCall
+           Type: tuple()
+           Source: "contracts[licenseId].stopIssuing()"
+          MemberAccess to member stopIssuing
+             Type: function () returns ()
+             Source: "contracts[licenseId].stopIssuing"
+            IndexAccess
+               Type: contract LicenseIssuer
+               Source: "contracts[licenseId]"
+              Identifier contracts
+                 Type: mapping(uint256 => contract LicenseIssuer)
+                 Source: "contracts"
+              Identifier licenseId
+                 Type: uint256
+                 Source: "licenseId"
+  FunctionDefinition "changePaymentAddress" - public
+     Source: "function changePaymentAddress(address _newPaymentAddress,uint licenseId) public   {\n\t\t if(owner != msg.sender)\n\t\t \tthrow;\n\t\t if(!contracts[licenseId].getissuable())\n\t\t \tthrow;\n\t\t contracts[licenseId].changePaymentAddress(_newPaymentAddress);\n\t\t\n\t\t//Start of user code LicenseManager.function.changePaymentAddress\n\t\t//TODO: implement\n\t\t//End of user code\n\t}"
+    ParameterList
+       Source: "(address _newPaymentAddress,uint licenseId)"
+      VariableDeclaration "_newPaymentAddress"
+         Type: address
+         Source: "address _newPaymentAddress"
+        ElementaryTypeName address
+           Source: "address"
+      VariableDeclaration "licenseId"
+         Type: uint256
+         Source: "uint licenseId"
+        ElementaryTypeName uint
+           Source: "uint"
+    ParameterList
+       Source: ""
+    Block
+       Source: "{\n\t\t if(owner != msg.sender)\n\t\t \tthrow;\n\t\t if(!contracts[licenseId].getissuable())\n\t\t \tthrow;\n\t\t contracts[licenseId].changePaymentAddress(_newPaymentAddress);\n\t\t\n\t\t//Start of user code LicenseManager.function.changePaymentAddress\n\t\t//TODO: implement\n\t\t//End of user code\n\t}"
+      IfStatement
+         Source: "if(owner != msg.sender)\n\t\t \tthrow"
+        BinaryOperation using operator !=
+           Type: bool
+           Source: "owner != msg.sender"
+          Identifier owner
+             Type: address
+             Source: "owner"
+          MemberAccess to member sender
+             Type: address
+             Source: "msg.sender"
+            Identifier msg
+               Type: msg
+               Source: "msg"
+        Throw
+           Source: "throw"
+      IfStatement
+         Source: "if(!contracts[licenseId].getissuable())\n\t\t \tthrow"
+        UnaryOperation (prefix) !
+           Type: bool
+           Source: "!contracts[licenseId].getissuable()"
+          FunctionCall
+             Type: bool
+             Source: "contracts[licenseId].getissuable()"
+            MemberAccess to member getissuable
+               Type: function () returns (bool)
+               Source: "contracts[licenseId].getissuable"
+              IndexAccess
+                 Type: contract LicenseIssuer
+                 Source: "contracts[licenseId]"
+                Identifier contracts
+                   Type: mapping(uint256 => contract LicenseIssuer)
+                   Source: "contracts"
+                Identifier licenseId
+                   Type: uint256
+                   Source: "licenseId"
+        Throw
+           Source: "throw"
+      ExpressionStatement
+         Source: "contracts[licenseId].changePaymentAddress(_newPaymentAddress)"
+        FunctionCall
+           Type: tuple()
+           Source: "contracts[licenseId].changePaymentAddress(_newPaymentAddress)"
+          MemberAccess to member changePaymentAddress
+             Type: function (address) returns ()
+             Source: "contracts[licenseId].changePaymentAddress"
+            IndexAccess
+               Type: contract LicenseIssuer
+               Source: "contracts[licenseId]"
+              Identifier contracts
+                 Type: mapping(uint256 => contract LicenseIssuer)
+                 Source: "contracts"
+              Identifier licenseId
+                 Type: uint256
+                 Source: "licenseId"
+          Identifier _newPaymentAddress
+             Type: address
+             Source: "_newPaymentAddress"
+ContractDefinition "LicenseIssuer"
+   Source: "contract LicenseIssuer {\n    /*\n    * Hold one issued license for the item.\n    */\n    struct IssuedLicense {\n    \taddress licenseOwnerAdress;\n    \tstring licenseOwnerName;\n    \tuint issuedDate;\n    }\n\n\tstring public licensedItemName;\n\tstring public licenseTextHash;\n\tstring public licenseUrl;\n\tuint public licencePrice;\n\tuint public licenseLifetime;\n\tuint public licenseCount;\n\tbool public issuable;\n\taddress private paymentAddress;\n\taddress private licenseManager;\n\tmapping (uint=>IssuedLicense)public issuedLicenses;\n\tmapping (address=>IssuedLicense)public licenseOwners;\n\t// Start of user code LicenseIssuer.attributes\n\t//TODO: implement\n\t// End of user code\n\t\n\t\n\tevent licenseIssued(address ownerAddress,string name);\n\t//\n\t// constructor for LicenseIssuer\n\t//\n\tfunction LicenseIssuer(string itemName, string textHash, string url, uint lifeTime, uint price, address _pa){\n\t    \n\tlicensedItemName = itemName;\n\tlicenseTextHash = textHash;\n\tlicenseUrl = url;\n\tlicencePrice = price  * 1 finney;\n\tlicenseLifetime = lifeTime;\n\tpaymentAddress = _pa;\n\tissuable = true;\n\tlicenseManager = msg.sender;\n\t\n\t    //Start of user code Constructor.LicenseIssuer\n\t\t//TODO: implement\n\t    //End of user code\n\t}\n\t\n\t/*\n\t* Check the liceses by a given signature.\n\t* \n\t* factHash -\n\t* v -\n\t* sig_r -\n\t* sig_s -\n\t* returns\n\t*  -\n\t*/\n\tfunction checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public  returns (bool ) {\n\t\t address _address = ecrecover(factHash, v, sig_r, sig_s);\n\t\t IssuedLicense data = licenseOwners[_address];\n\t\t if(data.issuedDate == 0)\n\t\t \treturn false;\n\t\t if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))\n\t\t \treturn true;\n\t\t return false;\n\t\t\n\t\t//Start of user code LicenseIssuer.function.checkLicense\n\t\t//TODO: implement\n\t\t//End of user code\n\t}\n\t\n\t\n\t/*\n\t* Simply lookup the license and check if it is still valid.\n\t* \n\t* _address -\n\t* returns\n\t*  -\n\t*/\n\tfunction checkLicense(address _address) public   constant returns (bool ) {\n\t\t IssuedLicense data = licenseOwners[_address];\n\t\t if(data.issuedDate == 0)\n\t\t \treturn false;\n\t\t if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))\n\t\t \treturn true;\n\t\t return false;\n\t\t\n\t\t//Start of user code LicenseIssuer.function.checkLicense\n\t\t//TODO: implement\n\t\t//End of user code\n\t}\n\t\n\t\n\t/*\n\t* Change the payment address.\n\t* \n\t* _newPaymentAddress -\n\t*/\n\tfunction changePaymentAddress(address _newPaymentAddress) public   {\n\t\t if(licenseManager != msg.sender) throw;\n\t\t paymentAddress = _newPaymentAddress;\n\t\t\n\t\t//Start of user code LicenseIssuer.function.changePaymentAddress\n    \t//TODO: implement\n\t    //End of user code\n\t}\n\t\n\t\n\t/*\n\t* Stop accecpting buying a license.\n\t*/\n\tfunction stopIssuing() public   {\n\t\t if(licenseManager != msg.sender) throw;\n\t\t issuable = false;\n\t\t\n\t\t//Start of user code LicenseIssuer.function.stopIssuing\n    \t//TODO: implement\n    \t//End of user code\n\t}\n\t\n\t\n\t/*\n\t* Issue a license for the item by sending the address data and the amount of money.\n\t* \n\t* _address -\n\t* _name -\n\t*/\n\tfunction buyLicense(address _address,string _name) public   {\n\t\t if(msg.value<licencePrice|| !issuable) \n\t\t \tthrow;\n\t\t  if(_address==address(0))\n\t\t    issuedLicenses[licenseCount].licenseOwnerAdress = msg.sender;\n\t\t  else\n\t\t    issuedLicenses[licenseCount].licenseOwnerAdress = _address;\n\t\t issuedLicenses[licenseCount].licenseOwnerName = _name;\n\t\t issuedLicenses[licenseCount].issuedDate = now;\n\t\t licenseOwners[_address] = issuedLicenses[licenseCount];\n\t\t licenseIssued(_address,_name);\n\t\t licenseCount++;\n\t\t //paymentAddress.send(msg.value);\n\t\t if(msg.value==licencePrice){\n\t\t \tpaymentAddress.send(msg.value);\n\t\t }else{\n\t\t \tpaymentAddress.send(licencePrice);\n\t\t \tmsg.sender.send(msg.value-licencePrice);\n\t\t }\n\t\t\n\t\t//Start of user code LicenseIssuer.function.buyLicense\n    \t//TODO: implement\n    \t//End of user code\n\t}\n\t\n\t// getissuable\n\tfunction getissuable() returns(bool) {\n\t\treturn issuable;\n\t}\n\t\n\t// Start of user code LicenseIssuer.operations\n\t//TODO: implement\n\t// End of user code\n}"
+  StructDefinition "IssuedLicense"
+     Source: "struct IssuedLicense {\n    \taddress licenseOwnerAdress;\n    \tstring licenseOwnerName;\n    \tuint issuedDate;\n    }"
+    VariableDeclaration "licenseOwnerAdress"
+       Type: address
+       Source: "address licenseOwnerAdress"
+      ElementaryTypeName address
+         Source: "address"
+    VariableDeclaration "licenseOwnerName"
+       Type: string storage pointer
+       Source: "string licenseOwnerName"
+      ElementaryTypeName string
+         Source: "string"
+    VariableDeclaration "issuedDate"
+       Type: uint256
+       Source: "uint issuedDate"
+      ElementaryTypeName uint
+         Source: "uint"
+  VariableDeclaration "licensedItemName"
+     Type: string storage ref
+     Source: "string public licensedItemName"
+    ElementaryTypeName string
+       Source: "string"
+  VariableDeclaration "licenseTextHash"
+     Type: string storage ref
+     Source: "string public licenseTextHash"
+    ElementaryTypeName string
+       Source: "string"
+  VariableDeclaration "licenseUrl"
+     Type: string storage ref
+     Source: "string public licenseUrl"
+    ElementaryTypeName string
+       Source: "string"
+  VariableDeclaration "licencePrice"
+     Type: uint256
+     Source: "uint public licencePrice"
+    ElementaryTypeName uint
+       Source: "uint"
+  VariableDeclaration "licenseLifetime"
+     Type: uint256
+     Source: "uint public licenseLifetime"
+    ElementaryTypeName uint
+       Source: "uint"
+  VariableDeclaration "licenseCount"
+     Type: uint256
+     Source: "uint public licenseCount"
+    ElementaryTypeName uint
+       Source: "uint"
+  VariableDeclaration "issuable"
+     Type: bool
+     Source: "bool public issuable"
+    ElementaryTypeName bool
+       Source: "bool"
+  VariableDeclaration "paymentAddress"
+     Type: address
+     Source: "address private paymentAddress"
+    ElementaryTypeName address
+       Source: "address"
+  VariableDeclaration "licenseManager"
+     Type: address
+     Source: "address private licenseManager"
+    ElementaryTypeName address
+       Source: "address"
+  VariableDeclaration "issuedLicenses"
+     Type: mapping(uint256 => struct IssuedLicense storage ref)
+     Source: "mapping (uint=>IssuedLicense)public issuedLicenses"
+    Mapping
+       Source: "mapping (uint=>IssuedLicense)"
+      ElementaryTypeName uint
+         Source: "uint"
+      UserDefinedTypeName "IssuedLicense"
+         Source: "IssuedLicense"
+  VariableDeclaration "licenseOwners"
+     Type: mapping(address => struct IssuedLicense storage ref)
+     Source: "mapping (address=>IssuedLicense)public licenseOwners"
+    Mapping
+       Source: "mapping (address=>IssuedLicense)"
+      ElementaryTypeName address
+         Source: "address"
+      UserDefinedTypeName "IssuedLicense"
+         Source: "IssuedLicense"
+  EventDefinition "licenseIssued"
+     Source: "event licenseIssued(address ownerAddress,string name);"
+    ParameterList
+       Source: "(address ownerAddress,string name)"
+      VariableDeclaration "ownerAddress"
+         Type: address
+         Source: "address ownerAddress"
+        ElementaryTypeName address
+           Source: "address"
+      VariableDeclaration "name"
+         Type: string memory
+         Source: "string name"
+        ElementaryTypeName string
+           Source: "string"
+  FunctionDefinition "LicenseIssuer" - public
+     Source: "function LicenseIssuer(string itemName, string textHash, string url, uint lifeTime, uint price, address _pa){\n\t    \n\tlicensedItemName = itemName;\n\tlicenseTextHash = textHash;\n\tlicenseUrl = url;\n\tlicencePrice = price  * 1 finney;\n\tlicenseLifetime = lifeTime;\n\tpaymentAddress = _pa;\n\tissuable = true;\n\tlicenseManager = msg.sender;\n\t\n\t    //Start of user code Constructor.LicenseIssuer\n\t\t//TODO: implement\n\t    //End of user code\n\t}"
+    ParameterList
+       Source: "(string itemName, string textHash, string url, uint lifeTime, uint price, address _pa)"
+      VariableDeclaration "itemName"
+         Type: string memory
+         Source: "string itemName"
+        ElementaryTypeName string
+           Source: "string"
+      VariableDeclaration "textHash"
+         Type: string memory
+         Source: "string textHash"
+        ElementaryTypeName string
+           Source: "string"
+      VariableDeclaration "url"
+         Type: string memory
+         Source: "string url"
+        ElementaryTypeName string
+           Source: "string"
+      VariableDeclaration "lifeTime"
+         Type: uint256
+         Source: "uint lifeTime"
+        ElementaryTypeName uint
+           Source: "uint"
+      VariableDeclaration "price"
+         Type: uint256
+         Source: "uint price"
+        ElementaryTypeName uint
+           Source: "uint"
+      VariableDeclaration "_pa"
+         Type: address
+         Source: "address _pa"
+        ElementaryTypeName address
+           Source: "address"
+    ParameterList
+       Source: ""
+    Block
+       Source: "{\n\t    \n\tlicensedItemName = itemName;\n\tlicenseTextHash = textHash;\n\tlicenseUrl = url;\n\tlicencePrice = price  * 1 finney;\n\tlicenseLifetime = lifeTime;\n\tpaymentAddress = _pa;\n\tissuable = true;\n\tlicenseManager = msg.sender;\n\t\n\t    //Start of user code Constructor.LicenseIssuer\n\t\t//TODO: implement\n\t    //End of user code\n\t}"
+      ExpressionStatement
+         Source: "licensedItemName = itemName"
+        Assignment using operator =
+           Type: string storage ref
+           Source: "licensedItemName = itemName"
+          Identifier licensedItemName
+             Type: string storage ref
+             Source: "licensedItemName"
+          Identifier itemName
+             Type: string memory
+             Source: "itemName"
+      ExpressionStatement
+         Source: "licenseTextHash = textHash"
+        Assignment using operator =
+           Type: string storage ref
+           Source: "licenseTextHash = textHash"
+          Identifier licenseTextHash
+             Type: string storage ref
+             Source: "licenseTextHash"
+          Identifier textHash
+             Type: string memory
+             Source: "textHash"
+      ExpressionStatement
+         Source: "licenseUrl = url"
+        Assignment using operator =
+           Type: string storage ref
+           Source: "licenseUrl = url"
+          Identifier licenseUrl
+             Type: string storage ref
+             Source: "licenseUrl"
+          Identifier url
+             Type: string memory
+             Source: "url"
+      ExpressionStatement
+         Source: "licencePrice = price  * 1 finney"
+        Assignment using operator =
+           Type: uint256
+           Source: "licencePrice = price  * 1 finney"
+          Identifier licencePrice
+             Type: uint256
+             Source: "licencePrice"
+          BinaryOperation using operator *
+             Type: uint256
+             Source: "price  * 1 finney"
+            Identifier price
+               Type: uint256
+               Source: "price"
+            Literal, token: [no token] value: 1
+               Type: int_const 1000000000000000
+               Source: "1 finney"
+      ExpressionStatement
+         Source: "licenseLifetime = lifeTime"
+        Assignment using operator =
+           Type: uint256
+           Source: "licenseLifetime = lifeTime"
+          Identifier licenseLifetime
+             Type: uint256
+             Source: "licenseLifetime"
+          Identifier lifeTime
+             Type: uint256
+             Source: "lifeTime"
+      ExpressionStatement
+         Source: "paymentAddress = _pa"
+        Assignment using operator =
+           Type: address
+           Source: "paymentAddress = _pa"
+          Identifier paymentAddress
+             Type: address
+             Source: "paymentAddress"
+          Identifier _pa
+             Type: address
+             Source: "_pa"
+      ExpressionStatement
+         Source: "issuable = true"
+        Assignment using operator =
+           Type: bool
+           Source: "issuable = true"
+          Identifier issuable
+             Type: bool
+             Source: "issuable"
+          Literal, token: true value: true
+             Type: bool
+             Source: "true"
+      ExpressionStatement
+         Source: "licenseManager = msg.sender"
+        Assignment using operator =
+           Type: address
+           Source: "licenseManager = msg.sender"
+          Identifier licenseManager
+             Type: address
+             Source: "licenseManager"
+          MemberAccess to member sender
+             Type: address
+             Source: "msg.sender"
+            Identifier msg
+               Type: msg
+               Source: "msg"
+  FunctionDefinition "checkLicense" - public
+     Source: "function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public  returns (bool ) {\n\t\t address _address = ecrecover(factHash, v, sig_r, sig_s);\n\t\t IssuedLicense data = licenseOwners[_address];\n\t\t if(data.issuedDate == 0)\n\t\t \treturn false;\n\t\t if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))\n\t\t \treturn true;\n\t\t return false;\n\t\t\n\t\t//Start of user code LicenseIssuer.function.checkLicense\n\t\t//TODO: implement\n\t\t//End of user code\n\t}"
+    ParameterList
+       Source: "(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s)"
+      VariableDeclaration "factHash"
+         Type: bytes32
+         Source: "bytes32 factHash"
+        ElementaryTypeName bytes32
+           Source: "bytes32"
+      VariableDeclaration "v"
+         Type: uint8
+         Source: "uint8 v"
+        ElementaryTypeName uint8
+           Source: "uint8"
+      VariableDeclaration "sig_r"
+         Type: bytes32
+         Source: "bytes32 sig_r"
+        ElementaryTypeName bytes32
+           Source: "bytes32"
+      VariableDeclaration "sig_s"
+         Type: bytes32
+         Source: "bytes32 sig_s"
+        ElementaryTypeName bytes32
+           Source: "bytes32"
+    ParameterList
+       Source: "(bool )"
+      VariableDeclaration ""
+         Type: bool
+         Source: "bool"
+        ElementaryTypeName bool
+           Source: "bool"
+    Block
+       Source: "{\n\t\t address _address = ecrecover(factHash, v, sig_r, sig_s);\n\t\t IssuedLicense data = licenseOwners[_address];\n\t\t if(data.issuedDate == 0)\n\t\t \treturn false;\n\t\t if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))\n\t\t \treturn true;\n\t\t return false;\n\t\t\n\t\t//Start of user code LicenseIssuer.function.checkLicense\n\t\t//TODO: implement\n\t\t//End of user code\n\t}"
+      VariableDeclarationStatement
+         Source: "address _address = ecrecover(factHash, v, sig_r, sig_s)"
+        VariableDeclaration "_address"
+           Type: address
+           Source: "address _address"
+          ElementaryTypeName address
+             Source: "address"
+        FunctionCall
+           Type: address
+           Source: "ecrecover(factHash, v, sig_r, sig_s)"
+          Identifier ecrecover
+             Type: function (bytes32,uint8,bytes32,bytes32) returns (address)
+             Source: "ecrecover"
+          Identifier factHash
+             Type: bytes32
+             Source: "factHash"
+          Identifier v
+             Type: uint8
+             Source: "v"
+          Identifier sig_r
+             Type: bytes32
+             Source: "sig_r"
+          Identifier sig_s
+             Type: bytes32
+             Source: "sig_s"
+      VariableDeclarationStatement
+         Source: "IssuedLicense data = licenseOwners[_address]"
+        VariableDeclaration "data"
+           Type: struct IssuedLicense storage pointer
+           Source: "IssuedLicense data"
+          UserDefinedTypeName "IssuedLicense"
+             Source: "IssuedLicense"
+        IndexAccess
+           Type: struct IssuedLicense storage ref
+           Source: "licenseOwners[_address]"
+          Identifier licenseOwners
+             Type: mapping(address => struct IssuedLicense storage ref)
+             Source: "licenseOwners"
+          Identifier _address
+             Type: address
+             Source: "_address"
+      IfStatement
+         Source: "if(data.issuedDate == 0)\n\t\t \treturn false"
+        BinaryOperation using operator ==
+           Type: bool
+           Source: "data.issuedDate == 0"
+          MemberAccess to member issuedDate
+             Type: uint256
+             Source: "data.issuedDate"
+            Identifier data
+               Type: struct IssuedLicense storage pointer
+               Source: "data"
+          Literal, token: [no token] value: 0
+             Type: int_const 0
+             Source: "0"
+        Return
+           Source: "return false"
+          Literal, token: false value: false
+             Type: bool
+             Source: "false"
+      IfStatement
+         Source: "if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))\n\t\t \treturn true"
+        BinaryOperation using operator ||
+           Type: bool
+           Source: "(licenseLifetime<1)||(licenseLifetime+now<data.issuedDate)"
+          TupleExpression
+             Type: bool
+             Source: "(licenseLifetime<1)"
+            BinaryOperation using operator <
+               Type: bool
+               Source: "licenseLifetime<1"
+              Identifier licenseLifetime
+                 Type: uint256
+                 Source: "licenseLifetime"
+              Literal, token: [no token] value: 1
+                 Type: int_const 1
+                 Source: "1"
+          TupleExpression
+             Type: bool
+             Source: "(licenseLifetime+now<data.issuedDate)"
+            BinaryOperation using operator <
+               Type: bool
+               Source: "licenseLifetime+now<data.issuedDate"
+              BinaryOperation using operator +
+                 Type: uint256
+                 Source: "licenseLifetime+now"
+                Identifier licenseLifetime
+                   Type: uint256
+                   Source: "licenseLifetime"
+                Identifier now
+                   Type: uint256
+                   Source: "now"
+              MemberAccess to member issuedDate
+                 Type: uint256
+                 Source: "data.issuedDate"
+                Identifier data
+                   Type: struct IssuedLicense storage pointer
+                   Source: "data"
+        Return
+           Source: "return true"
+          Literal, token: true value: true
+             Type: bool
+             Source: "true"
+      Return
+         Source: "return false"
+        Literal, token: false value: false
+           Type: bool
+           Source: "false"
+  FunctionDefinition "checkLicense" - public - const
+     Source: "function checkLicense(address _address) public   constant returns (bool ) {\n\t\t IssuedLicense data = licenseOwners[_address];\n\t\t if(data.issuedDate == 0)\n\t\t \treturn false;\n\t\t if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))\n\t\t \treturn true;\n\t\t return false;\n\t\t\n\t\t//Start of user code LicenseIssuer.function.checkLicense\n\t\t//TODO: implement\n\t\t//End of user code\n\t}"
+    ParameterList
+       Source: "(address _address)"
+      VariableDeclaration "_address"
+         Type: address
+         Source: "address _address"
+        ElementaryTypeName address
+           Source: "address"
+    ParameterList
+       Source: "(bool )"
+      VariableDeclaration ""
+         Type: bool
+         Source: "bool"
+        ElementaryTypeName bool
+           Source: "bool"
+    Block
+       Source: "{\n\t\t IssuedLicense data = licenseOwners[_address];\n\t\t if(data.issuedDate == 0)\n\t\t \treturn false;\n\t\t if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))\n\t\t \treturn true;\n\t\t return false;\n\t\t\n\t\t//Start of user code LicenseIssuer.function.checkLicense\n\t\t//TODO: implement\n\t\t//End of user code\n\t}"
+      VariableDeclarationStatement
+         Source: "IssuedLicense data = licenseOwners[_address]"
+        VariableDeclaration "data"
+           Type: struct IssuedLicense storage pointer
+           Source: "IssuedLicense data"
+          UserDefinedTypeName "IssuedLicense"
+             Source: "IssuedLicense"
+        IndexAccess
+           Type: struct IssuedLicense storage ref
+           Source: "licenseOwners[_address]"
+          Identifier licenseOwners
+             Type: mapping(address => struct IssuedLicense storage ref)
+             Source: "licenseOwners"
+          Identifier _address
+             Type: address
+             Source: "_address"
+      IfStatement
+         Source: "if(data.issuedDate == 0)\n\t\t \treturn false"
+        BinaryOperation using operator ==
+           Type: bool
+           Source: "data.issuedDate == 0"
+          MemberAccess to member issuedDate
+             Type: uint256
+             Source: "data.issuedDate"
+            Identifier data
+               Type: struct IssuedLicense storage pointer
+               Source: "data"
+          Literal, token: [no token] value: 0
+             Type: int_const 0
+             Source: "0"
+        Return
+           Source: "return false"
+          Literal, token: false value: false
+             Type: bool
+             Source: "false"
+      IfStatement
+         Source: "if((licenseLifetime<1)||(licenseLifetime+now<data.issuedDate))\n\t\t \treturn true"
+        BinaryOperation using operator ||
+           Type: bool
+           Source: "(licenseLifetime<1)||(licenseLifetime+now<data.issuedDate)"
+          TupleExpression
+             Type: bool
+             Source: "(licenseLifetime<1)"
+            BinaryOperation using operator <
+               Type: bool
+               Source: "licenseLifetime<1"
+              Identifier licenseLifetime
+                 Type: uint256
+                 Source: "licenseLifetime"
+              Literal, token: [no token] value: 1
+                 Type: int_const 1
+                 Source: "1"
+          TupleExpression
+             Type: bool
+             Source: "(licenseLifetime+now<data.issuedDate)"
+            BinaryOperation using operator <
+               Type: bool
+               Source: "licenseLifetime+now<data.issuedDate"
+              BinaryOperation using operator +
+                 Type: uint256
+                 Source: "licenseLifetime+now"
+                Identifier licenseLifetime
+                   Type: uint256
+                   Source: "licenseLifetime"
+                Identifier now
+                   Type: uint256
+                   Source: "now"
+              MemberAccess to member issuedDate
+                 Type: uint256
+                 Source: "data.issuedDate"
+                Identifier data
+                   Type: struct IssuedLicense storage pointer
+                   Source: "data"
+        Return
+           Source: "return true"
+          Literal, token: true value: true
+             Type: bool
+             Source: "true"
+      Return
+         Source: "return false"
+        Literal, token: false value: false
+           Type: bool
+           Source: "false"
+  FunctionDefinition "changePaymentAddress" - public
+     Source: "function changePaymentAddress(address _newPaymentAddress) public   {\n\t\t if(licenseManager != msg.sender) throw;\n\t\t paymentAddress = _newPaymentAddress;\n\t\t\n\t\t//Start of user code LicenseIssuer.function.changePaymentAddress\n    \t//TODO: implement\n\t    //End of user code\n\t}"
+    ParameterList
+       Source: "(address _newPaymentAddress)"
+      VariableDeclaration "_newPaymentAddress"
+         Type: address
+         Source: "address _newPaymentAddress"
+        ElementaryTypeName address
+           Source: "address"
+    ParameterList
+       Source: ""
+    Block
+       Source: "{\n\t\t if(licenseManager != msg.sender) throw;\n\t\t paymentAddress = _newPaymentAddress;\n\t\t\n\t\t//Start of user code LicenseIssuer.function.changePaymentAddress\n    \t//TODO: implement\n\t    //End of user code\n\t}"
+      IfStatement
+         Source: "if(licenseManager != msg.sender) throw"
+        BinaryOperation using operator !=
+           Type: bool
+           Source: "licenseManager != msg.sender"
+          Identifier licenseManager
+             Type: address
+             Source: "licenseManager"
+          MemberAccess to member sender
+             Type: address
+             Source: "msg.sender"
+            Identifier msg
+               Type: msg
+               Source: "msg"
+        Throw
+           Source: "throw"
+      ExpressionStatement
+         Source: "paymentAddress = _newPaymentAddress"
+        Assignment using operator =
+           Type: address
+           Source: "paymentAddress = _newPaymentAddress"
+          Identifier paymentAddress
+             Type: address
+             Source: "paymentAddress"
+          Identifier _newPaymentAddress
+             Type: address
+             Source: "_newPaymentAddress"
+  FunctionDefinition "stopIssuing" - public
+     Source: "function stopIssuing() public   {\n\t\t if(licenseManager != msg.sender) throw;\n\t\t issuable = false;\n\t\t\n\t\t//Start of user code LicenseIssuer.function.stopIssuing\n    \t//TODO: implement\n    \t//End of user code\n\t}"
+    ParameterList
+       Source: "()"
+    ParameterList
+       Source: ""
+    Block
+       Source: "{\n\t\t if(licenseManager != msg.sender) throw;\n\t\t issuable = false;\n\t\t\n\t\t//Start of user code LicenseIssuer.function.stopIssuing\n    \t//TODO: implement\n    \t//End of user code\n\t}"
+      IfStatement
+         Source: "if(licenseManager != msg.sender) throw"
+        BinaryOperation using operator !=
+           Type: bool
+           Source: "licenseManager != msg.sender"
+          Identifier licenseManager
+             Type: address
+             Source: "licenseManager"
+          MemberAccess to member sender
+             Type: address
+             Source: "msg.sender"
+            Identifier msg
+               Type: msg
+               Source: "msg"
+        Throw
+           Source: "throw"
+      ExpressionStatement
+         Source: "issuable = false"
+        Assignment using operator =
+           Type: bool
+           Source: "issuable = false"
+          Identifier issuable
+             Type: bool
+             Source: "issuable"
+          Literal, token: false value: false
+             Type: bool
+             Source: "false"
+  FunctionDefinition "buyLicense" - public
+     Source: "function buyLicense(address _address,string _name) public   {\n\t\t if(msg.value<licencePrice|| !issuable) \n\t\t \tthrow;\n\t\t  if(_address==address(0))\n\t\t    issuedLicenses[licenseCount].licenseOwnerAdress = msg.sender;\n\t\t  else\n\t\t    issuedLicenses[licenseCount].licenseOwnerAdress = _address;\n\t\t issuedLicenses[licenseCount].licenseOwnerName = _name;\n\t\t issuedLicenses[licenseCount].issuedDate = now;\n\t\t licenseOwners[_address] = issuedLicenses[licenseCount];\n\t\t licenseIssued(_address,_name);\n\t\t licenseCount++;\n\t\t //paymentAddress.send(msg.value);\n\t\t if(msg.value==licencePrice){\n\t\t \tpaymentAddress.send(msg.value);\n\t\t }else{\n\t\t \tpaymentAddress.send(licencePrice);\n\t\t \tmsg.sender.send(msg.value-licencePrice);\n\t\t }\n\t\t\n\t\t//Start of user code LicenseIssuer.function.buyLicense\n    \t//TODO: implement\n    \t//End of user code\n\t}"
+    ParameterList
+       Source: "(address _address,string _name)"
+      VariableDeclaration "_address"
+         Type: address
+         Source: "address _address"
+        ElementaryTypeName address
+           Source: "address"
+      VariableDeclaration "_name"
+         Type: string memory
+         Source: "string _name"
+        ElementaryTypeName string
+           Source: "string"
+    ParameterList
+       Source: ""
+    Block
+       Source: "{\n\t\t if(msg.value<licencePrice|| !issuable) \n\t\t \tthrow;\n\t\t  if(_address==address(0))\n\t\t    issuedLicenses[licenseCount].licenseOwnerAdress = msg.sender;\n\t\t  else\n\t\t    issuedLicenses[licenseCount].licenseOwnerAdress = _address;\n\t\t issuedLicenses[licenseCount].licenseOwnerName = _name;\n\t\t issuedLicenses[licenseCount].issuedDate = now;\n\t\t licenseOwners[_address] = issuedLicenses[licenseCount];\n\t\t licenseIssued(_address,_name);\n\t\t licenseCount++;\n\t\t //paymentAddress.send(msg.value);\n\t\t if(msg.value==licencePrice){\n\t\t \tpaymentAddress.send(msg.value);\n\t\t }else{\n\t\t \tpaymentAddress.send(licencePrice);\n\t\t \tmsg.sender.send(msg.value-licencePrice);\n\t\t }\n\t\t\n\t\t//Start of user code LicenseIssuer.function.buyLicense\n    \t//TODO: implement\n    \t//End of user code\n\t}"
+      IfStatement
+         Source: "if(msg.value<licencePrice|| !issuable) \n\t\t \tthrow"
+        BinaryOperation using operator ||
+           Type: bool
+           Source: "msg.value<licencePrice|| !issuable"
+          BinaryOperation using operator <
+             Type: bool
+             Source: "msg.value<licencePrice"
+            MemberAccess to member value
+               Type: uint256
+               Source: "msg.value"
+              Identifier msg
+                 Type: msg
+                 Source: "msg"
+            Identifier licencePrice
+               Type: uint256
+               Source: "licencePrice"
+          UnaryOperation (prefix) !
+             Type: bool
+             Source: "!issuable"
+            Identifier issuable
+               Type: bool
+               Source: "issuable"
+        Throw
+           Source: "throw"
+      IfStatement
+         Source: "if(_address==address(0))\n\t\t    issuedLicenses[licenseCount].licenseOwnerAdress = msg.sender;\n\t\t  else\n\t\t    issuedLicenses[licenseCount].licenseOwnerAdress = _address"
+        BinaryOperation using operator ==
+           Type: bool
+           Source: "_address==address(0)"
+          Identifier _address
+             Type: address
+             Source: "_address"
+          FunctionCall
+             Type: address
+             Source: "address(0)"
+            ElementaryTypeNameExpression address
+               Type: type(address)
+               Source: "address"
+            Literal, token: [no token] value: 0
+               Type: int_const 0
+               Source: "0"
+        ExpressionStatement
+           Source: "issuedLicenses[licenseCount].licenseOwnerAdress = msg.sender"
+          Assignment using operator =
+             Type: address
+             Source: "issuedLicenses[licenseCount].licenseOwnerAdress = msg.sender"
+            MemberAccess to member licenseOwnerAdress
+               Type: address
+               Source: "issuedLicenses[licenseCount].licenseOwnerAdress"
+              IndexAccess
+                 Type: struct IssuedLicense storage ref
+                 Source: "issuedLicenses[licenseCount]"
+                Identifier issuedLicenses
+                   Type: mapping(uint256 => struct IssuedLicense storage ref)
+                   Source: "issuedLicenses"
+                Identifier licenseCount
+                   Type: uint256
+                   Source: "licenseCount"
+            MemberAccess to member sender
+               Type: address
+               Source: "msg.sender"
+              Identifier msg
+                 Type: msg
+                 Source: "msg"
+        ExpressionStatement
+           Source: "issuedLicenses[licenseCount].licenseOwnerAdress = _address"
+          Assignment using operator =
+             Type: address
+             Source: "issuedLicenses[licenseCount].licenseOwnerAdress = _address"
+            MemberAccess to member licenseOwnerAdress
+               Type: address
+               Source: "issuedLicenses[licenseCount].licenseOwnerAdress"
+              IndexAccess
+                 Type: struct IssuedLicense storage ref
+                 Source: "issuedLicenses[licenseCount]"
+                Identifier issuedLicenses
+                   Type: mapping(uint256 => struct IssuedLicense storage ref)
+                   Source: "issuedLicenses"
+                Identifier licenseCount
+                   Type: uint256
+                   Source: "licenseCount"
+            Identifier _address
+               Type: address
+               Source: "_address"
+      ExpressionStatement
+         Source: "issuedLicenses[licenseCount].licenseOwnerName = _name"
+        Assignment using operator =
+           Type: string storage ref
+           Source: "issuedLicenses[licenseCount].licenseOwnerName = _name"
+          MemberAccess to member licenseOwnerName
+             Type: string storage ref
+             Source: "issuedLicenses[licenseCount].licenseOwnerName"
+            IndexAccess
+               Type: struct IssuedLicense storage ref
+               Source: "issuedLicenses[licenseCount]"
+              Identifier issuedLicenses
+                 Type: mapping(uint256 => struct IssuedLicense storage ref)
+                 Source: "issuedLicenses"
+              Identifier licenseCount
+                 Type: uint256
+                 Source: "licenseCount"
+          Identifier _name
+             Type: string memory
+             Source: "_name"
+      ExpressionStatement
+         Source: "issuedLicenses[licenseCount].issuedDate = now"
+        Assignment using operator =
+           Type: uint256
+           Source: "issuedLicenses[licenseCount].issuedDate = now"
+          MemberAccess to member issuedDate
+             Type: uint256
+             Source: "issuedLicenses[licenseCount].issuedDate"
+            IndexAccess
+               Type: struct IssuedLicense storage ref
+               Source: "issuedLicenses[licenseCount]"
+              Identifier issuedLicenses
+                 Type: mapping(uint256 => struct IssuedLicense storage ref)
+                 Source: "issuedLicenses"
+              Identifier licenseCount
+                 Type: uint256
+                 Source: "licenseCount"
+          Identifier now
+             Type: uint256
+             Source: "now"
+      ExpressionStatement
+         Source: "licenseOwners[_address] = issuedLicenses[licenseCount]"
+        Assignment using operator =
+           Type: struct IssuedLicense storage ref
+           Source: "licenseOwners[_address] = issuedLicenses[licenseCount]"
+          IndexAccess
+             Type: struct IssuedLicense storage ref
+             Source: "licenseOwners[_address]"
+            Identifier licenseOwners
+               Type: mapping(address => struct IssuedLicense storage ref)
+               Source: "licenseOwners"
+            Identifier _address
+               Type: address
+               Source: "_address"
+          IndexAccess
+             Type: struct IssuedLicense storage ref
+             Source: "issuedLicenses[licenseCount]"
+            Identifier issuedLicenses
+               Type: mapping(uint256 => struct IssuedLicense storage ref)
+               Source: "issuedLicenses"
+            Identifier licenseCount
+               Type: uint256
+               Source: "licenseCount"
+      ExpressionStatement
+         Source: "licenseIssued(_address,_name)"
+        FunctionCall
+           Type: tuple()
+           Source: "licenseIssued(_address,_name)"
+          Identifier licenseIssued
+             Type: function (address,string memory) returns ()
+             Source: "licenseIssued"
+          Identifier _address
+             Type: address
+             Source: "_address"
+          Identifier _name
+             Type: string memory
+             Source: "_name"
+      ExpressionStatement
+         Source: "licenseCount++"
+        UnaryOperation (postfix) ++
+           Type: uint256
+           Source: "licenseCount++"
+          Identifier licenseCount
+             Type: uint256
+             Source: "licenseCount"
+      IfStatement
+         Source: "if(msg.value==licencePrice){\n\t\t \tpaymentAddress.send(msg.value);\n\t\t }else{\n\t\t \tpaymentAddress.send(licencePrice);\n\t\t \tmsg.sender.send(msg.value-licencePrice);\n\t\t }"
+        BinaryOperation using operator ==
+           Type: bool
+           Source: "msg.value==licencePrice"
+          MemberAccess to member value
+             Type: uint256
+             Source: "msg.value"
+            Identifier msg
+               Type: msg
+               Source: "msg"
+          Identifier licencePrice
+             Type: uint256
+             Source: "licencePrice"
+        Block
+           Source: "{\n\t\t \tpaymentAddress.send(msg.value);\n\t\t }"
+          ExpressionStatement
+             Source: "paymentAddress.send(msg.value)"
+            FunctionCall
+               Type: bool
+               Source: "paymentAddress.send(msg.value)"
+              MemberAccess to member send
+                 Type: function (uint256) returns (bool)
+                 Source: "paymentAddress.send"
+                Identifier paymentAddress
+                   Type: address
+                   Source: "paymentAddress"
+              MemberAccess to member value
+                 Type: uint256
+                 Source: "msg.value"
+                Identifier msg
+                   Type: msg
+                   Source: "msg"
+        Block
+           Source: "{\n\t\t \tpaymentAddress.send(licencePrice);\n\t\t \tmsg.sender.send(msg.value-licencePrice);\n\t\t }"
+          ExpressionStatement
+             Source: "paymentAddress.send(licencePrice)"
+            FunctionCall
+               Type: bool
+               Source: "paymentAddress.send(licencePrice)"
+              MemberAccess to member send
+                 Type: function (uint256) returns (bool)
+                 Source: "paymentAddress.send"
+                Identifier paymentAddress
+                   Type: address
+                   Source: "paymentAddress"
+              Identifier licencePrice
+                 Type: uint256
+                 Source: "licencePrice"
+          ExpressionStatement
+             Source: "msg.sender.send(msg.value-licencePrice)"
+            FunctionCall
+               Type: bool
+               Source: "msg.sender.send(msg.value-licencePrice)"
+              MemberAccess to member send
+                 Type: function (uint256) returns (bool)
+                 Source: "msg.sender.send"
+                MemberAccess to member sender
+                   Type: address
+                   Source: "msg.sender"
+                  Identifier msg
+                     Type: msg
+                     Source: "msg"
+              BinaryOperation using operator -
+                 Type: uint256
+                 Source: "msg.value-licencePrice"
+                MemberAccess to member value
+                   Type: uint256
+                   Source: "msg.value"
+                  Identifier msg
+                     Type: msg
+                     Source: "msg"
+                Identifier licencePrice
+                   Type: uint256
+                   Source: "licencePrice"
+  FunctionDefinition "getissuable" - public
+     Source: "function getissuable() returns(bool) {\n\t\treturn issuable;\n\t}"
+    ParameterList
+       Source: "()"
+    ParameterList
+       Source: "(bool)"
+      VariableDeclaration ""
+         Type: bool
+         Source: "bool"
+        ElementaryTypeName bool
+           Source: "bool"
+    Block
+       Source: "{\n\t\treturn issuable;\n\t}"
+      Return
+         Source: "return issuable"
+        Identifier issuable
+           Type: bool
+           Source: "issuable"

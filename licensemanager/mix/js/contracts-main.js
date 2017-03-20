@@ -3,7 +3,7 @@ var LicenseManagerContract = web3.eth.contract([
 {"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"type":"function"},
 {"constant":true,"inputs":[],"name":"issuerName","outputs":[{"name":"","type":"string"}],"type":"function"},
 {"constant":true,"inputs":[],"name":"contractCount","outputs":[{"name":"","type":"uint"}],"type":"function"},
-{"constant": true,"inputs": [{"name": "","type": "uint"}],"name": "contracts","outputs": [
+{"constant": true,"inputs": [{"name": "","type": "contracts"}],"name": "contracts","outputs": [
 { "name": "", "type": "address"}
 ],"type": "function"	},
 //
@@ -48,14 +48,14 @@ var LicenseIssuerContract = web3.eth.contract([
 {"constant":true,"inputs":[],"name":"licenseLifetime","outputs":[{"name":"","type":"uint"}],"type":"function"},
 {"constant":true,"inputs":[],"name":"licenseCount","outputs":[{"name":"","type":"uint"}],"type":"function"},
 {"constant":true,"inputs":[],"name":"issuable","outputs":[{"name":"","type":"bool"}],"type":"function"},
-{"constant": true,"inputs": [{"name": "","type": "uint"}],"name": "issuedLicenses","outputs": [
+{"constant": true,"inputs": [{"name": "","type": "issuedLicenses"}],"name": "issuedLicenses","outputs": [
 { "name": "licenseOwnerAdress", "type": "address"}
 ,{ "name": "licenseOwnerName", "type": "string"}
 ,{ "name": "issuedDate", "type": "uint"}
 ],"type": "function"	},
 //
 
-{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "licenseOwners","outputs": [
+{"constant": true,"inputs": [{"name": "","type": "licenseOwners"}],"name": "licenseOwners","outputs": [
 { "name": "licenseOwnerAdress", "type": "address"}
 ,{ "name": "licenseOwnerName", "type": "string"}
 ,{ "name": "issuedDate", "type": "uint"}
@@ -106,13 +106,40 @@ var LicenseIssuerContract = web3.eth.contract([
 
 
 
+//a simple bean class arount the contract
+// the LicenseManagerModel
+function LicenseManagerModel(contract) {
+this.contract = contract;
+this.getOwner = function(){
+return contract.owner(); 
+}
+this.getIssuerName = function(){
+return contract.issuerName(); 
+}
+this.getContractCount = function(){
+return contract.contractCount(); 
+}
+this.changePaymentAddress = function(_newPaymentAdress){
+return contract.changePaymentAddress(_newPaymentAdress); 
+}
+this.createIssuerContract = function(itemName,textHash,url,lifeTime,price){
+return contract.createIssuerContract(itemName,textHash,url,lifeTime,price); 
+}
+this.stopIssuing = function(licenseId){
+return contract.stopIssuing(licenseId); 
+}
+this.changePaymentAddress = function(_newPaymentAddress,licenseId){
+return contract.changePaymentAddress(_newPaymentAddress,licenseId); 
+}
+}// end of function LicenseManagerModel
 //gui factory LicenseManager
 function LicenseManagerGuiFactory() {
 	this.prefix='';
 	
 // default Gui
-this.placeDefaultGui=function() {
-	var e = document.getElementById(this.prefix+'LicenseManager_gui');
+this.placeDefaultGui=function(e) {
+	if(e==null)
+		e = document.getElementById(this.prefix+'LicenseManager_gui');
 	if(e!=null)
 		e.innerHTML = this.createDefaultGui();
 	else
@@ -260,25 +287,32 @@ function LicenseManagerController() {
 
 // bind buttons
 	this.bindGui=function() {
+		console.log('bind gui for:'+self.prefix);
 		var btn = document.getElementById(self.prefix+'LicenseManagerController.setAddress');
 		if(btn!=undefined)		
 			btn.onclick = this.setAddress;
+		else console.log('addres widget not bound');
 
 		var btn = document.getElementById(self.prefix+'LicenseManager_updateAttributes');
 		if(btn!=undefined)
 			btn.onclick = this._updateAttributes;
+		else console.log('_updateAttributes widget not bound');
 		var btn = document.getElementById(self.prefix+'LicenseManagerController.LicenseManager_changePaymentAddress_address');
 		if(btn!=undefined)
 			btn.onclick = this.LicenseManager_changePaymentAddress_address;
+		else console.log('LicenseManager_changePaymentAddress_address widget not bound');
 		var btn = document.getElementById(self.prefix+'LicenseManagerController.LicenseManager_createIssuerContract_string_string_string_uint_uint');
 		if(btn!=undefined)
 			btn.onclick = this.LicenseManager_createIssuerContract_string_string_string_uint_uint;
+		else console.log('LicenseManager_createIssuerContract_string_string_string_uint_uint widget not bound');
 		var btn = document.getElementById(self.prefix+'LicenseManagerController.LicenseManager_stopIssuing_uint');
 		if(btn!=undefined)
 			btn.onclick = this.LicenseManager_stopIssuing_uint;
+		else console.log('LicenseManager_stopIssuing_uint widget not bound');
 		var btn = document.getElementById(self.prefix+'LicenseManagerController.LicenseManager_changePaymentAddress_address_uint');
 		if(btn!=undefined)
 			btn.onclick = this.LicenseManager_changePaymentAddress_address_uint;
+		else console.log('LicenseManager_changePaymentAddress_address_uint widget not bound');
 	}
 	// set function
 	this.setAddress=function() {
@@ -297,17 +331,21 @@ if(this.instance===null) return;
 	var e = document.getElementById(self.prefix+'LicenseManager_owner_value');
 	if(owner_res!=null && e!=null)
 		e.innerText = owner_res;
+	else console.log(self.prefix+'LicenseManager_owner_value not found');
 	var issuerName_res = self.instance.issuerName();
 	var e = document.getElementById(self.prefix+'LicenseManager_issuerName_value');
 	if(issuerName_res!=null && e!=null)
 		e.innerText = issuerName_res;
+	else console.log(self.prefix+'LicenseManager_issuerName_value not found');
 	var contractCount_res = self.instance.contractCount();
 	var e = document.getElementById(self.prefix+'LicenseManager_contractCount_value');
 	if(contractCount_res!=null && e!=null)
 		e.innerText = contractCount_res;
+	else console.log(self.prefix+'LicenseManager_contractCount_value not found');
 var e = document.getElementById(self.prefix+'LicenseManager_contract_attribute_contracts_input');
 if(e!=null){
 	var _key = e.value;
+	if(_key=='') return;
 	var contracts_res = self.instance.contracts(_key);
 	if(contracts_res!=null){
 		var e1 = document.getElementById(self.prefix+'LicenseManager_contracts_value');
@@ -322,6 +360,7 @@ this.LicenseManager_changePaymentAddress_address=function() {
 	var e = document.getElementById(self.prefix+'LicenseManager_changePaymentAddress_address__newPaymentAdress');
 	if(e!=null)
 		var param__newPaymentAdress = e.value;
+	else console.log(self.prefix+'LicenseManager_changePaymentAddress_address__newPaymentAdress not found');
 	var res = self.instance.changePaymentAddress(param__newPaymentAdress);
 }
 //function LicenseManager_createIssuerContract
@@ -329,18 +368,23 @@ this.LicenseManager_createIssuerContract_string_string_string_uint_uint=function
 	var e = document.getElementById(self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_itemName');
 	if(e!=null)
 		var param_itemName = e.value;
+	else console.log(self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_itemName not found');
 	var e = document.getElementById(self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_textHash');
 	if(e!=null)
 		var param_textHash = e.value;
+	else console.log(self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_textHash not found');
 	var e = document.getElementById(self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_url');
 	if(e!=null)
 		var param_url = e.value;
+	else console.log(self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_url not found');
 	var e = document.getElementById(self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_lifeTime');
 	if(e!=null)
 		var param_lifeTime = e.value;
+	else console.log(self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_lifeTime not found');
 	var e = document.getElementById(self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_price');
 	if(e!=null)
 		var param_price = e.value;
+	else console.log(self.prefix+'LicenseManager_createIssuerContract_string_string_string_uint_uint_price not found');
 	var res = self.instance.createIssuerContract(param_itemName, param_textHash, param_url, param_lifeTime, param_price);
 }
 //function LicenseManager_stopIssuing
@@ -348,6 +392,7 @@ this.LicenseManager_stopIssuing_uint=function() {
 	var e = document.getElementById(self.prefix+'LicenseManager_stopIssuing_uint_licenseId');
 	if(e!=null)
 		var param_licenseId = e.value;
+	else console.log(self.prefix+'LicenseManager_stopIssuing_uint_licenseId not found');
 	var res = self.instance.stopIssuing(param_licenseId);
 }
 //function LicenseManager_changePaymentAddress
@@ -355,16 +400,17 @@ this.LicenseManager_changePaymentAddress_address_uint=function() {
 	var e = document.getElementById(self.prefix+'LicenseManager_changePaymentAddress_address_uint__newPaymentAddress');
 	if(e!=null)
 		var param__newPaymentAddress = e.value;
+	else console.log(self.prefix+'LicenseManager_changePaymentAddress_address_uint__newPaymentAddress not found');
 	var e = document.getElementById(self.prefix+'LicenseManager_changePaymentAddress_address_uint_licenseId');
 	if(e!=null)
 		var param_licenseId = e.value;
+	else console.log(self.prefix+'LicenseManager_changePaymentAddress_address_uint_licenseId not found');
 	var res = self.instance.changePaymentAddress(param__newPaymentAddress, param_licenseId);
 }
 
 //delegated calls
 
 }// end controller	
-
 
 //class as GlueCode LicenseManagerManager
 //uses prefix + 'GuiContainer'
@@ -378,26 +424,40 @@ function LicenseManagerManager(prefix,contract,containerId) {
 	this.g = new LicenseManagerGuiFactory();
 	this.g.prefix = prefix;
 	this.containerId = containerId;
+	this.eventlogPrefix = '';
+	this.guiFunction = null;
 
-	this.addGui = function() {
-		var e = document.getElementById(this.containerId);
-		if(e==null)return;
+	this.addGui = function(e) {
+		if(e==null)
+			e = document.getElementById(this.containerId);
+		if(e==null){
+		console.log(this.containerId+' not found or :'+e);
+		return;
+		}
 		var elemDiv = document.createElement('div');
 		elemDiv.id= this.prefix +'LicenseManager_gui';
 		e.appendChild(elemDiv);
-		elemDiv.innerHTML = this.createGui(this.g);
+		if(this.guiFunction==null)
+			elemDiv.innerHTML = this.createGui(this.g);
+		else elemDiv.innerHTML = this.guiFunction(this.g);
+		
 		var e = document.getElementById(this.prefix+'LicenseManager_address');
 		if(e!=null)
 			e.value = this.c.contractAddress;
+		else 
+			console.log(this.prefix+'LicenseManager_address not found');
 		this.c.bindGui();
 	}	
-	this.clearGui = function(){
-		var e = document.getElementById(this.containerId);
+	this.clearGui = function(e){
+		if(e==null)
+			e = document.getElementById(this.containerId);
 		e.innerHTML ='';
 	}
 	this.createGui = function(guifactory){
 		var txt ='';
+//Start of user code LicenseManager_create_gui_js
 		txt = txt + guifactory.createDefaultGui();
+//End of user code
 		return guifactory.createSeletonGui(txt);
 
 	}
@@ -420,38 +480,48 @@ function LicenseManagerManager(prefix,contract,containerId) {
 
 }// end of manager
 
+//Manages a list of LicenseManagerManager uses the guid id to place the gui which is also the eventlogPrefix
 function LicenseManagerGuiMananger(guiId){
 	this.prefix = guiId;
 	this.managers=new Array();	//[];		
+	this.guiFunction = null;
 	
 	this.addManager = function(contract) {
 		var m = new LicenseManagerManager(contract.address,contract,this.prefix);
+		m.eventlogPrefix = this.prefix;
 		m.watchEvents();
+		if(this.guiFunction!=null)
+			m.guiFunction = this.guiFunction;
 		this.managers.push(m);
 		//manager.addGui();
 	}
 			
-	this.clearGui = function(){
-		var e = document.getElementById(this.prefix);
+	this.clearGui = function(e){
+		if(e==null)
+			e = document.getElementById(this.prefix);
 		if(e!==undefined)
 			e.innerHTML ='';
 	}
 			
-	this.displayGui = function(){
-		var e = document.getElementById(this.prefix);
+	this.displayGui = function(e){
+		if(e==null)
+			e = document.getElementById(this.prefix);
 		if(e==undefined) return;
 		for (i in this.managers) {
 			var manager = this.managers[i] ;
 			var elemDiv = document.createElement('div');
 			elemDiv.id= manager.prefix + 'GuiContainer';//'LicenseManager_gui';
 			e.appendChild(elemDiv);
-			elemDiv.innerHTML = manager.createGui(manager.g);
+			if(this.guiFunction==null)
+				elemDiv.innerHTML = manager.createGui(manager.g);
+			else elemDiv.innerHTML = this.guiFunction(manager.g);
+			manager.c.bindGui();
 		}
 	}
 	this.displaySimpleGui = function(){
 		for (i in this.managers) {
 			var manager = this.managers[i] ;
-			manager.addGui();
+			manager.addGui(null);
 		}
 	}
 
@@ -463,16 +533,67 @@ function LicenseManagerGuiMananger(guiId){
 	}
 }// end of gui mananger
 
+function LicenseManagerDeployment(guiId){
+//Start of user code LicenseManager_deployment_js
+//TODO: implement
+//End of user code
+
+}
 //Start of user code custom_LicenseManager_js
 //TODO: implement
 //End of user code
+//a simple bean class arount the contract
+// the LicenseIssuerModel
+function LicenseIssuerModel(contract) {
+this.contract = contract;
+this.getLicensedItemName = function(){
+return contract.licensedItemName(); 
+}
+this.getLicenseManager = function(){
+return contract.licenseManager(); 
+}
+this.getLicenseTextHash = function(){
+return contract.licenseTextHash(); 
+}
+this.getLicenseUrl = function(){
+return contract.licenseUrl(); 
+}
+this.getLicencePrice = function(){
+return contract.licencePrice(); 
+}
+this.getLicenseLifetime = function(){
+return contract.licenseLifetime(); 
+}
+this.getLicenseCount = function(){
+return contract.licenseCount(); 
+}
+this.getIssuable = function(){
+return contract.issuable(); 
+}
+this.checkLicense = function(factHash,v,sig_r,sig_s){
+return contract.checkLicense(factHash,v,sig_r,sig_s); 
+}
+this.checkLicense = function(_address){
+return contract.checkLicense(_address); 
+}
+this.changePaymentAddress = function(_newPaymentAddress){
+return contract.changePaymentAddress(_newPaymentAddress); 
+}
+this.stopIssuing = function(){
+return contract.stopIssuing(); 
+}
+this.buyLicense = function(_address,_name){
+return contract.buyLicense(_address,_name); 
+}
+}// end of function LicenseIssuerModel
 //gui factory LicenseIssuer
 function LicenseIssuerGuiFactory() {
 	this.prefix='';
 	
 // default Gui
-this.placeDefaultGui=function() {
-	var e = document.getElementById(this.prefix+'LicenseIssuer_gui');
+this.placeDefaultGui=function(e) {
+	if(e==null)
+		e = document.getElementById(this.prefix+'LicenseIssuer_gui');
 	if(e!=null)
 		e.innerHTML = this.createDefaultGui();
 	else
@@ -726,28 +847,36 @@ function LicenseIssuerController() {
 
 // bind buttons
 	this.bindGui=function() {
+		console.log('bind gui for:'+self.prefix);
 		var btn = document.getElementById(self.prefix+'LicenseIssuerController.setAddress');
 		if(btn!=undefined)		
 			btn.onclick = this.setAddress;
+		else console.log('addres widget not bound');
 
 		var btn = document.getElementById(self.prefix+'LicenseIssuer_updateAttributes');
 		if(btn!=undefined)
 			btn.onclick = this._updateAttributes;
+		else console.log('_updateAttributes widget not bound');
 		var btn = document.getElementById(self.prefix+'LicenseIssuerController.LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32');
 		if(btn!=undefined)
 			btn.onclick = this.LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32;
+		else console.log('LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32 widget not bound');
 		var btn = document.getElementById(self.prefix+'LicenseIssuerController.LicenseIssuer_checkLicense_address');
 		if(btn!=undefined)
 			btn.onclick = this.LicenseIssuer_checkLicense_address;
+		else console.log('LicenseIssuer_checkLicense_address widget not bound');
 		var btn = document.getElementById(self.prefix+'LicenseIssuerController.LicenseIssuer_changePaymentAddress_address');
 		if(btn!=undefined)
 			btn.onclick = this.LicenseIssuer_changePaymentAddress_address;
+		else console.log('LicenseIssuer_changePaymentAddress_address widget not bound');
 		var btn = document.getElementById(self.prefix+'LicenseIssuerController.LicenseIssuer_stopIssuing');
 		if(btn!=undefined)
 			btn.onclick = this.LicenseIssuer_stopIssuing;
+		else console.log('LicenseIssuer_stopIssuing widget not bound');
 		var btn = document.getElementById(self.prefix+'LicenseIssuerController.LicenseIssuer_buyLicense_address_string');
 		if(btn!=undefined)
 			btn.onclick = this.LicenseIssuer_buyLicense_address_string;
+		else console.log('LicenseIssuer_buyLicense_address_string widget not bound');
 	}
 	// set function
 	this.setAddress=function() {
@@ -766,37 +895,46 @@ if(this.instance===null) return;
 	var e = document.getElementById(self.prefix+'LicenseIssuer_licensedItemName_value');
 	if(licensedItemName_res!=null && e!=null)
 		e.innerText = licensedItemName_res;
+	else console.log(self.prefix+'LicenseIssuer_licensedItemName_value not found');
 	var licenseManager_res = self.instance.licenseManager();
 	var e = document.getElementById(self.prefix+'LicenseIssuer_licenseManager_value');
 	if(licenseManager_res!=null && e!=null)
 		e.innerText = licenseManager_res;
+	else console.log(self.prefix+'LicenseIssuer_licenseManager_value not found');
 	var licenseTextHash_res = self.instance.licenseTextHash();
 	var e = document.getElementById(self.prefix+'LicenseIssuer_licenseTextHash_value');
 	if(licenseTextHash_res!=null && e!=null)
 		e.innerText = licenseTextHash_res;
+	else console.log(self.prefix+'LicenseIssuer_licenseTextHash_value not found');
 	var licenseUrl_res = self.instance.licenseUrl();
 	var e = document.getElementById(self.prefix+'LicenseIssuer_licenseUrl_value');
 	if(licenseUrl_res!=null && e!=null)
 		e.innerText = licenseUrl_res;
+	else console.log(self.prefix+'LicenseIssuer_licenseUrl_value not found');
 	var licencePrice_res = self.instance.licencePrice();
 	var e = document.getElementById(self.prefix+'LicenseIssuer_licencePrice_value');
 	if(licencePrice_res!=null && e!=null)
 		e.innerText = licencePrice_res;
+	else console.log(self.prefix+'LicenseIssuer_licencePrice_value not found');
 	var licenseLifetime_res = self.instance.licenseLifetime();
 	var e = document.getElementById(self.prefix+'LicenseIssuer_licenseLifetime_value');
 	if(licenseLifetime_res!=null && e!=null)
 		e.innerText = licenseLifetime_res;
+	else console.log(self.prefix+'LicenseIssuer_licenseLifetime_value not found');
 	var licenseCount_res = self.instance.licenseCount();
 	var e = document.getElementById(self.prefix+'LicenseIssuer_licenseCount_value');
 	if(licenseCount_res!=null && e!=null)
 		e.innerText = licenseCount_res;
+	else console.log(self.prefix+'LicenseIssuer_licenseCount_value not found');
 	var issuable_res = self.instance.issuable();
 	var e = document.getElementById(self.prefix+'LicenseIssuer_issuable_value');
 	if(issuable_res!=null && e!=null)
 		e.innerText = issuable_res;
+	else console.log(self.prefix+'LicenseIssuer_issuable_value not found');
 	var e = document.getElementById(self.prefix+'LicenseIssuer_contract_attribute_issuedLicenses_input');
 if(e!=null){
 	var _key = e.value;
+	if(_key=='') return;
 	var issuedLicenses_res = self.instance.issuedLicenses(_key);
 	if(issuedLicenses_res!=null){
 	var e1 = document.getElementById(self.prefix+'LicenseIssuer_issuedLicenses_licenseOwnerAdress_value');
@@ -812,6 +950,7 @@ if(e!=null){
 	var e = document.getElementById(self.prefix+'LicenseIssuer_contract_attribute_licenseOwners_input');
 if(e!=null){
 	var _key = e.value;
+	if(_key=='') return;
 	var licenseOwners_res = self.instance.licenseOwners(_key);
 	if(licenseOwners_res!=null){
 	var e1 = document.getElementById(self.prefix+'LicenseIssuer_licenseOwners_licenseOwnerAdress_value');
@@ -832,15 +971,19 @@ this.LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32=function() {
 	var e = document.getElementById(self.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_factHash');
 	if(e!=null)
 		var param_factHash = e.value;
+	else console.log(self.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_factHash not found');
 	var e = document.getElementById(self.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_v');
 	if(e!=null)
 		var param_v = e.value;
+	else console.log(self.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_v not found');
 	var e = document.getElementById(self.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_r');
 	if(e!=null)
 		var param_sig_r = e.value;
+	else console.log(self.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_r not found');
 	var e = document.getElementById(self.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_s');
 	if(e!=null)
 		var param_sig_s = e.value;
+	else console.log(self.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_sig_s not found');
 	var res = self.instance.checkLicense(param_factHash, param_v, param_sig_r, param_sig_s);
 	var e = document.getElementById(self.prefix+'LicenseIssuer_checkLicense_bytes32_uint8_bytes32_bytes32_res');
 	if(res!=null && e!=null)
@@ -851,6 +994,7 @@ this.LicenseIssuer_checkLicense_address=function() {
 	var e = document.getElementById(self.prefix+'LicenseIssuer_checkLicense_address__address');
 	if(e!=null)
 		var param__address = e.value;
+	else console.log(self.prefix+'LicenseIssuer_checkLicense_address__address not found');
 	var res = self.instance.checkLicense(param__address);
 	var e = document.getElementById(self.prefix+'LicenseIssuer_checkLicense_address_res');
 	if(res!=null && e!=null)
@@ -861,6 +1005,7 @@ this.LicenseIssuer_changePaymentAddress_address=function() {
 	var e = document.getElementById(self.prefix+'LicenseIssuer_changePaymentAddress_address__newPaymentAddress');
 	if(e!=null)
 		var param__newPaymentAddress = e.value;
+	else console.log(self.prefix+'LicenseIssuer_changePaymentAddress_address__newPaymentAddress not found');
 	var res = self.instance.changePaymentAddress(param__newPaymentAddress);
 }
 //function LicenseIssuer_stopIssuing
@@ -872,16 +1017,17 @@ this.LicenseIssuer_buyLicense_address_string=function() {
 	var e = document.getElementById(self.prefix+'LicenseIssuer_buyLicense_address_string__address');
 	if(e!=null)
 		var param__address = e.value;
+	else console.log(self.prefix+'LicenseIssuer_buyLicense_address_string__address not found');
 	var e = document.getElementById(self.prefix+'LicenseIssuer_buyLicense_address_string__name');
 	if(e!=null)
 		var param__name = e.value;
+	else console.log(self.prefix+'LicenseIssuer_buyLicense_address_string__name not found');
 	var res = self.instance.buyLicense(param__address, param__name);
 }
 
 //delegated calls
 
 }// end controller	
-
 
 //class as GlueCode LicenseIssuerManager
 //uses prefix + 'GuiContainer'
@@ -895,26 +1041,40 @@ function LicenseIssuerManager(prefix,contract,containerId) {
 	this.g = new LicenseIssuerGuiFactory();
 	this.g.prefix = prefix;
 	this.containerId = containerId;
+	this.eventlogPrefix = '';
+	this.guiFunction = null;
 
-	this.addGui = function() {
-		var e = document.getElementById(this.containerId);
-		if(e==null)return;
+	this.addGui = function(e) {
+		if(e==null)
+			e = document.getElementById(this.containerId);
+		if(e==null){
+		console.log(this.containerId+' not found or :'+e);
+		return;
+		}
 		var elemDiv = document.createElement('div');
 		elemDiv.id= this.prefix +'LicenseIssuer_gui';
 		e.appendChild(elemDiv);
-		elemDiv.innerHTML = this.createGui(this.g);
+		if(this.guiFunction==null)
+			elemDiv.innerHTML = this.createGui(this.g);
+		else elemDiv.innerHTML = this.guiFunction(this.g);
+		
 		var e = document.getElementById(this.prefix+'LicenseIssuer_address');
 		if(e!=null)
 			e.value = this.c.contractAddress;
+		else 
+			console.log(this.prefix+'LicenseIssuer_address not found');
 		this.c.bindGui();
 	}	
-	this.clearGui = function(){
-		var e = document.getElementById(this.containerId);
+	this.clearGui = function(e){
+		if(e==null)
+			e = document.getElementById(this.containerId);
 		e.innerHTML ='';
 	}
 	this.createGui = function(guifactory){
 		var txt ='';
+//Start of user code LicenseIssuer_create_gui_js
 		txt = txt + guifactory.createDefaultGui();
+//End of user code
 		return guifactory.createSeletonGui(txt);
 
 	}
@@ -934,9 +1094,14 @@ function LicenseIssuerManager(prefix,contract,containerId) {
 //watch events
 	this.watchEvents=function(){
 	var event_LicenseIssued = contract.LicenseIssued({},{fromBlock: 0});
+	var elp = this.eventlogPrefix;
 	event_LicenseIssued.watch(function(error,result){
 	if(!error){
-		var e = document.getElementById(self.eventlogPrefix+'eventLog');
+		var e = document.getElementById(elp+'eventLog');
+		if(e==null){
+			console.log(elp+'eventLog');
+			return;
+		}
 		var elemDiv = document.createElement('div');
 		elemDiv.id= result.blockNumber +'event';
 		e.appendChild(elemDiv);
@@ -947,44 +1112,54 @@ function LicenseIssuerManager(prefix,contract,containerId) {
         +'<span>'+result.args.succesful+'</span>'
 		+ '</div>';
 		}else
-		console.log(error);	
+			console.log(error);	
 	});
 	}
 
 }// end of manager
 
+//Manages a list of LicenseIssuerManager uses the guid id to place the gui which is also the eventlogPrefix
 function LicenseIssuerGuiMananger(guiId){
 	this.prefix = guiId;
 	this.managers=new Array();	//[];		
+	this.guiFunction = null;
 	
 	this.addManager = function(contract) {
 		var m = new LicenseIssuerManager(contract.address,contract,this.prefix);
+		m.eventlogPrefix = this.prefix;
 		m.watchEvents();
+		if(this.guiFunction!=null)
+			m.guiFunction = this.guiFunction;
 		this.managers.push(m);
 		//manager.addGui();
 	}
 			
-	this.clearGui = function(){
-		var e = document.getElementById(this.prefix);
+	this.clearGui = function(e){
+		if(e==null)
+			e = document.getElementById(this.prefix);
 		if(e!==undefined)
 			e.innerHTML ='';
 	}
 			
-	this.displayGui = function(){
-		var e = document.getElementById(this.prefix);
+	this.displayGui = function(e){
+		if(e==null)
+			e = document.getElementById(this.prefix);
 		if(e==undefined) return;
 		for (i in this.managers) {
 			var manager = this.managers[i] ;
 			var elemDiv = document.createElement('div');
 			elemDiv.id= manager.prefix + 'GuiContainer';//'LicenseIssuer_gui';
 			e.appendChild(elemDiv);
-			elemDiv.innerHTML = manager.createGui(manager.g);
+			if(this.guiFunction==null)
+				elemDiv.innerHTML = manager.createGui(manager.g);
+			else elemDiv.innerHTML = this.guiFunction(manager.g);
+			manager.c.bindGui();
 		}
 	}
 	this.displaySimpleGui = function(){
 		for (i in this.managers) {
 			var manager = this.managers[i] ;
-			manager.addGui();
+			manager.addGui(null);
 		}
 	}
 
@@ -996,15 +1171,21 @@ function LicenseIssuerGuiMananger(guiId){
 	}
 }// end of gui mananger
 
+function LicenseIssuerDeployment(guiId){
+//Start of user code LicenseIssuer_deployment_js
+//TODO: implement
+//End of user code
+
+}
 //Start of user code custom_LicenseIssuer_js
 //TODO: implement
 //End of user code
-//the page Object fro the ContractsPage.
+//the page Object for the ContractsPage.
 function ContractsPage(prefix) {
 	this.prefix=prefix;
 	//Start of user code page_contracts_attributes
 	this.licensmanager = new LicenseManagerGuiMananger(prefix);
-	this.licenseIssuers = new LicenseIssuerGuiMananger(prefix+'1');
+	this.licenseIssuers = new LicenseIssuerGuiMananger(prefix);
 	
 	//End of user code
 

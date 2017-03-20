@@ -7,6 +7,7 @@
 .contract {
 	border-style: solid;
 	border-width: 1px;
+	margin-bottom: 4px;
 	} 
 .contract_attributes{
 	border-style: solid;
@@ -17,25 +18,66 @@
 .contract_attribute{}
 .contract_attribute_value{}
 .function_execution{}
-.function_parameter{}
+.function_parameter{
+	float: left;
+    width: 220px;
+	padding-top: 0.3em;
+}
+.function_input{
+	display : block;
+	margin-bottom: 0.8em;
+}
+.function_btn{}
 .function_result{}
-.failed_state{
+.eventRow{
+	display: table-row;
+	width: auto;
+}
+.eventValue{	
+	float: left; /*fix for  buggy browsers*/
+	display: table-column;
+}
+.testTable {
+	display: table;
+	width: auto;
+	border-spacing: 5px; /*cellspacing:poor IE support for  this*/
+	/* border-collapse:separate;*/
+}
+.testRow {
+	display: table-row;
+	width: auto;
+}
+.testCell {
+	float: left; /*fix for  buggy browsers*/
+	display: table-column;
+}
+.failed_state {
 	border-style: solid;
 	border-width: 1px;
+	border-color: red;
+	float: left;
+	display: table-column;
 }
-
+.pass_state {
+	border-style: solid;
+	border-width: 1px;
+	border-color: green;
+	float: left;
+	display: table-column;
+}
 </style>
 </head>
 <body bgcolor='#E6E6FA'>
 	<h1>Tests for contracts</h1>
 
 
-<div id="all-testResult" ></div>
+<div id="all-testResult" class="testTable"></div>
 <h1>Events</h1>
 <div id="eventLog" ></div>
 
 <!--Start of user code Custom_html_contracts -->
-	//TODO: implement
+
+
 <!--End of user code-->
 
 
@@ -66,10 +108,10 @@ event_LicenseIssued.watch(function(error,result){
 		elemDiv.id= result.blockNumber +'event';
 		e.appendChild(elemDiv);
 		//console.log(result.address+ 'eventLog'+result.blockHash+' '+result.blockNumber+' '+result.args.name+' '+result.args.succesful+' ');
-		elemDiv.innerHTML = '<div>'
-        +'<span>'+result.args.ownerAddress+'</span>'
-        +'<span>'+result.args.name+'</span>'
-        +'<span>'+result.args.succesful+'</span>'
+		elemDiv.innerHTML = '<div class="eventRow">'
+        +'<div class="eventValue">'+result.args.ownerAddress+'</div>'
+        +'<div class="eventValue">'+result.args.name+'</div>'
+        +'<div class="eventValue">'+result.args.succesful+'</div>'
 + '</div>';
 		}else
 		console.log(error);
