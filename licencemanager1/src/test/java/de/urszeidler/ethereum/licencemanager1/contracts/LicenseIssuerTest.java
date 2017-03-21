@@ -204,12 +204,62 @@ public class LicenseIssuerTest extends AbstractContractTest{
 	}
 
 	@Test(expected = ExecutionException.class)
-	public void testBuyLicense_Pay_less() throws Exception {
+	public void testBuyLicense_Pay_to_less() throws Exception {
 		LicenseIssuer li = deployer.createLicenseIssuerProxy(account1, fixtureAddress);
 		li.buyLicense(account1.getAddress(), "testname").with(EthValue.wei(100000000000000L)).get();
 	}
 
-	
+	@Test(expected = ExecutionException.class)
+	public void testBuyLicense_SecondTime() throws Exception {
+		LicenseIssuer li = deployer.createLicenseIssuerProxy(account1, fixtureAddress);
+		li.buyLicense(account1.getAddress(), "testname").with(EthValue.wei(1000000000000000L)).get();
+		
+		LicenseIssuerIssuedLicense issuedLicenses = fixture.issuedLicenses(0);
+		assertEquals(account1.getAddress(), issuedLicenses.getLicenseOwnerAdress());
+		
+		li.buyLicense(account1.getAddress(), "testname").with(EthValue.wei(1000000000000000L)).get();
+	}
+
+	@Test
+	public void testLifeTime1() throws Exception {
+		System.out.println(ethereum.events().getCurrentBlockNumber());
+		CompiledContract compiledContract = getCompiledContract();
+		String itemName = "itemName";
+		String textHash = "textHash";
+		String url = "url";
+		Integer lifeTime = 10;
+		Integer price = 1;
+		org.adridadou.ethereum.values.EthAddress _pa = senderAddress;
+		CompletableFuture<EthAddress> address = ethereum.publishContract(compiledContract, sender, itemName, textHash,
+				url, lifeTime, price, _pa);
+		fixtureAddress = address.get();
+		setFixture(ethereum.createContractProxy(compiledContract, fixtureAddress, sender, LicenseIssuer.class));
+
+		System.out.println(ethereum.events().getCurrentBlockNumber());
+
+		String _name = "testname";
+		LicenseIssuer li = deployer.createLicenseIssuerProxy(account1, fixtureAddress);
+		li.buyLicense(account1.getAddress(), _name).with(EthValue.wei(1000000000000000L)).get();
+		
+		LicenseIssuerIssuedLicense issuedLicenses = fixture.issuedLicenses(0);
+		
+		System.out.println(issuedLicenses);
+		System.out.println(System.currentTimeMillis());
+		
+		assertTrue(fixture.checkLicense(account1.getAddress()));
+		
+		li.buyLicense(account2.getAddress(), _name).with(EthValue.wei(1000000000000000L)).get();
+		Thread.sleep(10L);
+		li.buyLicense(account2.getAddress(), _name).with(EthValue.wei(1000000000000000L)).get();
+		Thread.sleep(10L);
+		li.buyLicense(account2.getAddress(), _name).with(EthValue.wei(1000000000000000L)).get();
+		
+		System.out.println(fixture.issuedLicenses(1));
+		System.out.println(fixture.issuedLicenses(2));
+		System.out.println(fixture.issuedLicenses(3));
+		
+		assertFalse(fixture.checkLicense(account1.getAddress()));
+	}
 	
 	private Byte[] toByteArray(byte[] byteArray) {
 		List<Byte> asList = Bytes.asList(byteArray);

@@ -220,8 +220,8 @@ contract LicenseIssuer {
 		 	return false;
 		 if((licenseLifetime<1))
 		 	return true;
-//		 if(licenseLifetime+now<data.issuedDate)
-//		 	return true;
+		 if(now<data.issuedDate+licenseLifetime)
+		 	return true;
 		 return false;
 		//End of user code
 	}

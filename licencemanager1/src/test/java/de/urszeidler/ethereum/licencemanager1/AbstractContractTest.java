@@ -83,6 +83,7 @@ public abstract class AbstractContractTest {
 			account2 = new EthAccount(ECKey.fromPrivate(BigInteger.valueOf(10001)));
 			
 			ethereum.sendEther(sender, account1.getAddress(), EthValue.ether(1L));
+			ethereum.sendEther(sender, account2.getAddress(), EthValue.ether(1L));
 		}
 		// End of user code
 	}

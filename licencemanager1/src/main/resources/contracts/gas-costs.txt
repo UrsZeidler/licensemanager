@@ -2,9 +2,9 @@
 ======= LicenseIssuer =======
 Gas estimation:
 construction:
-   [???] + 674400 = [???]
+   [???] + 679400 = [???]
 external:
-   checkLicense(address):	524
+   checkLicense(address):	661
    licenseManager():	337
    licenseCount():	286
    licencePrice():	308
@@ -28,7 +28,7 @@ internal:
 ======= LicenseManager =======
 Gas estimation:
 construction:
-   [???] + 1227600 = [???]
+   [???] + 1232600 = [???]
 external:
    issuerName():	[???]
    stopIssuing(uint256):	[???]
