@@ -6,6 +6,8 @@ package de.urszeidler.ethereum.licencemanager1.deployer;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -26,6 +28,8 @@ import org.apache.commons.cli.ParseException;
 import org.bouncycastle.util.encoders.Hex;
 import org.ethereum.crypto.ECKey;
 
+import com.google.common.primitives.Bytes;
+
 import de.urszeidler.ethereum.licencemanager1.EthereumInstance;
 import de.urszeidler.ethereum.licencemanager1.EthereumInstance.DeployDuo;
 import de.urszeidler.ethereum.licencemanager1.contracts.LicenseIssuer;
@@ -37,6 +41,8 @@ import de.urszeidler.ethereum.licencemanager1.contracts.LicenseManager;
  *
  */
 public class LicenseManagerDeployer {
+
+	private static final long FINNEY_TO_WEI = 1000000000000000L;
 
 	private EthereumFacade ethereum;
 	private ContractsDeployer deployer;
@@ -126,6 +132,29 @@ public class LicenseManagerDeployer {
 					manager.setManager(EthAddress.of(contractAddress));
 					manager.createIssuerContract(itemName, textHash, url, Integer.parseInt(lifeTime),
 							Integer.parseInt(price));
+				}else if (commandLine.hasOption("bli")){
+					String[] values = commandLine.getOptionValues("bli");
+					if (values == null || values.length < 2 || values.length > 3 ) {
+						System.out.println("Error. Need 2-3 issuerAddress, name, optional an address when not use the sender.");
+						System.out.println("");
+						printHelp(options);
+						return;
+					}
+					String issuerAddress = values[0];
+					String name = values[1];
+					String address = values[2];
+
+					manager.buyLicense(issuerAddress, name, address);
+				}else if(commandLine.hasOption("v")){
+					String[] values = commandLine.getOptionValues("v");
+					
+					
+					String issuerAddress = values[0];
+					String message = values[1];
+					String signature = values[2];
+					String publicKey = values[3];
+
+					manager.verifyLicense(issuerAddress,message,signature, publicKey);
 				}
 
 			} catch (Exception e) {
@@ -141,6 +170,59 @@ public class LicenseManagerDeployer {
 		}
 
 		System.exit(returnValue);
+	}
+
+	public void verifyLicense(String issuerAddress, String message, String signature, String publicKey) throws IOException, InterruptedException, ExecutionException {
+		LicenseIssuer licenseIssuer = deployer.createLicenseIssuerProxy(sender, EthAddress.of(issuerAddress));
+		if(!licenseIssuer.getIssuable())
+			throw new RuntimeException("The license is no longer issuable.");
+		
+		byte[] myMessage = message.getBytes();
+		if (myMessage.length < 32)
+			myMessage = Arrays.copyOf(myMessage, 32);
+		else if (myMessage.length % 32 != 0)
+			myMessage = Arrays.copyOf(myMessage, myMessage.length + myMessage.length % 32);
+
+		byte[] decode = Hex.decode(signature);
+		byte[] pub = Hex.decode(publicKey);
+		ECKey key = ECKey.fromPublicOnly(pub);
+		
+		if(!key.verify(myMessage, decode)) {
+			throw new RuntimeException("Message did not match signature.");
+		}
+		
+		Integer v = (int) decode[0];
+		Byte[] sig_r = new Byte[32];
+		System.arraycopy(decode, 1, sig_r, 0, 32);
+		Byte[] sig_s = new Byte[32];
+		System.arraycopy(decode, 33, sig_s, 0, 32);
+		
+		if(!licenseIssuer.checkLicense(toByteArray(myMessage), v, sig_r, sig_s))
+			throw new RuntimeException("The license is not valid.");
+			
+	}
+
+	public void buyLicense(String issuerAddress, String name, String address) throws IOException, InterruptedException, ExecutionException {
+		LicenseIssuer licenseIssuer = deployer.createLicenseIssuerProxy(sender, EthAddress.of(issuerAddress));
+		if(!licenseIssuer.getIssuable())
+			throw new RuntimeException("The license is no longer issuable.");
+		
+		EthAddress eaddress = (address==null || address.isEmpty()) ? EthAddress.empty() : EthAddress.of(address);
+		BigInteger licencePrice = licenseIssuer.licencePrice();
+		
+		Integer licenseCount = licenseIssuer.licenseCount();
+		doAndWait("Buying license "+licenseIssuer.licensedItemName()+" for "+licencePrice+" finneys", new DoAndWaitOneTime<Void>() {
+
+			@Override
+			public boolean isDone() {
+				return licenseIssuer.licenseCount() == licenseCount +1;
+			}
+
+			@Override
+			public CompletableFuture<Void> doIt() {
+				return licenseIssuer.buyLicense(eaddress, name).with(EthValue.wei(licencePrice.multiply(BigInteger.valueOf(FINNEY_TO_WEI))));	
+			}
+		});
 	}
 
 	/**
@@ -340,6 +422,20 @@ public class LicenseManagerDeployer {
 				.argName("contractAddress, itemName, textHash, url, lifeTime, price")//
 				.build()//
 		);
+		actionOptionGroup.addOption(Option.builder("bli")//
+				.desc("Buy license for address.")//
+				.hasArg()//
+				.numberOfArgs(3)//
+				.argName("issuerAddress, name, address")//
+				.build()//
+		);
+		actionOptionGroup.addOption(Option.builder("v")//
+				.desc("Verify a licence.")//
+				.hasArg()//
+				.numberOfArgs(3)//
+				.argName("issuerAddress, name, address")//
+				.build()//
+		);
 
 		options.addOptionGroup(actionOptionGroup);
 		return options;
@@ -371,12 +467,22 @@ public class LicenseManagerDeployer {
 		formatter.printHelp(150, "checksum database on the blockchain", header, options, footer, true);
 	}
 
+	private static Byte[] toByteArray(byte[] byteArray) {
+		List<Byte> asList = Bytes.asList(byteArray);
+		return asList.toArray(new Byte[] {});
+	}
+
+	
 	public void setMillis(long millis) {
 		this.millis = millis;
 	}
 
 	public DeployDuo<LicenseManager> getLicenseManager() {
 		return licenseManager;
+	}
+
+	public void setSender(EthAccount sender) {
+		this.sender = sender;
 	}
 
 }
