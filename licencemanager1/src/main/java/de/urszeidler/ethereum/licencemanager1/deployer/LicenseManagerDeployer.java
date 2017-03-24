@@ -42,7 +42,7 @@ import de.urszeidler.ethereum.licencemanager1.contracts.LicenseManager;
  */
 public class LicenseManagerDeployer {
 
-	private static final long FINNEY_TO_WEI = 1000000000000000L;
+	public static final long FINNEY_TO_WEI = 1000000000000000L;
 
 	private EthereumFacade ethereum;
 	private ContractsDeployer deployer;
@@ -55,7 +55,13 @@ public class LicenseManagerDeployer {
 
 		CompletableFuture<T> doIt();
 	}
+	public LicenseManagerDeployer() {
+		super();
+		ethereum = EthereumInstance.getInstance().getEthereum();
+		deployer = new ContractsDeployer(ethereum, "/contracts/combined.json", true);
+	}
 
+	
 	/**
 	 * @param args
 	 */
@@ -63,12 +69,15 @@ public class LicenseManagerDeployer {
 		Options options = createOptions();
 		CommandLineParser parser = new DefaultParser();
 		int returnValue = 0;
+		boolean dontExit = false;
 		try {
 			CommandLine commandLine = parser.parse(options, args);
 			if (commandLine.hasOption("h")) {
 				printHelp(options);
 				return;
 			}
+			if(commandLine.hasOption("de"))
+				dontExit = true;
 
 			String senderKey = null;
 			String senderPass = null;
@@ -168,8 +177,8 @@ public class LicenseManagerDeployer {
 			printHelp(options);
 			returnValue = 10;
 		}
-
-		System.exit(returnValue);
+		if(!dontExit)
+			System.exit(returnValue);
 	}
 
 	public void verifyLicense(String issuerAddress, String message, String signature, String publicKey) throws IOException, InterruptedException, ExecutionException {
@@ -235,9 +244,10 @@ public class LicenseManagerDeployer {
 	 * @param price
 	 * @throws InterruptedException
 	 * @throws ExecutionException
+	 * @throws IOException 
 	 */
 	public void createIssuerContract(String itemName, String textHash, String url, Integer lifeTime, Integer price)
-			throws InterruptedException, ExecutionException {
+			throws InterruptedException, ExecutionException, IOException {
 		Integer contractCount = licenseManager.contractInstance.contractCount();
 		doAndWait("Create a new issuer contract: " + itemName + " the hash: " + textHash, new DoAndWaitOneTime<Void>() {
 
@@ -251,6 +261,7 @@ public class LicenseManagerDeployer {
 				return licenseManager.contractInstance.createIssuerContract(itemName, textHash, url, lifeTime, price);
 			}
 		});
+		listContractData(null);
 	}
 
 	/**
@@ -263,9 +274,10 @@ public class LicenseManagerDeployer {
 	 */
 	public void listContractData(EthAddress contractAddress)
 			throws IOException, InterruptedException, ExecutionException {
-		System.out.println("LicensManager: " + licenseManager.contractInstance.issuerName());
+		System.out.println("\nLicensManager: " + licenseManager.contractInstance.issuerName());
 		System.out.println("Address: " + licenseManager.contractAddress);
 		System.out.println("Payment Address: " + licenseManager.contractInstance.paymentAddress());
+		System.out.println("Contracts: " + licenseManager.contractInstance.contractCount()+" owner: "+licenseManager.contractInstance.owner());
 		for (int i = 0; i < licenseManager.contractInstance.contractCount(); i++) {
 			EthAddress address = licenseManager.contractInstance.contracts(i);
 			LicenseIssuer licenseIssuer = deployer.createLicenseIssuerProxy(sender, address);
@@ -370,32 +382,36 @@ public class LicenseManagerDeployer {
 	private static Options createOptions() {
 		Options options = new Options();
 
-		// OptionGroup keyOptionGroup = new OptionGroup();
-		// keyOptionGroup.setRequired(false);
+		
+		options.addOption(Option//
+				.builder("de")//
+				.desc("Don't exit the programm.")//
+				.longOpt("dontExit")//
+				.hasArg(false)//
+				.build());
 		options.addOption(Option//
 				.builder("f")//
 				.desc("Set the contract source or the compiled json.")//
 				.longOpt("file")//
-				.hasArg()//
+				.hasArg(true)//
 				.argName("file alreadyCompiled").numberOfArgs(2).build());
-
 		options.addOption(Option//
 				.builder("sk")//
 				.desc("Set the sender key file.")//
 				.longOpt("senderKey")//
-				.hasArg()//
+				.hasArg(true)//
 				.argName("keyFile")//
 				.numberOfArgs(1).build());
 		options.addOption(Option//
 				.builder("sp")//
 				.desc("Set the pass of the key of the sender.")//
 				.longOpt("senderPass")//
-				.hasArg()//
+				.hasArg(true)//
 				.argName("password").numberOfArgs(1).build());
 		options.addOption(Option//
 				.builder("millis")//
 				.desc("The millisec to wait between checking the action.")//
-				.hasArg()//
+				.hasArg(true)//
 				.argName("millisec").numberOfArgs(1).build());
 
 		OptionGroup actionOptionGroup = new OptionGroup();
@@ -405,7 +421,7 @@ public class LicenseManagerDeployer {
 				.hasArg(false).build());
 		actionOptionGroup.addOption(Option.builder("c")//
 				.desc("Deploys the contract on the blockchain").longOpt("create")//
-				.hasArg()//
+				.hasArg(true)//
 				.numberOfArgs(2)//
 				.argName("paymenAddress, name")//
 				.build());

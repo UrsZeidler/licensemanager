@@ -19,6 +19,8 @@ import org.adridadou.ethereum.values.EthAddress;
 
 import org.adridadou.ethereum.values.SoliditySource;
 import org.adridadou.ethereum.values.config.ChainId;
+import org.apache.commons.codec.binary.Hex;
+import org.bouncycastle.jce.ECKeyUtil;
 import org.ethereum.crypto.ECKey;
 
 import org.junit.Before;
@@ -43,6 +45,7 @@ import com.google.common.primitives.Bytes;
  */
 public class LicenseIssuerTest extends AbstractContractTest{
 
+	private static final long FINNEY_TO_WEI = 1000000000000000L;
 	private LicenseIssuer fixture;
 	// Start of user code LicenseIssuerTest.attributes
 	private ContractsDeployer deployer;
@@ -113,13 +116,24 @@ public class LicenseIssuerTest extends AbstractContractTest{
 			myMessage = Arrays.copyOf(myMessage, myMessage.length + myMessage.length % 32);
 
 		ECDSASignature signature = account1.key.sign(myMessage);
-
+//		String hex = signature.toHex();
+//
+//		byte[] pubKey = account1.key.getPubKey();
+//		String encodeHexString = Hex.encodeHexString(pubKey);
+//		boolean verify = ECKey.verify(myMessage, signature, pubKey);
+//		
+//		byte[] address = ECKey.computeAddress(pubKey);
+//		String encodeHex = Hex.encodeHexString(address);
+		
 		Byte[] factHash = toByteArray(signature.toByteArray());
 		Integer v = Integer.valueOf(signature.v);
 		Byte[] sig_r = toByteArray(signature.r.toByteArray());
 		Byte[] sig_s = toByteArray(signature.s.toByteArray());
 		assertTrue(li.checkLicense(factHash, v, sig_r, sig_s));
+		
 		// End of user code
+		
+		
 	}
 	/**
 	 * Test method for  checkLicense(org.adridadou.ethereum.values.EthAddress _address).
@@ -174,7 +188,7 @@ public class LicenseIssuerTest extends AbstractContractTest{
 
 		String _name = "testname";
 		LicenseIssuer li = deployer.createLicenseIssuerProxy(account1, fixtureAddress);
-		li.buyLicense(account1.getAddress(), _name).with(EthValue.wei(1000000000000000L)).get();
+		li.buyLicense(account1.getAddress(), _name).with(EthValue.wei(FINNEY_TO_WEI)).get();
 
 		assertEquals(1, fixture.licenseCount().intValue());
 		assertEquals(senderAmount.plus(EthValue.wei(1000000000000000L)), ethereum.getBalance(sender));
