@@ -1,32 +1,19 @@
 package de.urszeidler.ethereum.licencemanager1.contracts;
 
-import static org.junit.Assert.*;
-
-
-import de.urszeidler.ethereum.licencemanager1.contracts.LicenseManager.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.stream.*;
-import java.math.*;
+import java.math.BigInteger;
+import java.util.concurrent.CompletableFuture;
 
-import org.adridadou.ethereum.EthereumFacade;
-import org.adridadou.ethereum.keystore.*;
 import org.adridadou.ethereum.values.CompiledContract;
-import org.adridadou.ethereum.values.EthAccount;
 import org.adridadou.ethereum.values.EthAddress;
 import org.adridadou.ethereum.values.SoliditySource;
-import org.adridadou.ethereum.values.config.ChainId;
-import org.ethereum.crypto.ECKey;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.urszeidler.ethereum.licencemanager1.AbstractContractTest;
-import de.urszeidler.ethereum.licencemanager1.EthereumInstance;
-
 // Start of user code LicenseManagerTest.customImports
 import de.urszeidler.ethereum.licencemanager1.deployer.ContractsDeployer;
 
