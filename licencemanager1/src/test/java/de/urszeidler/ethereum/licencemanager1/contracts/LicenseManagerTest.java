@@ -1,19 +1,32 @@
 package de.urszeidler.ethereum.licencemanager1.contracts;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+
+
+import de.urszeidler.ethereum.licencemanager1.contracts.LicenseManager.*;
+
 
 import java.io.File;
-import java.math.BigInteger;
-import java.util.concurrent.CompletableFuture;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.stream.*;
+import java.math.*;
 
+import org.adridadou.ethereum.EthereumFacade;
+import org.adridadou.ethereum.keystore.*;
 import org.adridadou.ethereum.values.CompiledContract;
+import org.adridadou.ethereum.values.EthAccount;
 import org.adridadou.ethereum.values.EthAddress;
 import org.adridadou.ethereum.values.SoliditySource;
+import org.adridadou.ethereum.values.config.ChainId;
+import org.ethereum.crypto.ECKey;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.urszeidler.ethereum.licencemanager1.AbstractContractTest;
+import de.urszeidler.ethereum.licencemanager1.EthereumInstance;
+
 // Start of user code LicenseManagerTest.customImports
 import de.urszeidler.ethereum.licencemanager1.deployer.ContractsDeployer;
 
@@ -58,7 +71,7 @@ public class LicenseManagerTest extends AbstractContractTest{
 	 */
 	protected void createFixture() throws Exception {
 		//Start of user code createFixture
-		CompiledContract compiledContract = getCompiledContract();
+		CompiledContract compiledContract = getCompiledContract("/contracts/combined.json");
 		org.adridadou.ethereum.values.EthAddress _paymentAddress = senderAddress;
 		String _name = "_name";
         CompletableFuture<EthAddress> address = ethereum.publishContract(compiledContract, sender

@@ -19,7 +19,6 @@ contract LicenseManager {
 	uint public contractCount;
 	mapping (uint=>LicenseIssuer)public contracts;
 	// Start of user code LicenseManager.attributes
-	//TODO: implement
 	// End of user code
 	
 	modifier onlyOwner
@@ -44,10 +43,8 @@ contract LicenseManager {
 	* _newPaymentAdress -
 	*/
 	function changePaymentAddress(address _newPaymentAdress) public  onlyOwner  {
-		
 		//Start of user code LicenseManager.function.changePaymentAddress_address
 		owner = _newPaymentAdress;
-//		paymentAddress = _newPaymentAdress;
 		//End of user code
 	}
 	
@@ -63,8 +60,6 @@ contract LicenseManager {
 	* price -
 	*/
 	function createIssuerContract(string itemName,string textHash,string url,uint lifeTime,uint price) public  onlyOwner  {
-		 
-		
 		//Start of user code LicenseManager.function.createIssuerContract_string_string_string_uint_uint
 		 contracts[contractCount] = new LicenseIssuer(itemName, textHash, url, lifeTime, price, paymentAddress);
 		 contractCount++;
@@ -78,8 +73,6 @@ contract LicenseManager {
 	* licenseId -
 	*/
 	function stopIssuing(uint licenseId) public  onlyOwner  {
-		 
-		
 		//Start of user code LicenseManager.function.stopIssuing_uint
 		 contracts[licenseId].stopIssuing();
 		//End of user code
@@ -93,8 +86,6 @@ contract LicenseManager {
 	* licenseId -
 	*/
 	function changePaymentAddress(address _newPaymentAddress,uint licenseId) public  onlyOwner  {
-		 
-		
 		//Start of user code LicenseManager.function.changePaymentAddress_address_uint
 		 if(!contracts[licenseId].getIssuable())
 		 	throw;
@@ -116,7 +107,6 @@ contract LicenseManager {
 		// End of user code
 	}
 	// Start of user code LicenseManager.operations
-	//TODO: implement
 	// End of user code
 }
 
@@ -150,15 +140,15 @@ contract LicenseIssuer {
 	//TODO: implement
 	// End of user code
 	
-	modifier onlyExactAmount
-	{
-	    if(msg.value!=licencePrice|| !issuable) throw;
-	    _;
-	}
-	
 	modifier onlyLicenseManager
 	{
 	    if(licenseManager != msg.sender) throw;
+	    _;
+	}
+	
+	modifier onlyExactAmount
+	{
+	    if(msg.value!=licencePrice|| !issuable) throw;
 	    _;
 	}
 	
@@ -191,7 +181,6 @@ contract LicenseIssuer {
 	*  -
 	*/
 	function checkLicense(bytes32 factHash,uint8 v,bytes32 sig_r,bytes32 sig_s) public   constant returns (bool ) {
-		
 		//Start of user code LicenseIssuer.function.checkLicense_bytes32_uint8_bytes32_bytes32
 		 address _address = ecrecover(factHash, v, sig_r, sig_s);
 		 IssuedLicense data = licenseOwners[_address];
@@ -212,8 +201,6 @@ contract LicenseIssuer {
 	*  -
 	*/
 	function checkLicense(address _address) public   constant returns (bool ) {
-		 
-		
 		//Start of user code LicenseIssuer.function.checkLicense_address
 		 IssuedLicense data = licenseOwners[_address];
 		 if(data.issuedDate == 0)
@@ -233,8 +220,6 @@ contract LicenseIssuer {
 	* _newPaymentAddress -
 	*/
 	function changePaymentAddress(address _newPaymentAddress) public  onlyLicenseManager  {
-		 
-		
 		//Start of user code LicenseIssuer.function.changePaymentAddress_address
 		 paymentAddress = _newPaymentAddress;
 		//End of user code
@@ -245,8 +230,6 @@ contract LicenseIssuer {
 	* Stop accecpting buying a license.
 	*/
 	function stopIssuing() public  onlyLicenseManager  {
-		 
-		
 		//Start of user code LicenseIssuer.function.stopIssuing
 		 issuable = false;
     	//End of user code
@@ -260,8 +243,6 @@ contract LicenseIssuer {
 	* _name -
 	*/
 	function buyLicense(address _address,string _name) public  onlyExactAmount payable  {
-		 
-		
 		//Start of user code LicenseIssuer.function.buyLicense_address_string
 		  if(_address==address(0))
 		    _address = msg.sender;

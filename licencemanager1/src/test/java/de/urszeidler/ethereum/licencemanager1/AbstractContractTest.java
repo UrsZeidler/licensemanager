@@ -13,7 +13,6 @@ import org.adridadou.ethereum.EthereumFacade;
 import org.adridadou.ethereum.values.CompiledContract;
 import org.adridadou.ethereum.values.EthAccount;
 import org.adridadou.ethereum.values.EthAddress;
-import org.adridadou.ethereum.values.EthValue;
 import org.adridadou.ethereum.values.SoliditySource;
 import org.apache.commons.io.IOUtils;
 import org.ethereum.crypto.ECKey;
@@ -67,10 +66,10 @@ public abstract class AbstractContractTest {
 		} else if (EthereumInstance.EI_PRIVATE.equalsIgnoreCase(property)) {
 			sender = new EthAccount(ECKey.fromPrivate(BigInteger.valueOf(1000L)));
 			senderAddress = sender.getAddress();
-			
+
 			account1 = new EthAccount(ECKey.fromPrivate(BigInteger.valueOf(10000)));
 			account2 = new EthAccount(ECKey.fromPrivate(BigInteger.valueOf(10001)));
-			
+
 			ethereum.sendEther(sender, account1.getAddress(), EthValue.ether(1L));
 		}
 
@@ -78,10 +77,10 @@ public abstract class AbstractContractTest {
 			sender = new EthAccount(
 					ECKey.fromPrivate(Hex.decode("3ec771c31cac8c0dba77a69e503765701d3c2bb62435888d4ffa38fed60c445c")));
 			senderAddress = sender.getAddress();
-			
+
 			account1 = new EthAccount(ECKey.fromPrivate(BigInteger.valueOf(10000)));
 			account2 = new EthAccount(ECKey.fromPrivate(BigInteger.valueOf(10001)));
-			
+
 			ethereum.sendEther(sender, account1.getAddress(), EthValue.ether(1L));
 			ethereum.sendEther(sender, account2.getAddress(), EthValue.ether(1L));
 		}
@@ -126,6 +125,6 @@ public abstract class AbstractContractTest {
 	}
 
 	// Start of user code AbstractContractTest.customMethods
-	//TODO: add custom methods
+	// TODO: add custom methods
 	// End of user code
 }

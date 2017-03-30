@@ -43,7 +43,7 @@ public class LicenseManagerDeployerTest extends AbstractContractTest {
 	protected String getContractName() {
 		return "LicenseManager";
 	}
-
+		
 	@SuppressWarnings("static-access")
 	@Test
 	public void testMain() {
@@ -51,8 +51,6 @@ public class LicenseManagerDeployerTest extends AbstractContractTest {
 		String name = "name";
 		String[] args = new String[]{"-de","-c",sender.getAddress().withLeading0x(),name};
 		managerDeployer.main(args);
-		
-		
 	}
 
 	@Test

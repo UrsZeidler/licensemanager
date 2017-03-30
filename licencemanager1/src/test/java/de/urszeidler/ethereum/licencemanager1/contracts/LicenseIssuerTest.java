@@ -1,18 +1,33 @@
 package de.urszeidler.ethereum.licencemanager1.contracts;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
+
+import de.urszeidler.ethereum.licencemanager1.contracts.LicenseIssuer.*;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.stream.*;
+import java.math.*;
 
+import org.adridadou.ethereum.EthereumFacade;
+import org.adridadou.ethereum.keystore.*;
 import org.adridadou.ethereum.values.CompiledContract;
+import org.adridadou.ethereum.values.EthAccount;
 import org.adridadou.ethereum.values.EthAddress;
+import org.adridadou.ethereum.values.SoliditySource;
+import org.adridadou.ethereum.values.config.ChainId;
+import org.ethereum.crypto.ECKey;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import de.urszeidler.ethereum.licencemanager1.AbstractContractTest;
+import de.urszeidler.ethereum.licencemanager1.EthereumInstance;
+
 // Start of user code LicenseIssuerTest.customImports
+import de.urszeidler.ethereum.licencemanager1.deployer.ContractsDeployer;
 import org.adridadou.ethereum.values.EthValue;
 import org.adridadou.ethereum.values.SoliditySource;
 import org.ethereum.crypto.ECKey.ECDSASignature;
@@ -22,9 +37,6 @@ import org.junit.Test;
 import com.google.common.primitives.Bytes;
 // End of user code
 
-import de.urszeidler.ethereum.licencemanager1.AbstractContractTest;
-import de.urszeidler.ethereum.licencemanager1.deployer.ContractsDeployer;
-
 
 /**
  * Test for the LicenseIssuer contract.
@@ -32,10 +44,10 @@ import de.urszeidler.ethereum.licencemanager1.deployer.ContractsDeployer;
  */
 public class LicenseIssuerTest extends AbstractContractTest{
 
-	private static final long FINNEY_TO_WEI = 1000000000000000L;
 	private LicenseIssuer fixture;
 	// Start of user code LicenseIssuerTest.attributes
 	private ContractsDeployer deployer;
+	private static final long FINNEY_TO_WEI = 1000000000000000L;
 
 	// End of user code
 
@@ -65,7 +77,7 @@ public class LicenseIssuerTest extends AbstractContractTest{
 	 */
 	protected void createFixture() throws Exception {
 		//Start of user code createFixture
-		CompiledContract compiledContract = getCompiledContract();
+		CompiledContract compiledContract = getCompiledContract("/contracts/combined.json");
 		String itemName = "itemName";
 		String textHash = "textHash";
 		String url = "url";
@@ -119,8 +131,6 @@ public class LicenseIssuerTest extends AbstractContractTest{
 		assertTrue(li.checkLicense(factHash, v, sig_r, sig_s));
 		
 		// End of user code
-		
-		
 	}
 	/**
 	 * Test method for  checkLicense(org.adridadou.ethereum.values.EthAddress _address).
