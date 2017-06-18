@@ -7,8 +7,8 @@
 |Actor name|use cases|doc|
 |---|---|---|
 |licensee|licence item||
-|license issuer|changePaymentAddress, register license item, stopIssue||
 |licensee business partner|check license on blockchain||
+|license issuer|changePaymentAddress, register license item, stopIssue||
 
 
 ## use cases
@@ -20,15 +20,15 @@ A buissnes partner can check the validity of the license and therefore can be en
 
 used by: licensee business partner
 
-### Create license issue contract
-
-
-used by: 
-
 ### changePaymentAddress
 
 
 used by: license issuer
+
+### write license to blockchain
+
+
+used by: 
 
 ### register license item
 
@@ -37,22 +37,22 @@ Creates a contract on the blockchain wich is the public register of the licenses
 
 used by: license issuer
 
-### send money
-
-
-used by: 
-
-### write license to blockchain
-
-
-used by: 
-
 ### licence item
 
 by sending the required amount of ether a licensee can obtain a license which will be stored transparent in the blockchain.
 
 
 used by: licensee
+
+### Create license issue contract
+
+
+used by: 
+
+### send money
+
+
+used by: 
 
 ### stopIssue
 

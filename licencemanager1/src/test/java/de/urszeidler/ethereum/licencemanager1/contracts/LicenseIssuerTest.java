@@ -1,35 +1,22 @@
 package de.urszeidler.ethereum.licencemanager1.contracts;
 
-import static org.junit.Assert.*;
-
-
-import de.urszeidler.ethereum.licencemanager1.contracts.LicenseIssuer.*;
-
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.stream.*;
-import java.math.*;
-
-import org.adridadou.ethereum.EthereumFacade;
-import org.adridadou.ethereum.keystore.*;
-import org.adridadou.ethereum.values.CompiledContract;
-import org.adridadou.ethereum.values.EthAccount;
-import org.adridadou.ethereum.values.EthAddress;
-import org.adridadou.ethereum.values.SoliditySource;
-import org.adridadou.ethereum.values.config.ChainId;
-import org.ethereum.crypto.ECKey;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import de.urszeidler.ethereum.licencemanager1.AbstractContractTest;
-import de.urszeidler.ethereum.licencemanager1.EthereumInstance;
-
 // Start of user code LicenseIssuerTest.customImports
 import de.urszeidler.ethereum.licencemanager1.deployer.ContractsDeployer;
-import org.adridadou.ethereum.values.EthValue;
-import org.adridadou.ethereum.values.SoliditySource;
+
+import static org.junit.Assert.*;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+import org.adridadou.ethereum.propeller.solidity.SolidityContractDetails;
+import org.adridadou.ethereum.propeller.values.EthAddress;
+import org.adridadou.ethereum.propeller.values.EthValue;
+import org.adridadou.ethereum.propeller.values.SoliditySource;
+import org.ethereum.crypto.ECKey;
 import org.ethereum.crypto.ECKey.ECDSASignature;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +31,7 @@ import com.google.common.primitives.Bytes;
  */
 public class LicenseIssuerTest extends AbstractContractTest{
 
+ 
 	private LicenseIssuer fixture;
 	// Start of user code LicenseIssuerTest.attributes
 	private ContractsDeployer deployer;
@@ -54,6 +42,11 @@ public class LicenseIssuerTest extends AbstractContractTest{
 	@Override
 	protected String getContractName() {
 		return "LicenseIssuer";
+	}
+
+	@Override
+	protected String getQuallifiedContractName() {
+		return "contracts.sol:LicenseIssuer";
 	}
 
 	/**
@@ -77,13 +70,13 @@ public class LicenseIssuerTest extends AbstractContractTest{
 	 */
 	protected void createFixture() throws Exception {
 		//Start of user code createFixture
-		CompiledContract compiledContract = getCompiledContract("/contracts/combined.json");
+		SolidityContractDetails compiledContract = getCompiledContract("/contracts/combined.json");
 		String itemName = "itemName";
 		String textHash = "textHash";
 		String url = "url";
 		Integer lifeTime = 0;
 		Integer price = 1;
-		org.adridadou.ethereum.values.EthAddress _pa = senderAddress;
+		EthAddress _pa = senderAddress;
 		CompletableFuture<EthAddress> address = ethereum.publishContract(compiledContract, sender, itemName, textHash,
 				url, lifeTime, price, _pa);
 		fixtureAddress = address.get();
@@ -114,7 +107,9 @@ public class LicenseIssuerTest extends AbstractContractTest{
 		else if (myMessage.length % 32 != 0)
 			myMessage = Arrays.copyOf(myMessage, myMessage.length + myMessage.length % 32);
 
-		ECDSASignature signature = account1.key.sign(myMessage);
+		
+		ECKey private1 = ECKey.fromPrivate(account1.getBigIntPrivateKey());
+		ECDSASignature signature = private1.sign(myMessage);
 //		String hex = signature.toHex();
 //
 //		byte[] pubKey = account1.key.getPubKey();
@@ -133,8 +128,8 @@ public class LicenseIssuerTest extends AbstractContractTest{
 		// End of user code
 	}
 	/**
-	 * Test method for  checkLicense(org.adridadou.ethereum.values.EthAddress _address).
-	 * see {@link LicenseIssuer#checkLicense( org.adridadou.ethereum.values.EthAddress)}
+	 * Test method for  checkLicense(org.adridadou.ethereum.propeller.values.EthAddress _address).
+	 * see {@link LicenseIssuer#checkLicense( org.adridadou.ethereum.propeller.values.EthAddress)}
 	 * @throws Exception
 	 */
 	@Test
@@ -147,8 +142,8 @@ public class LicenseIssuerTest extends AbstractContractTest{
 		// End of user code
 	}
 	/**
-	 * Test method for  changePaymentAddress(org.adridadou.ethereum.values.EthAddress _newPaymentAddress).
-	 * see {@link LicenseIssuer#changePaymentAddress( org.adridadou.ethereum.values.EthAddress)}
+	 * Test method for  changePaymentAddress(org.adridadou.ethereum.propeller.values.EthAddress _newPaymentAddress).
+	 * see {@link LicenseIssuer#changePaymentAddress( org.adridadou.ethereum.propeller.values.EthAddress)}
 	 * @throws Exception
 	 */
 	@Test
@@ -174,8 +169,8 @@ public class LicenseIssuerTest extends AbstractContractTest{
 		// End of user code
 	}
 	/**
-	 * Test method for  buyLicense(org.adridadou.ethereum.values.EthAddress _address,String _name).
-	 * see {@link LicenseIssuer#buyLicense( org.adridadou.ethereum.values.EthAddress, String)}
+	 * Test method for  buyLicense(org.adridadou.ethereum.propeller.values.EthAddress _address,String _name).
+	 * see {@link LicenseIssuer#buyLicense( org.adridadou.ethereum.propeller.values.EthAddress, String)}
 	 * @throws Exception
 	 */
 	@Test
@@ -234,13 +229,13 @@ public class LicenseIssuerTest extends AbstractContractTest{
 	@Test
 	public void testLifeTime1() throws Exception {
 		System.out.println(ethereum.events().getCurrentBlockNumber());
-		CompiledContract compiledContract = getCompiledContract();
+		SolidityContractDetails compiledContract = getCompiledContract();
 		String itemName = "itemName";
 		String textHash = "textHash";
 		String url = "url";
 		Integer lifeTime = 10;
 		Integer price = 1;
-		org.adridadou.ethereum.values.EthAddress _pa = senderAddress;
+		EthAddress _pa = senderAddress;
 		CompletableFuture<EthAddress> address = ethereum.publishContract(compiledContract, sender, itemName, textHash,
 				url, lifeTime, price, _pa);
 		fixtureAddress = address.get();

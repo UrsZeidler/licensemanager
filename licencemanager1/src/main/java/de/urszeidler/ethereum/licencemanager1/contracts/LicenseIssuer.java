@@ -1,7 +1,7 @@
 package de.urszeidler.ethereum.licencemanager1.contracts;
 
 import java.util.concurrent.CompletableFuture;
-import org.adridadou.ethereum.values.EthAddress;
+import org.adridadou.ethereum.propeller.values.EthAddress;
 
 //Start of user code customized_imports
 
@@ -29,15 +29,15 @@ public interface LicenseIssuer{
 	
 	Boolean issuable();
 	
-	org.adridadou.ethereum.values.EthAddress paymentAddress();
+	org.adridadou.ethereum.propeller.values.EthAddress paymentAddress();
 	/**
 	* The address which manange the contract.
 	**/
-	org.adridadou.ethereum.values.EthAddress licenseManager();
+	org.adridadou.ethereum.propeller.values.EthAddress licenseManager();
 	
 	LicenseIssuerIssuedLicense issuedLicenses(Integer key);
 	
-	LicenseIssuerIssuedLicense licenseOwners(org.adridadou.ethereum.values.EthAddress key);
+	LicenseIssuerIssuedLicense licenseOwners(org.adridadou.ethereum.propeller.values.EthAddress key);
 
 	/**
 	* Check the liceses by a given signature.
@@ -57,13 +57,13 @@ public interface LicenseIssuer{
 	* @return
 	*  -
 	**/
-	Boolean checkLicense(org.adridadou.ethereum.values.EthAddress _address);
+	Boolean checkLicense(org.adridadou.ethereum.propeller.values.EthAddress _address);
 	/**
 	* Change the payment address.
 	* 
 	* @param _newPaymentAddress -
 	**/
-	java.util.concurrent.CompletableFuture<Void> changePaymentAddress(org.adridadou.ethereum.values.EthAddress _newPaymentAddress);
+	java.util.concurrent.CompletableFuture<Void> changePaymentAddress(org.adridadou.ethereum.propeller.values.EthAddress _newPaymentAddress);
 	/**
 	* Stop accecpting buying a license.
 	**/
@@ -74,7 +74,7 @@ public interface LicenseIssuer{
 	* @param _address -
 	* @param _name -
 	**/
-	org.adridadou.ethereum.values.Payable<Void> buyLicense(org.adridadou.ethereum.values.EthAddress _address,String _name);
+	org.adridadou.ethereum.propeller.values.Payable<Void> buyLicense(org.adridadou.ethereum.propeller.values.EthAddress _address,String _name);
 
 	Boolean getIssuable();
 

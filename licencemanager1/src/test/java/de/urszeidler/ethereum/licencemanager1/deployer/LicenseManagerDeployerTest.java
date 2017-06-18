@@ -8,8 +8,9 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
-import org.adridadou.ethereum.values.EthAddress;
-import org.adridadou.ethereum.values.EthValue;
+import org.adridadou.ethereum.propeller.keystore.AccountProvider;
+import org.adridadou.ethereum.propeller.values.EthAddress;
+import org.adridadou.ethereum.propeller.values.EthValue;
 import org.ethereum.crypto.ECKey;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,7 +68,7 @@ public class LicenseManagerDeployerTest extends AbstractContractTest {
 		
 		
 		String name = "buyer name";
-		EthAddress address = EthAddress.of(ECKey.fromPrivate(BigInteger.valueOf(1000L)));
+		EthAddress address = AccountProvider.fromPrivateKey((BigInteger.valueOf(1000L))).getAddress();
 		licenseIssuer.buyLicense(address, name).with(EthValue.wei(2*LicenseManagerDeployer.FINNEY_TO_WEI));
 		
 		managerDeployer.listContractData(null);
@@ -109,6 +110,12 @@ public class LicenseManagerDeployerTest extends AbstractContractTest {
 		assertEquals(sender.getAddress(), licenseManager.contractInstance.paymentAddress());
 		assertEquals(name, licenseManager.contractInstance.issuerName());
 		assertEquals(0, licenseManager.contractInstance.contractCount().intValue());
+	}
+
+	@Override
+	protected String getQuallifiedContractName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

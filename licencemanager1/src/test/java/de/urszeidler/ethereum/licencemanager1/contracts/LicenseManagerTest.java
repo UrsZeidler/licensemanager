@@ -2,31 +2,17 @@ package de.urszeidler.ethereum.licencemanager1.contracts;
 
 import static org.junit.Assert.*;
 
-
-import de.urszeidler.ethereum.licencemanager1.contracts.LicenseManager.*;
-
-
 import java.io.File;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.stream.*;
-import java.math.*;
+import java.math.BigInteger;
+import java.util.concurrent.CompletableFuture;
 
-import org.adridadou.ethereum.EthereumFacade;
-import org.adridadou.ethereum.keystore.*;
-import org.adridadou.ethereum.values.CompiledContract;
-import org.adridadou.ethereum.values.EthAccount;
-import org.adridadou.ethereum.values.EthAddress;
-import org.adridadou.ethereum.values.SoliditySource;
-import org.adridadou.ethereum.values.config.ChainId;
-import org.ethereum.crypto.ECKey;
+import org.adridadou.ethereum.propeller.solidity.SolidityContractDetails;
+import org.adridadou.ethereum.propeller.values.EthAddress;
+import org.adridadou.ethereum.propeller.values.SoliditySource;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.urszeidler.ethereum.licencemanager1.AbstractContractTest;
-import de.urszeidler.ethereum.licencemanager1.EthereumInstance;
-
 // Start of user code LicenseManagerTest.customImports
 import de.urszeidler.ethereum.licencemanager1.deployer.ContractsDeployer;
 
@@ -39,6 +25,7 @@ import de.urszeidler.ethereum.licencemanager1.deployer.ContractsDeployer;
  */
 public class LicenseManagerTest extends AbstractContractTest{
 
+ 
 	private LicenseManager fixture;
 	// Start of user code LicenseManagerTest.attributes
 	private ContractsDeployer deployer;
@@ -47,6 +34,11 @@ public class LicenseManagerTest extends AbstractContractTest{
 	@Override
 	protected String getContractName() {
 		return "LicenseManager";
+	}
+
+	@Override
+	protected String getQuallifiedContractName() {
+		return "contracts.sol:LicenseManager";
 	}
 
 	/**
@@ -58,7 +50,7 @@ public class LicenseManagerTest extends AbstractContractTest{
 		//Start of user code prepareTest
         File contractSrc = new File(this.getClass().getResource("/contracts/contracts.sol").toURI());
         contractSource = SoliditySource.from(contractSrc);
-        deployer = new ContractsDeployer(ethereum);
+        deployer = new ContractsDeployer(ethereum,"/contracts/combined.json",true);
         
 		createFixture();
 		//End of user code
@@ -71,8 +63,8 @@ public class LicenseManagerTest extends AbstractContractTest{
 	 */
 	protected void createFixture() throws Exception {
 		//Start of user code createFixture
-		CompiledContract compiledContract = getCompiledContract("/contracts/combined.json");
-		org.adridadou.ethereum.values.EthAddress _paymentAddress = senderAddress;
+		SolidityContractDetails compiledContract = getCompiledContract("/contracts/combined.json");
+		EthAddress _paymentAddress = senderAddress;
 		String _name = "_name";
         CompletableFuture<EthAddress> address = ethereum.publishContract(compiledContract, sender
 				, _paymentAddress, _name);
@@ -87,8 +79,8 @@ public class LicenseManagerTest extends AbstractContractTest{
 
 
 	/**
-	 * Test method for  changePaymentAddress(org.adridadou.ethereum.values.EthAddress _newPaymentAdress).
-	 * see {@link LicenseManager#changePaymentAddress( org.adridadou.ethereum.values.EthAddress)}
+	 * Test method for  changePaymentAddress(org.adridadou.ethereum.propeller.values.EthAddress _newPaymentAdress).
+	 * see {@link LicenseManager#changePaymentAddress( org.adridadou.ethereum.propeller.values.EthAddress)}
 	 * @throws Exception
 	 */
 	@Test
@@ -147,8 +139,8 @@ public class LicenseManagerTest extends AbstractContractTest{
 		//End of user code
 	}
 	/**
-	 * Test method for  changePaymentAddress(org.adridadou.ethereum.values.EthAddress _newPaymentAddress,Integer licenseId).
-	 * see {@link LicenseManager#changePaymentAddress( org.adridadou.ethereum.values.EthAddress, Integer)}
+	 * Test method for  changePaymentAddress(org.adridadou.ethereum.propeller.values.EthAddress _newPaymentAddress,Integer licenseId).
+	 * see {@link LicenseManager#changePaymentAddress( org.adridadou.ethereum.propeller.values.EthAddress, Integer)}
 	 * @throws Exception
 	 */
 	@Test
@@ -164,8 +156,8 @@ public class LicenseManagerTest extends AbstractContractTest{
 		//End of user code
 	}
 	/**
-	 * Test method for  changeOwner(org.adridadou.ethereum.values.EthAddress _newOwner).
-	 * see {@link LicenseManager#changeOwner( org.adridadou.ethereum.values.EthAddress)}
+	 * Test method for  changeOwner(org.adridadou.ethereum.propeller.values.EthAddress _newOwner).
+	 * see {@link LicenseManager#changeOwner( org.adridadou.ethereum.propeller.values.EthAddress)}
 	 * @throws Exception
 	 */
 	@Test

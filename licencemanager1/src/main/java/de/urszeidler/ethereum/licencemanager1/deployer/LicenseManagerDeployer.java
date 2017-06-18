@@ -11,12 +11,13 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import org.adridadou.ethereum.EthereumFacade;
-import org.adridadou.ethereum.keystore.FileSecureKey;
-import org.adridadou.ethereum.keystore.SecureKey;
-import org.adridadou.ethereum.values.EthAccount;
-import org.adridadou.ethereum.values.EthAddress;
-import org.adridadou.ethereum.values.EthValue;
+import org.adridadou.ethereum.propeller.EthereumFacade;
+import org.adridadou.ethereum.propeller.keystore.AccountProvider;
+import org.adridadou.ethereum.propeller.keystore.FileSecureKey;
+import org.adridadou.ethereum.propeller.keystore.SecureKey;
+import org.adridadou.ethereum.propeller.values.EthAccount;
+import org.adridadou.ethereum.propeller.values.EthAddress;
+import org.adridadou.ethereum.propeller.values.EthValue;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -325,11 +326,10 @@ public class LicenseManagerDeployer {
 
 			millis = 2000L;
 		} else if (property != null && property.equalsIgnoreCase("private")) {
-			sender = new EthAccount(ECKey.fromPrivate(BigInteger.valueOf(100000L)));
+			sender = AccountProvider.fromPrivateKey(BigInteger.valueOf(100000L));
 			millis = 100L;
 		} else {
-			sender = new EthAccount(
-					ECKey.fromPrivate(Hex.decode("3ec771c31cac8c0dba77a69e503765701d3c2bb62435888d4ffa38fed60c445c")));
+			sender = AccountProvider.fromPrivateKey((Hex.decode("3ec771c31cac8c0dba77a69e503765701d3c2bb62435888d4ffa38fed60c445c")));
 			millis = 10L;
 		}
 

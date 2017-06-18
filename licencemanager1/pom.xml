@@ -9,8 +9,13 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.adridadou</groupId>
-			<artifactId>eth-contract-api</artifactId>
-			<version>0.16</version>
+			<artifactId>eth-propeller-ethj</artifactId>
+			<version>0.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.adridadou</groupId>
+			<artifactId>eth-propeller-web3j</artifactId>
+			<version>0.12</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

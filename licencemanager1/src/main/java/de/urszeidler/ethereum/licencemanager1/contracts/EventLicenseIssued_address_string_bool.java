@@ -3,15 +3,15 @@ package de.urszeidler.ethereum.licencemanager1.contracts;
 import de.urszeidler.ethereum.licencemanager1.contracts.LicenseIssuer.*;
 
 /**
- * The Event Objects for the event LicenseIssued(org.adridadou.ethereum.values.EthAddress ownerAddress,String name,Boolean succesful).
+ * The Event Objects for the event LicenseIssued(org.adridadou.ethereum.propeller.values.EthAddress ownerAddress,String name,Boolean succesful).
  *
  */
 public class EventLicenseIssued_address_string_bool{
-	private org.adridadou.ethereum.values.EthAddress ownerAddress;
+	private org.adridadou.ethereum.propeller.values.EthAddress ownerAddress;
 	private String name;
 	private Boolean succesful;
 
-	public EventLicenseIssued_address_string_bool(org.adridadou.ethereum.values.EthAddress ownerAddress,String name,Boolean succesful) {
+	public EventLicenseIssued_address_string_bool(org.adridadou.ethereum.propeller.values.EthAddress ownerAddress,String name,Boolean succesful) {
 		super();
 		this.ownerAddress = ownerAddress;
 		this.name = name;
@@ -22,7 +22,7 @@ public class EventLicenseIssued_address_string_bool{
 	 * Getter for ownerAddress.
 	 * @return
 	 */
-	public org.adridadou.ethereum.values.EthAddress getOwnerAddress(){
+	public org.adridadou.ethereum.propeller.values.EthAddress getOwnerAddress(){
 		return ownerAddress;
 	}
 

@@ -7,11 +7,11 @@ import de.urszeidler.ethereum.licencemanager1.contracts.LicenseIssuer.*;
  *
  */
 public class LicenseIssuerIssuedLicense{
-	private org.adridadou.ethereum.values.EthAddress licenseOwnerAdress;
+	private org.adridadou.ethereum.propeller.values.EthAddress licenseOwnerAdress;
 	private String licenseOwnerName;
 	private Integer issuedDate;
 
-	public LicenseIssuerIssuedLicense(org.adridadou.ethereum.values.EthAddress licenseOwnerAdress,String licenseOwnerName,Integer issuedDate) {
+	public LicenseIssuerIssuedLicense(org.adridadou.ethereum.propeller.values.EthAddress licenseOwnerAdress,String licenseOwnerName,Integer issuedDate) {
 		super();
 		this.licenseOwnerAdress = licenseOwnerAdress;
 		this.licenseOwnerName = licenseOwnerName;
@@ -22,7 +22,7 @@ public class LicenseIssuerIssuedLicense{
 	 * Getter for licenseOwnerAdress.
 	 * @return
 	 */
-	public org.adridadou.ethereum.values.EthAddress getLicenseOwnerAdress(){
+	public org.adridadou.ethereum.propeller.values.EthAddress getLicenseOwnerAdress(){
 		return licenseOwnerAdress;
 	}
 

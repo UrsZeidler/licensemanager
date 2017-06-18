@@ -34,7 +34,7 @@
 <booleanAttribute key="GENERATE_MIX" value="false"/>
 <stringAttribute key="GENERATE_UML_DOC_IMAGE_URL" value=""/>
 <booleanAttribute key="GENERATE_WEB3" value="false"/>
-<stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_address" value="org.adridadou.ethereum.values.EthAddress"/>
+<stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_address" value="org.adridadou.ethereum.propeller.values.EthAddress"/>
 <stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_bool" value="Boolean"/>
 <stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_byte" value="Byte"/>
 <stringAttribute key="GENERATION_JAVA_2_SOLIDITY_TYPE_bytes32" value="Byte[]"/>

@@ -1,7 +1,7 @@
 package de.urszeidler.ethereum.licencemanager1.contracts;
 
 import java.util.concurrent.CompletableFuture;
-import org.adridadou.ethereum.values.EthAddress;
+import org.adridadou.ethereum.propeller.values.EthAddress;
 
 //Start of user code customized_imports
 
@@ -13,22 +13,22 @@ import org.adridadou.ethereum.values.EthAddress;
 **/
 public interface LicenseManager{
 	
-	org.adridadou.ethereum.values.EthAddress owner();
+	org.adridadou.ethereum.propeller.values.EthAddress owner();
 	
-	org.adridadou.ethereum.values.EthAddress paymentAddress();
+	org.adridadou.ethereum.propeller.values.EthAddress paymentAddress();
 	
 	String issuerName();
 	
 	Integer contractCount();
 	
-	org.adridadou.ethereum.values.EthAddress contracts(Integer key);
+	org.adridadou.ethereum.propeller.values.EthAddress contracts(Integer key);
 
 	/**
 	* Change the address which receive the payment for an issued license. Only new issued licenses are affected.
 	* 
 	* @param _newPaymentAdress -
 	**/
-	java.util.concurrent.CompletableFuture<Void> changePaymentAddress(org.adridadou.ethereum.values.EthAddress _newPaymentAdress);
+	java.util.concurrent.CompletableFuture<Void> changePaymentAddress(org.adridadou.ethereum.propeller.values.EthAddress _newPaymentAdress);
 	/**
 	* Create a new licenseissuer contract.
 	* The price is in finney.
@@ -52,9 +52,9 @@ public interface LicenseManager{
 	* @param _newPaymentAddress -
 	* @param licenseId -
 	**/
-	java.util.concurrent.CompletableFuture<Void> changePaymentAddress(org.adridadou.ethereum.values.EthAddress _newPaymentAddress,Integer licenseId);
+	java.util.concurrent.CompletableFuture<Void> changePaymentAddress(org.adridadou.ethereum.propeller.values.EthAddress _newPaymentAddress,Integer licenseId);
 	
-	java.util.concurrent.CompletableFuture<Void> changeOwner(org.adridadou.ethereum.values.EthAddress _newOwner);
+	java.util.concurrent.CompletableFuture<Void> changeOwner(org.adridadou.ethereum.propeller.values.EthAddress _newOwner);
 
 	//Start of user code additional_methods
 
