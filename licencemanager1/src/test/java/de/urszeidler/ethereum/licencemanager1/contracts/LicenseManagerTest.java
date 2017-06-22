@@ -1,5 +1,6 @@
 package de.urszeidler.ethereum.licencemanager1.contracts;
 
+//Start of user code LicenseManagerTest.customImports
 import static org.junit.Assert.*;
 
 import java.io.File;
@@ -14,6 +15,8 @@ import org.junit.Test;
 
 import de.urszeidler.ethereum.licencemanager1.AbstractContractTest;
 // Start of user code LicenseManagerTest.customImports
+
+
 import de.urszeidler.ethereum.licencemanager1.deployer.ContractsDeployer;
 
 // End of user code

@@ -1,12 +1,13 @@
 package de.urszeidler.ethereum.licencemanager1.contracts;
 
-import de.urszeidler.ethereum.licencemanager1.AbstractContractTest;
 // Start of user code LicenseIssuerTest.customImports
 import de.urszeidler.ethereum.licencemanager1.deployer.ContractsDeployer;
+import de.urszeidler.ethereum.licencemanager1.AbstractContractTest;
 
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -14,10 +15,13 @@ import java.util.concurrent.ExecutionException;
 
 import org.adridadou.ethereum.propeller.solidity.SolidityContractDetails;
 import org.adridadou.ethereum.propeller.values.EthAddress;
+import org.adridadou.ethereum.propeller.values.EthData;
 import org.adridadou.ethereum.propeller.values.EthValue;
 import org.adridadou.ethereum.propeller.values.SoliditySource;
+import org.bouncycastle.jcajce.provider.asymmetric.rsa.DigestSignatureSpi.SHA256;
 import org.ethereum.crypto.ECKey;
 import org.ethereum.crypto.ECKey.ECDSASignature;
+import org.ethereum.vm.PrecompiledContracts.Sha256;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,7 +62,7 @@ public class LicenseIssuerTest extends AbstractContractTest{
 		//Start of user code prepareTest
 		File contractSrc = new File(this.getClass().getResource("/contracts/contracts.sol").toURI());
 		contractSource = SoliditySource.from(contractSrc);
-		deployer = new ContractsDeployer(ethereum);
+		deployer = new ContractsDeployer(ethereum,"/contracts/combined.json",true);
 		createFixture();
 		// End of user code
 	}
@@ -90,8 +94,8 @@ public class LicenseIssuerTest extends AbstractContractTest{
 
 
 	/**
-	 * Test method for  checkLicense(Byte[] factHash,Integer v,Byte[] sig_r,Byte[] sig_s).
-	 * see {@link LicenseIssuer#checkLicense( Byte[], Integer, Byte[], Byte[])}
+	 * Test method for  checkLicense(org.adridadou.ethereum.propeller.values.EthData factHash,Integer v,org.adridadou.ethereum.propeller.values.EthData sig_r,org.adridadou.ethereum.propeller.values.EthData sig_s).
+	 * see {@link LicenseIssuer#checkLicense( org.adridadou.ethereum.propeller.values.EthData, Integer, org.adridadou.ethereum.propeller.values.EthData, org.adridadou.ethereum.propeller.values.EthData)}
 	 * @throws Exception
 	 */
 	@Test
@@ -108,22 +112,14 @@ public class LicenseIssuerTest extends AbstractContractTest{
 			myMessage = Arrays.copyOf(myMessage, myMessage.length + myMessage.length % 32);
 
 		
-		ECKey private1 = ECKey.fromPrivate(account1.getBigIntPrivateKey());
-		ECDSASignature signature = private1.sign(myMessage);
-//		String hex = signature.toHex();
-//
-//		byte[] pubKey = account1.key.getPubKey();
-//		String encodeHexString = Hex.encodeHexString(pubKey);
-//		boolean verify = ECKey.verify(myMessage, signature, pubKey);
-//		
-//		byte[] address = ECKey.computeAddress(pubKey);
-//		String encodeHex = Hex.encodeHexString(address);
+		MessageDigest md = MessageDigest.getInstance("SHA256");
+		byte[] messageHash = md.digest(message.getBytes());
 		
-		Byte[] factHash = toByteArray(signature.toByteArray());
+		ECKey private1 = ECKey.fromPrivate(account1.getBigIntPrivateKey());
+		ECDSASignature signature = private1.sign(messageHash);
+
 		Integer v = Integer.valueOf(signature.v);
-		Byte[] sig_r = toByteArray(signature.r.toByteArray());
-		Byte[] sig_s = toByteArray(signature.s.toByteArray());
-		assertTrue(li.checkLicense(factHash, v, sig_r, sig_s));
+		assertTrue(li.checkLicense(EthData.of(messageHash), v, EthData.of(signature.r), EthData.of(signature.s)));
 		
 		// End of user code
 	}
@@ -229,7 +225,7 @@ public class LicenseIssuerTest extends AbstractContractTest{
 	@Test
 	public void testLifeTime1() throws Exception {
 		System.out.println(ethereum.events().getCurrentBlockNumber());
-		SolidityContractDetails compiledContract = getCompiledContract();
+		SolidityContractDetails compiledContract = getCompiledContract("/contracts/combined.json");//getCompiledContract();
 		String itemName = "itemName";
 		String textHash = "textHash";
 		String url = "url";

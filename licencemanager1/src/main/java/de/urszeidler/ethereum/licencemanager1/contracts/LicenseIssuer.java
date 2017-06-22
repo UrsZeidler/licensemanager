@@ -49,7 +49,7 @@ public interface LicenseIssuer{
 	* @return
 	*  -
 	**/
-	Boolean checkLicense(Byte[] factHash,Integer v,Byte[] sig_r,Byte[] sig_s);
+	Boolean checkLicense(org.adridadou.ethereum.propeller.values.EthData factHash,Integer v,org.adridadou.ethereum.propeller.values.EthData sig_r,org.adridadou.ethereum.propeller.values.EthData sig_s);
 	/**
 	* Simply lookup the license and check if it is still valid.
 	* 

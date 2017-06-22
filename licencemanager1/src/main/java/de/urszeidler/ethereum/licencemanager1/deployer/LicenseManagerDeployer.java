@@ -17,6 +17,7 @@ import org.adridadou.ethereum.propeller.keystore.FileSecureKey;
 import org.adridadou.ethereum.propeller.keystore.SecureKey;
 import org.adridadou.ethereum.propeller.values.EthAccount;
 import org.adridadou.ethereum.propeller.values.EthAddress;
+import org.adridadou.ethereum.propeller.values.EthData;
 import org.adridadou.ethereum.propeller.values.EthValue;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -202,12 +203,12 @@ public class LicenseManagerDeployer {
 		}
 		
 		Integer v = (int) decode[0];
-		Byte[] sig_r = new Byte[32];
+		byte[] sig_r = new byte[32];
 		System.arraycopy(decode, 1, sig_r, 0, 32);
-		Byte[] sig_s = new Byte[32];
+		byte[] sig_s = new byte[32];
 		System.arraycopy(decode, 33, sig_s, 0, 32);
 		
-		if(!licenseIssuer.checkLicense(toByteArray(myMessage), v, sig_r, sig_s))
+		if(!licenseIssuer.checkLicense(EthData.of(myMessage), v, EthData.of(sig_r), EthData.of(sig_s)))
 			throw new RuntimeException("The license is not valid.");
 			
 	}
