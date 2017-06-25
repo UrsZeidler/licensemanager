@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.math.BigInteger;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import org.adridadou.ethereum.propeller.solidity.SolidityContractDetails;
 import org.adridadou.ethereum.propeller.values.EthAddress;
@@ -15,8 +16,6 @@ import org.junit.Test;
 
 import de.urszeidler.ethereum.licencemanager1.AbstractContractTest;
 // Start of user code LicenseManagerTest.customImports
-
-
 import de.urszeidler.ethereum.licencemanager1.deployer.ContractsDeployer;
 
 // End of user code
@@ -181,6 +180,31 @@ public class LicenseManagerTest extends AbstractContractTest{
 		assertEquals("_name", fixture.issuerName());
 		assertEquals(senderAddress, fixture.owner());
 		assertEquals(senderAddress, fixture.paymentAddress());
+	}
+	
+	@Test(expected=ExecutionException.class)
+	public void testChangeOwner_NotOwner() throws Exception {
+		LicenseManager licenseManager = deployer.createLicenseManagerProxy(account1, fixtureAddress);
+		licenseManager.changeOwner(fixtureAddress).get();
+	}
+	
+	@Test(expected=ExecutionException.class)
+	public void testChangePaymentAddres_NotOwner() throws Exception {
+		LicenseManager licenseManager = deployer.createLicenseManagerProxy(account1, fixtureAddress);
+		licenseManager.changePaymentAddress(fixtureAddress).get();
+	}
+	
+	@Test(expected=ExecutionException.class)
+	public void testCreateIssuerContract_NotOwner() throws Exception {
+		LicenseManager licenseManager = deployer.createLicenseManagerProxy(account1, fixtureAddress);
+		licenseManager.createIssuerContract("ss", "hh", "bb", 0, 200).get();
+	}
+	
+	@Test(expected=ExecutionException.class)
+	public void testStopIssuing_NotOwner() throws Exception {
+		testCreateIssuerContract_string_string_string_uint_uint();
+		LicenseManager licenseManager = deployer.createLicenseManagerProxy(account1, fixtureAddress);
+		licenseManager.stopIssuing(0).get();
 	}
 	
 	//End of user code

@@ -39,7 +39,6 @@ public class LicenseIssuerTest extends AbstractContractTest{
 	private LicenseIssuer fixture;
 	// Start of user code LicenseIssuerTest.attributes
 	private ContractsDeployer deployer;
-	private static final long FINNEY_TO_WEI = 1000000000000000L;
 
 	// End of user code
 
@@ -105,12 +104,6 @@ public class LicenseIssuerTest extends AbstractContractTest{
 		LicenseIssuer li = deployer.createLicenseIssuerProxy(account2, fixtureAddress);
 
 		String message = "Test message";
-		byte[] myMessage = message.getBytes();
-		if (myMessage.length < 32)
-			myMessage = Arrays.copyOf(myMessage, 32);
-		else if (myMessage.length % 32 != 0)
-			myMessage = Arrays.copyOf(myMessage, myMessage.length + myMessage.length % 32);
-
 		
 		MessageDigest md = MessageDigest.getInstance("SHA256");
 		byte[] messageHash = md.digest(message.getBytes());
@@ -262,11 +255,28 @@ public class LicenseIssuerTest extends AbstractContractTest{
 		
 		assertFalse(fixture.checkLicense(account1.getAddress()));
 	}
-	
-	private Byte[] toByteArray(byte[] byteArray) {
-		List<Byte> asList = Bytes.asList(byteArray);
-		return asList.toArray(new Byte[] {});
+
+	@Test
+	public void testCheckLicense_WrongMessage() throws Exception {
+		testBuyLicense_address_string();
+		LicenseIssuer li = deployer.createLicenseIssuerProxy(account2, fixtureAddress);
+
+		String message = "Test message";
+		
+		MessageDigest md = MessageDigest.getInstance("SHA256");
+		byte[] messageHash = md.digest(message.getBytes());
+		
+		String message1 = "Test message1";
+		byte[] messageHash1 = md.digest(message1.getBytes());
+		
+		ECKey private1 = ECKey.fromPrivate(account1.getBigIntPrivateKey());
+		ECDSASignature signature = private1.sign(messageHash);
+
+		Integer v = Integer.valueOf(signature.v);
+		assertFalse(li.checkLicense(EthData.of(messageHash1), v, EthData.of(signature.r), EthData.of(signature.s)));
+		
 	}
 
+	
 	// End of user code
 }

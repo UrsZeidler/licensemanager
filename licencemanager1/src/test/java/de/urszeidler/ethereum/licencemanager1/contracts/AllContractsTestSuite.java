@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 LicenseManagerTest.class
 ,LicenseIssuerTest.class
 //Start of user code customTests    
+,de.urszeidler.ethereum.licencemanager1.deployer.LicenseManagerDeployerTest.class
 //End of user code
 })
 public class AllContractsTestSuite {

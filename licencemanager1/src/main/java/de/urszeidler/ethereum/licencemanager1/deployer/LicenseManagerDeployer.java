@@ -3,9 +3,14 @@
  */
 package de.urszeidler.ethereum.licencemanager1.deployer;
 
+import static org.ethereum.util.ByteUtil.bigIntegerToBytes;
+
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -27,8 +32,10 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.io.IOUtils;
 import org.bouncycastle.util.encoders.Hex;
 import org.ethereum.crypto.ECKey;
+import org.ethereum.crypto.ECKey.ECDSASignature;
 
 import com.google.common.primitives.Bytes;
 
@@ -57,13 +64,31 @@ public class LicenseManagerDeployer {
 
 		CompletableFuture<T> doIt();
 	}
+
 	public LicenseManagerDeployer() {
 		super();
 		ethereum = EthereumInstance.getInstance().getEthereum();
 		deployer = new ContractsDeployer(ethereum, "/contracts/combined.json", true);
 	}
 
-	
+	public static byte[] createMessageHash(String message) throws NoSuchAlgorithmException {
+		MessageDigest md = MessageDigest.getInstance("SHA256");
+		return md.digest(message.getBytes());
+	}
+
+	public static String toPublicKeyString(EthAccount account1) {
+		byte[] encoded = account1.getPublicKey().getEncoded(false);
+		return Hex.toHexString(encoded);
+	}
+
+	public static String createSignature(EthAccount account1, String message) throws NoSuchAlgorithmException {
+		byte[] messageHash = createMessageHash(message);
+		ECKey private1 = ECKey.fromPrivate(account1.getBigIntPrivateKey());
+		ECDSASignature signature = private1.sign(messageHash);
+
+		return signature.toHex();
+	}
+
 	/**
 	 * @param args
 	 */
@@ -78,7 +103,7 @@ public class LicenseManagerDeployer {
 				printHelp(options);
 				return;
 			}
-			if(commandLine.hasOption("de"))
+			if (commandLine.hasOption("de"))
 				dontExit = true;
 
 			String senderKey = null;
@@ -143,10 +168,11 @@ public class LicenseManagerDeployer {
 					manager.setManager(EthAddress.of(contractAddress));
 					manager.createIssuerContract(itemName, textHash, url, Integer.parseInt(lifeTime),
 							Integer.parseInt(price));
-				}else if (commandLine.hasOption("bli")){
+				} else if (commandLine.hasOption("bli")) {
 					String[] values = commandLine.getOptionValues("bli");
-					if (values == null || values.length < 2 || values.length > 3 ) {
-						System.out.println("Error. Need 2-3 issuerAddress, name, optional an address when not use the sender.");
+					if (values == null || values.length < 2 || values.length > 3) {
+						System.out.println(
+								"Error. Need 2-3 issuerAddress, name, optional an address when not use the sender.");
 						System.out.println("");
 						printHelp(options);
 						return;
@@ -156,18 +182,38 @@ public class LicenseManagerDeployer {
 					String address = values[2];
 
 					manager.buyLicense(issuerAddress, name, address);
-				}else if(commandLine.hasOption("v")){
+				} else if (commandLine.hasOption("v")) {
 					String[] values = commandLine.getOptionValues("v");
-					
-					
+
 					String issuerAddress = values[0];
 					String message = values[1];
 					String signature = values[2];
 					String publicKey = values[3];
 
-					manager.verifyLicense(issuerAddress,message,signature, publicKey);
+					manager.verifyLicense(issuerAddress, message, signature, publicKey);
+				} else if (commandLine.hasOption("cs")) {
+					String message = commandLine.getOptionValue("cs");
+					if (message == null) {
+						System.out.println("Error. Need 1 parameter: message");
+						System.out.println("");
+						printHelp(options);
+						return;
+					}
+					String signature = createSignature(manager.sender, message);
+					String publicKeyString = toPublicKeyString(manager.sender);
+					System.out.println("The signature for the message is:");
+					System.out.println(signature);
+					System.out.println("The public key is:");
+					System.out.println(publicKeyString);
 				}
+				if (manager.licenseManager != null && commandLine.hasOption("wca")) {
+					String[] values = commandLine.getOptionValues("wca");
+					String filename = values[0];
 
+					File file = new File(filename);
+					IOUtils.write(manager.licenseManager.contractAddress.withLeading0x(), new FileOutputStream(file),
+							"UTF-8");
+				}
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 				printHelp(options);
@@ -179,61 +225,66 @@ public class LicenseManagerDeployer {
 			printHelp(options);
 			returnValue = 10;
 		}
-		if(!dontExit)
+		if (!dontExit)
 			System.exit(returnValue);
 	}
 
-	public void verifyLicense(String issuerAddress, String message, String signature, String publicKey) throws IOException, InterruptedException, ExecutionException {
+	public void verifyLicense(String issuerAddress, String message, String signature, String publicKey)
+			throws IOException, InterruptedException, ExecutionException, NoSuchAlgorithmException {
 		LicenseIssuer licenseIssuer = deployer.createLicenseIssuerProxy(sender, EthAddress.of(issuerAddress));
-		if(!licenseIssuer.getIssuable())
+		if (!licenseIssuer.getIssuable())
 			throw new RuntimeException("The license is no longer issuable.");
-		
-		byte[] myMessage = message.getBytes();
-		if (myMessage.length < 32)
-			myMessage = Arrays.copyOf(myMessage, 32);
-		else if (myMessage.length % 32 != 0)
-			myMessage = Arrays.copyOf(myMessage, myMessage.length + myMessage.length % 32);
 
-		byte[] decode = Hex.decode(signature);
+		// MessageDigest md = MessageDigest.getInstance("SHA256");
+		byte[] messageHash = createMessageHash(message);// md.digest(message.getBytes());
+
+		byte[] decode_Signature = Hex.decode(signature);
 		byte[] pub = Hex.decode(publicKey);
-		ECKey key = ECKey.fromPublicOnly(pub);
-		
-		if(!key.verify(myMessage, decode)) {
+
+		byte v = decode_Signature[64];
+		byte[] r = new byte[32];
+		byte[] s = new byte[32];
+		System.arraycopy(decode_Signature, 0, r, 0, 32);
+		System.arraycopy(decode_Signature, 32, s, 0, 32);
+		ECDSASignature ecdSignature = ECDSASignature.fromComponents(r, s, v);
+
+		if (!ECKey.verify(messageHash, ecdSignature, pub)) {
 			throw new RuntimeException("Message did not match signature.");
 		}
-		
-		Integer v = (int) decode[0];
-		byte[] sig_r = new byte[32];
-		System.arraycopy(decode, 1, sig_r, 0, 32);
-		byte[] sig_s = new byte[32];
-		System.arraycopy(decode, 33, sig_s, 0, 32);
-		
-		if(!licenseIssuer.checkLicense(EthData.of(myMessage), v, EthData.of(sig_r), EthData.of(sig_s)))
+
+		// special case when v is 0 it was properly 27 see
+		// org.ethereum.crypto.ECKey.ECDSASignature.toByteArray()
+		if (v == 0)
+			v = 27;
+
+		if (!licenseIssuer.checkLicense(EthData.of(messageHash), (int) v, EthData.of(r), EthData.of(s)))
 			throw new RuntimeException("The license is not valid.");
-			
 	}
 
-	public void buyLicense(String issuerAddress, String name, String address) throws IOException, InterruptedException, ExecutionException {
+	public void buyLicense(String issuerAddress, String name, String address)
+			throws IOException, InterruptedException, ExecutionException {
 		LicenseIssuer licenseIssuer = deployer.createLicenseIssuerProxy(sender, EthAddress.of(issuerAddress));
-		if(!licenseIssuer.getIssuable())
+		if (!licenseIssuer.getIssuable())
 			throw new RuntimeException("The license is no longer issuable.");
-		
-		EthAddress eaddress = (address==null || address.isEmpty()) ? EthAddress.empty() : EthAddress.of(address);
+
+		EthAddress eaddress = (address == null || address.isEmpty()) ? EthAddress.empty() : EthAddress.of(address);
 		BigInteger licencePrice = licenseIssuer.licencePrice();
-		
+
 		Integer licenseCount = licenseIssuer.licenseCount();
-		doAndWait("Buying license "+licenseIssuer.licensedItemName()+" for "+licencePrice+" finneys", new DoAndWaitOneTime<Void>() {
+		doAndWait("Buying license " + licenseIssuer.licensedItemName() + " for " + licencePrice + " finneys",
+				new DoAndWaitOneTime<Void>() {
 
-			@Override
-			public boolean isDone() {
-				return licenseIssuer.licenseCount() == licenseCount +1;
-			}
+					@Override
+					public boolean isDone() {
+						return licenseIssuer.licenseCount() == licenseCount + 1;
+					}
 
-			@Override
-			public CompletableFuture<Void> doIt() {
-				return licenseIssuer.buyLicense(eaddress, name).with(EthValue.wei(licencePrice.multiply(BigInteger.valueOf(FINNEY_TO_WEI))));	
-			}
-		});
+					@Override
+					public CompletableFuture<Void> doIt() {
+						return licenseIssuer.buyLicense(eaddress, name)
+								.with(EthValue.wei(licencePrice.multiply(BigInteger.valueOf(FINNEY_TO_WEI))));
+					}
+				});
 	}
 
 	/**
@@ -246,7 +297,7 @@ public class LicenseManagerDeployer {
 	 * @param price
 	 * @throws InterruptedException
 	 * @throws ExecutionException
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public void createIssuerContract(String itemName, String textHash, String url, Integer lifeTime, Integer price)
 			throws InterruptedException, ExecutionException, IOException {
@@ -279,7 +330,8 @@ public class LicenseManagerDeployer {
 		System.out.println("\nLicensManager: " + licenseManager.contractInstance.issuerName());
 		System.out.println("Address: " + licenseManager.contractAddress);
 		System.out.println("Payment Address: " + licenseManager.contractInstance.paymentAddress());
-		System.out.println("Contracts: " + licenseManager.contractInstance.contractCount()+" owner: "+licenseManager.contractInstance.owner());
+		System.out.println("Contracts: " + licenseManager.contractInstance.contractCount() + " owner: "
+				+ licenseManager.contractInstance.owner());
 		for (int i = 0; i < licenseManager.contractInstance.contractCount(); i++) {
 			EthAddress address = licenseManager.contractInstance.contracts(i);
 			LicenseIssuer licenseIssuer = deployer.createLicenseIssuerProxy(sender, address);
@@ -330,7 +382,8 @@ public class LicenseManagerDeployer {
 			sender = AccountProvider.fromPrivateKey(BigInteger.valueOf(100000L));
 			millis = 100L;
 		} else {
-			sender = AccountProvider.fromPrivateKey((Hex.decode("3ec771c31cac8c0dba77a69e503765701d3c2bb62435888d4ffa38fed60c445c")));
+			sender = AccountProvider
+					.fromPrivateKey((Hex.decode("3ec771c31cac8c0dba77a69e503765701d3c2bb62435888d4ffa38fed60c445c")));
 			millis = 10L;
 		}
 
@@ -383,7 +436,6 @@ public class LicenseManagerDeployer {
 	private static Options createOptions() {
 		Options options = new Options();
 
-		
 		options.addOption(Option//
 				.builder("de")//
 				.desc("Don't exit the programm.")//
@@ -414,6 +466,12 @@ public class LicenseManagerDeployer {
 				.desc("The millisec to wait between checking the action.")//
 				.hasArg(true)//
 				.argName("millisec").numberOfArgs(1).build());
+		options.addOption(Option//
+				.builder("wca")//
+				.longOpt("writeContractAddress")//
+				.desc("Write contract to file.")//
+				.hasArg()//
+				.argName("filename").numberOfArgs(1).build());
 
 		OptionGroup actionOptionGroup = new OptionGroup();
 		actionOptionGroup.setRequired(true);
@@ -453,6 +511,13 @@ public class LicenseManagerDeployer {
 				.argName("issuerAddress, name, address")//
 				.build()//
 		);
+		actionOptionGroup.addOption(Option.builder("cs")//
+				.desc("Create a signature from a given text for the given Key.")//
+				.hasArg()//
+				.numberOfArgs(1)//
+				.argName("message")//
+				.build()//
+		);
 
 		options.addOptionGroup(actionOptionGroup);
 		return options;
@@ -484,12 +549,12 @@ public class LicenseManagerDeployer {
 		formatter.printHelp(150, "checksum database on the blockchain", header, options, footer, true);
 	}
 
-	private static Byte[] toByteArray(byte[] byteArray) {
-		List<Byte> asList = Bytes.asList(byteArray);
-		return asList.toArray(new Byte[] {});
-	}
+	// private static Byte[] toByteArray(byte[] byteArray) {
+	// List<Byte> asList = Bytes.asList(byteArray);
+	// return asList.toArray(new Byte[] {});
+	// }
+	//
 
-	
 	public void setMillis(long millis) {
 		this.millis = millis;
 	}

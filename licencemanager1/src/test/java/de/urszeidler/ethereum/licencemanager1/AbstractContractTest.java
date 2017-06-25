@@ -47,6 +47,7 @@ public abstract class AbstractContractTest {
 	// Start of user code AbstractContractTest.customFields
 	protected static EthAccount account1;
 	protected static EthAccount account2;
+	protected static final long FINNEY_TO_WEI = 1000000000000000L;
 	// End of user code
 
 	/**
