@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -15,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.adridadou.ethereum.propeller.EthereumFacade;
 import org.adridadou.ethereum.propeller.keystore.AccountProvider;
+import org.adridadou.ethereum.propeller.keystore.SecureKey;
 import org.adridadou.ethereum.propeller.solidity.SolidityContractDetails;
 import org.adridadou.ethereum.propeller.values.EthAccount;
 import org.adridadou.ethereum.propeller.values.EthAddress;
@@ -25,7 +25,6 @@ import org.ethereum.solidity.compiler.CompilationResult;
 import org.ethereum.solidity.compiler.CompilationResult.ContractMetadata;
 import org.junit.BeforeClass;
 import org.spongycastle.util.encoders.Hex;
-
 
 // End of user code
 
@@ -54,19 +53,20 @@ public abstract class AbstractContractTest {
 	 * @return the basic contract name
 	 */
 	protected abstract String getContractName();
-	
+
 	/**
 	 * @return the contract file together with the contract name
 	 */
 	protected abstract String getQuallifiedContractName();
 
 	/**
-	 * Setup up the blockchain. Add the 'EthereumFacadeProvider' property to use 
+	 * Setup up the blockchain. Add the 'EthereumFacadeProvider' property to use
 	 * another block chain implementation or network.
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	@BeforeClass
-	public static void setup() throws Exception{
+	public static void setup() throws Exception {
 		ethereum = EthereumInstance.getInstance().getEthereum();
 		initTest();
 	}
@@ -85,10 +85,20 @@ public abstract class AbstractContractTest {
 			account2 = AccountProvider.fromPrivateKey((BigInteger.valueOf(10001)));
 
 			ethereum.sendEther(sender, account1.getAddress(), EthValue.ether(1L));
+		} else if (EthereumInstance.ALL_TESTNET.contains(property)
+				|| EthereumInstance.EI_RPC.equalsIgnoreCase(property)) {
+			SecureKey a = AccountProvider.fromKeystore(new File(System.getProperty("keyFile")));
+			String password = System.getProperty("keyPass");
+			if (password == null)
+				password = "";
+			sender = a.decode(password);
+			senderAddress = sender.getAddress();
+
 		}
 
 		if (sender == null) {// the account for the standalone blockchain
-			sender = AccountProvider.fromPrivateKey((Hex.decode("3ec771c31cac8c0dba77a69e503765701d3c2bb62435888d4ffa38fed60c445c")));
+			sender = AccountProvider
+					.fromPrivateKey((Hex.decode("3ec771c31cac8c0dba77a69e503765701d3c2bb62435888d4ffa38fed60c445c")));
 			senderAddress = sender.getAddress();
 
 			account1 = AccountProvider.fromPrivateKey((BigInteger.valueOf(10000)));
@@ -97,27 +107,30 @@ public abstract class AbstractContractTest {
 			ethereum.sendEther(sender, account1.getAddress(), EthValue.ether(1L));
 			ethereum.sendEther(sender, account2.getAddress(), EthValue.ether(1L));
 		}
+
 		// End of user code
 	}
 
 	/**
 	 * Returns the already compiled contact.
 	 * 
-	 * @param filePath the filename and path of the combined json
+	 * @param filePath
+	 *            the filename and path of the combined json
 	 * @return the contract data (bin, abi)
 	 * @throws URISyntaxException
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	protected SolidityContractDetails getCompiledContract(String filePath) throws URISyntaxException, FileNotFoundException, IOException {
+	protected SolidityContractDetails getCompiledContract(String filePath)
+			throws URISyntaxException, FileNotFoundException, IOException {
 		SolidityContractDetails compiledContract = contracts.get(getQuallifiedContractName());
-		if(compiledContract!=null)
+		if (compiledContract != null)
 			return compiledContract;
 
 		File file = new File(this.getClass().getResource(filePath).toURI());
 		String rawJson = IOUtils.toString(new FileInputStream(file), EthereumFacade.CHARSET);
 		CompilationResult result = CompilationResult.parse(rawJson);
-		
+
 		ContractMetadata contractMetadata = result.contracts.get(getContractName());
 		if (contractMetadata == null) {
 			Optional<String> optional = result.contracts.keySet().stream()
@@ -125,7 +138,7 @@ public abstract class AbstractContractTest {
 			if (optional.isPresent())
 				contractMetadata = result.contracts.get(optional.get());
 		}
-		compiledContract =  new SolidityContractDetails(contractMetadata.abi, contractMetadata.bin,
+		compiledContract = new SolidityContractDetails(contractMetadata.abi, contractMetadata.bin,
 				contractMetadata.metadata);
 
 		contracts.put(getQuallifiedContractName(), compiledContract);
@@ -151,8 +164,8 @@ public abstract class AbstractContractTest {
 			if (contract.isPresent())
 				return contract.get();
 		}
-		throw new IllegalArgumentException(
-					"The contract '" + getContractName() + "' is not present is the map of contracts:" + compilationResult.getContracts());
+		throw new IllegalArgumentException("The contract '" + getContractName()
+				+ "' is not present is the map of contracts:" + compilationResult.getContracts());
 	}
 
 	// Start of user code AbstractContractTest.customMethods
