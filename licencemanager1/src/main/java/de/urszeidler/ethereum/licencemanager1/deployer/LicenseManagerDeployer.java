@@ -8,6 +8,7 @@ import static org.ethereum.util.ByteUtil.bigIntegerToBytes;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -114,9 +115,21 @@ public class LicenseManagerDeployer {
 				senderPass = commandLine.getOptionValue("sp");
 
 			LicenseManagerDeployer manager = new LicenseManagerDeployer();
-
+			
 			try {
 				manager.init(senderKey, senderPass);
+
+				long currentMili = 0;
+				EthValue balance = null;
+				if(commandLine.hasOption("calcDeploymendCost")){
+					currentMili = System.currentTimeMillis();
+					balance = manager.ethereum.getBalance(manager.sender);
+				}
+				if(commandLine.hasOption("observeBlock")){
+					manager.ethereum.events().observeBlocks().subscribe(b-> System.out.println("Block: "+b.blockNumber+" "+b.receipts  ));
+				}
+				
+
 				if (commandLine.hasOption("f")) {
 					String[] values = commandLine.getOptionValues("f");
 
@@ -179,7 +192,7 @@ public class LicenseManagerDeployer {
 					}
 					String issuerAddress = values[0];
 					String name = values[1];
-					String address = values[2];
+					String address = values.length>2 ? values[2] : null;
 
 					manager.buyLicense(issuerAddress, name, address);
 				} else if (commandLine.hasOption("v")) {
@@ -205,15 +218,53 @@ public class LicenseManagerDeployer {
 					System.out.println(signature);
 					System.out.println("The public key is:");
 					System.out.println(publicKeyString);
+				} else if (commandLine.hasOption("co")) {
+					String[] values = commandLine.getOptionValues("co");
+					if (values == null || values.length != 2) {
+						System.out.println("Error. Need 2 parameters: contractAddress, newOwnerAddress");
+						System.out.println("");
+						printHelp(options);
+						return;
+					}
+
+					String contractAddress = values[0];
+					String newOwner = values[1];
+
+					manager.changeOwner(EthAddress.of(contractAddress), EthAddress.of(newOwner));
+				} else if (commandLine.hasOption("si")) {
+					String contractAddress = commandLine.getOptionValue("si");
+					if (contractAddress == null) {
+						System.out.println("Error. Need 1 parameters: contract address");
+						System.out.println("");
+						printHelp(options);
+						return;
+					}
+					manager.setManager(EthAddress.of(contractAddress));
+					manager.stopIssue(contractAddress);
+				} else if (commandLine.hasOption("ppuk")) {
+					System.out.println("Public key: "+toPublicKeyString(manager.sender));
 				}
+				
 				if (manager.licenseManager != null && commandLine.hasOption("wca")) {
 					String[] values = commandLine.getOptionValues("wca");
 					String filename = values[0];
 
 					File file = new File(filename);
-					IOUtils.write(manager.licenseManager.contractAddress.withLeading0x(), new FileOutputStream(file),
+					IOUtils.write(
+							!commandLine.hasOption("cic")?							
+							manager.licenseManager.contractAddress.withLeading0x() :
+							manager.licenseManager.contractInstance.contracts(manager.licenseManager.contractInstance.contractCount()-1).withLeading0x()		
+									, new FileOutputStream(file),
 							"UTF-8");
 				}
+				
+				if(commandLine.hasOption("calcDeploymendCost")){
+					balance = balance.minus(manager.ethereum.getBalance(manager.sender));
+					   BigDecimal divide = new BigDecimal(balance.inWei()).divide(BigDecimal.valueOf(1_000_000_000_000_000_000L)); 
+					
+					System.out.println("Deployment cost: "+(divide)+" in wei:"+balance.inWei()+" time need: "+(System.currentTimeMillis()-currentMili));
+				}
+					
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 				printHelp(options);
@@ -227,6 +278,19 @@ public class LicenseManagerDeployer {
 		}
 		if (!dontExit)
 			System.exit(returnValue);
+	}
+
+	private void stopIssue(String contractAddress) throws IOException, InterruptedException, ExecutionException {
+		LicenseIssuer issuerProxy = deployer.createLicenseIssuerProxy(sender, EthAddress.of(contractAddress));
+		issuerProxy.stopIssuing();
+	}
+
+	private void changeOwner(EthAddress contract, EthAddress newOwner)
+			throws IOException, InterruptedException, ExecutionException {
+		LicenseManager licenseManagerProxy = deployer.createLicenseManagerProxy(sender, contract);
+
+		licenseManagerProxy.changeOwner(newOwner);
+		listContractData(contract);
 	}
 
 	public void verifyLicense(String issuerAddress, String message, String signature, String publicKey)
@@ -271,7 +335,7 @@ public class LicenseManagerDeployer {
 		BigInteger licencePrice = licenseIssuer.licencePrice();
 
 		Integer licenseCount = licenseIssuer.licenseCount();
-		doAndWait("Buying license " + licenseIssuer.licensedItemName() + " for " + licencePrice + " finneys",
+		doAndWait("Buying license " + licenseIssuer.licensedItemName() + " for " + licencePrice + " wei",
 				new DoAndWaitOneTime<Void>() {
 
 					@Override
@@ -282,7 +346,7 @@ public class LicenseManagerDeployer {
 					@Override
 					public CompletableFuture<Void> doIt() {
 						return licenseIssuer.buyLicense(eaddress, name)
-								.with(EthValue.wei(licencePrice.multiply(BigInteger.valueOf(FINNEY_TO_WEI))));
+								.with(EthValue.wei(licencePrice));
 					}
 				});
 	}
@@ -335,10 +399,13 @@ public class LicenseManagerDeployer {
 		for (int i = 0; i < licenseManager.contractInstance.contractCount(); i++) {
 			EthAddress address = licenseManager.contractInstance.contracts(i);
 			LicenseIssuer licenseIssuer = deployer.createLicenseIssuerProxy(sender, address);
-			System.out.println(" License:   " + licenseIssuer.licensedItemName());
-			System.out.println(" Url:       " + licenseIssuer.licenseUrl());
-			System.out.println(" text hash: " + licenseIssuer.licenseTextHash());
-			System.out.println(" issueable: " + licenseIssuer.issuable() + " " + licenseIssuer.licenseLifetime());
+			System.out.println(" --------------------------------- ");
+			System.out.println(" License:      " + licenseIssuer.licensedItemName());
+			System.out.println(" Price:        " + licenseIssuer.licencePrice());
+			System.out.println(" Address:      " + address);
+			System.out.println(" Url:          " + licenseIssuer.licenseUrl());
+			System.out.println(" text hash:    " + licenseIssuer.licenseTextHash());
+			System.out.println(" issueable:    " + licenseIssuer.issuable() + " " + licenseIssuer.licenseLifetime());
 
 			System.out.println(" LicenseCount: " + licenseIssuer.licenseCount());
 			for (int j = 0; j < licenseIssuer.licenseCount(); j++) {
@@ -443,6 +510,18 @@ public class LicenseManagerDeployer {
 				.hasArg(false)//
 				.build());
 		options.addOption(Option//
+				.builder("calcDeploymendCost")//
+				.desc("Calc the deployment cost.")//
+//				.longOpt("calcDeploymendCost")//
+				.hasArg(false)//
+				.build());
+		options.addOption(Option//
+				.builder("observeBlock")//
+				.desc("Observes the blocks.")//
+//				.longOpt("calcDeploymendCost")//
+				.hasArg(false)//
+				.build());
+		options.addOption(Option//
 				.builder("f")//
 				.desc("Set the contract source or the compiled json.")//
 				.longOpt("file")//
@@ -476,7 +555,7 @@ public class LicenseManagerDeployer {
 		OptionGroup actionOptionGroup = new OptionGroup();
 		actionOptionGroup.setRequired(true);
 		actionOptionGroup.addOption(Option.builder("h")//
-				.desc("show help and usage")//
+				.longOpt("helps").desc("show help and usage")//
 				.hasArg(false).build());
 		actionOptionGroup.addOption(Option.builder("c")//
 				.desc("Deploys the contract on the blockchain").longOpt("create")//
@@ -500,7 +579,7 @@ public class LicenseManagerDeployer {
 		actionOptionGroup.addOption(Option.builder("bli")//
 				.desc("Buy license for address.")//
 				.hasArg()//
-				.numberOfArgs(3)//
+				.numberOfArgs(2)//
 				.argName("issuerAddress, name, address")//
 				.build()//
 		);
@@ -516,6 +595,27 @@ public class LicenseManagerDeployer {
 				.hasArg()//
 				.numberOfArgs(1)//
 				.argName("message")//
+				.build()//
+		);
+		actionOptionGroup.addOption(Option.builder("co")//
+				.longOpt("changeOwner")//
+				.desc("Change owner")//
+				.hasArg()//
+				.numberOfArgs(2)//
+				.argName("contractAddress newOwnerAddress")//
+				.build()//
+		);
+		actionOptionGroup.addOption(Option.builder("si")//
+				.longOpt("stopIssuing")//
+				.desc("Stop issuing  license on this license isuer.")//
+				.hasArg()//
+				.numberOfArgs(1)//
+				.argName("contractAddress")//
+				.build()//
+		);
+		actionOptionGroup.addOption(Option.builder("ppuk")//
+				.longOpt("Print the public key.")//
+				.desc("Stop issuing  license on this license isuer.")//
 				.build()//
 		);
 
