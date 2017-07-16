@@ -108,7 +108,7 @@
 							<classpathPrefix>lib/</classpathPrefix>
 							
 							<!-- Jar file entry point -->
-							<mainClass>de.urszeidler.ethereum.licencemanager1.LicenseManager</mainClass>
+							<mainClass>de.urszeidler.ethereum.licencemanager1.deployer.LicenseManagerDeployer</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
