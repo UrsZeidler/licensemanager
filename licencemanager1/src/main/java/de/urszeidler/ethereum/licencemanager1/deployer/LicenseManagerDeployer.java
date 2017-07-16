@@ -73,7 +73,7 @@ public class LicenseManagerDeployer {
 	}
 
 	public static byte[] createMessageHash(String message) throws NoSuchAlgorithmException {
-		MessageDigest md = MessageDigest.getInstance("SHA256");
+		MessageDigest md = MessageDigest.getInstance("SHA-256");
 		return md.digest(message.getBytes());
 	}
 
@@ -295,13 +295,13 @@ public class LicenseManagerDeployer {
 
 	public void verifyLicense(String issuerAddress, String message, String signature, String publicKey)
 			throws IOException, InterruptedException, ExecutionException, NoSuchAlgorithmException {
+		System.out.println("Verify license: [" +message+"] "+signature+" puk: "+publicKey);
+		
 		LicenseIssuer licenseIssuer = deployer.createLicenseIssuerProxy(sender, EthAddress.of(issuerAddress));
 		if (!licenseIssuer.getIssuable())
 			throw new RuntimeException("The license is no longer issuable.");
 
-		// MessageDigest md = MessageDigest.getInstance("SHA256");
-		byte[] messageHash = createMessageHash(message);// md.digest(message.getBytes());
-
+		byte[] messageHash = createMessageHash(message);
 		byte[] decode_Signature = Hex.decode(signature);
 		byte[] pub = Hex.decode(publicKey);
 
@@ -586,8 +586,8 @@ public class LicenseManagerDeployer {
 		actionOptionGroup.addOption(Option.builder("v")//
 				.desc("Verify a licence.")//
 				.hasArg()//
-				.numberOfArgs(3)//
-				.argName("issuerAddress, name, address")//
+				.numberOfArgs(4)//
+				.argName("issuerAddress, message, signature, publicKey")//
 				.build()//
 		);
 		actionOptionGroup.addOption(Option.builder("cs")//
